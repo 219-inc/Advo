@@ -1,16 +1,21 @@
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import tw from 'twrnc'
 
 //screens
+// import DrawerStack from './Drawer';
 import HomeScreen from 'screen/HomeScreen';
+import LawyersScreen from 'screen/LawyersScreen';
+import ProfileScreen from 'screen/ProfileScreen';
 
 //icons
-import { AntDesign, FontAwesome5, FontAwesome, Ionicons } from '@expo/vector-icons';
+import { AntDesign, FontAwesome5, FontAwesome } from '@expo/vector-icons';
+import UserProfileIcon from 'component/UserProfileIcon';
 
 const Tab = createMaterialBottomTabNavigator();
 
 export default function HomeStack() {
   return (
-    <Tab.Navigator barStyle={{ backgroundColor: 'white', paddingBottom: 4 }}>
+    <Tab.Navigator activeColor={tw`text-yellow-500`.color} barStyle={{ backgroundColor: '#1F2937' }}>
         <Tab.Screen 
             name="Home" 
             component={HomeScreen}
@@ -23,7 +28,7 @@ export default function HomeStack() {
         />
         <Tab.Screen 
             name="Lawyers" 
-            component={() => (<></>)}
+            component={LawyersScreen}
             options={{
                 tabBarLabel:'Lawyers',
                 tabBarIcon: ({color}) => (
@@ -33,11 +38,11 @@ export default function HomeStack() {
         />
         <Tab.Screen 
             name="Profile" 
-            component={() => (<></>)}
+            component={ProfileScreen}
             options={{
                 tabBarLabel:'Profile',
-                tabBarIcon: ({color}) => (
-                    <FontAwesome name="user-o" size={24} color={color} />
+                tabBarIcon: () => (
+                    <UserProfileIcon style={tw`h-6 w-6 rounded-full`}/>
                 )
             }}
         />
