@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Auth, Hub } from "aws-amplify";
-import { ActivityIndicator, View } from "react-native";
+import { Text, View } from "react-native";
 import tw from 'twrnc'
 
 import Login from "screen/Authentication/Login";
@@ -44,7 +44,7 @@ export default function Root() {
     if(user === undefined){
         return (
             <View  style={tw`my-auto mx-auto`}>
-                <ActivityIndicator />
+                <Text style={tw`text-4xl text-yellow-600 font-semibold`}>Advo</Text>
             </View>
         );
     }

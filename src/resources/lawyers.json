@@ -1,0 +1,26 @@
+ [
+    {
+        "name": "Intellectual Property Lawyer",
+        "description": "Intellectual Property Lawyer",
+        "image": "https://www.lawchecker.com/images/lawyer-types/intellectual-property-lawyer.png",
+        "link": "https://www.lawchecker.com/intellectual-property-lawyer"
+    },
+    {
+        "name": "Public Interest Lawyer",
+        "description": "Public Interest Lawyer",
+        "image": "https://www.lawchecker.com/images/lawyer-types/public-interest-lawyer.png",
+        "link": "https://www.lawchecker.com/public-interest-lawyer"
+    },
+    {
+        "name": "Tax Lawyer",
+        "description": "Tax Lawyer",
+        "image": "https://www.lawchecker.com/images/lawyer-types/tax-lawyer.png",
+        "link": "https://www.lawchecker.com/tax-lawyer"
+    },
+    {
+        "name": "Corporate Lawyers",
+        "description": "Corporate Lawyers",
+        "image": "https://www.lawchecker.com/images/lawyer-types/corporate-lawyers.png",
+        "link": "https://www.lawchecker.com/corporate-lawyers"
+    }
+]
