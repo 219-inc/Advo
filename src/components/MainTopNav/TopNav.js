@@ -1,15 +1,18 @@
+import { useContext } from 'react';
 import { View, Text, TouchableHighlight } from 'react-native'
 import tw from 'twrnc'
 import {API, Auth} from 'aws-amplify'
-import RazorpayCheckout from "react-native-razorpay";
 
-import Payments from '../../functions/Payments';
+import Payments from 'function/Payments';
+import NotificationBoundaryContext from 'layout/NotificationBoundary';
 
 import { Ionicons  } from '@expo/vector-icons';
 
 import UserProfileIcon from 'component/UserProfileIcon';
 
 const TopNav = () => {
+
+  const notification = useContext(NotificationBoundaryContext);
 
   async function callAPI(){
     const user = await Auth.currentAuthenticatedUser()
@@ -22,9 +25,7 @@ const TopNav = () => {
       }
     }
 
-    const data = await API.get('restAuthApi', '/hello', requestInfo)
-
-    console.log(data)
+    const data = await API.get('restAuthApi', '/hello', requestInfo)    
   }
 
   async function placeOrder(){
@@ -40,9 +41,22 @@ const TopNav = () => {
       color: "#FF0000"
     })
     .then(id => {
-      alert("ID: " + id)
+      notification.create({
+        content: `
+          Transaction Successful
+        `,
+        type: notification.types.Success,
+      });
+    }).catch(err => {
+      notification.create({
+        content: `
+          Transaction Failed
+        `,
+        type: notification.types.Error,
+      });
     })
   }
+
 
 
   return (

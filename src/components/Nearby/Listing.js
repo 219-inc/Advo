@@ -1,15 +1,16 @@
 import { View, Text, Image, TouchableHighlight } from 'react-native'
 import tw from 'twrnc'
-
+import { useNavigation } from '@react-navigation/native';
 import { Entypo } from '@expo/vector-icons';
 
 const Listing = ({data}) => {
+  const navigation = useNavigation();
   return (
     <TouchableHighlight 
-        onPress={() => {}} 
         style={tw`my-2 w-full rounded-lg px-2 py-2`} 
         activeOpacity={0.6}
         underlayColor="#DDDDDD"
+        onPress={() => navigation.push('LawyersProfile', { name: data.name, image: data.image })}
     >
       <View style={tw`w-full flex flex-row`}>
         <Image 
