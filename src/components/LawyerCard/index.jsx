@@ -14,7 +14,7 @@ const index = ({name, category, experience, rating, location, image}) => {
   return (
     <TouchableHighlight
       style={tw`border-b-8 border-gray-100 px-4 py-4`}
-      onPress={() => {}}
+      onPress={() => navigationPush("LawyersProfile", { name, category, experience, rating, location, image })}
       underlayColor={"#f6f6f6"}
     >
       <View style={tw`flex flex-col `}>

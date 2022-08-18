@@ -1,0 +1,1 @@
+export const ORDER_ID_URL = "https://api.razorpay.com/v1/orders";
