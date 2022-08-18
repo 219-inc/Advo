@@ -8,6 +8,9 @@ import UserProfileIcon from 'component/UserProfileIcon';
 
 const TopNav = () => {
 
+  /**
+   * It gets the current user, gets the token from the user, and then uses the token to call the API.
+   */
   async function callAPI(){
     const user = await Auth.currentAuthenticatedUser()
     const token = user.signInUserSession.idToken.jwtToken
@@ -26,7 +29,7 @@ const TopNav = () => {
 
   return (
     <View style={tw`flex flex-row justify-between`}>
-      <TouchableHighlight style={tw`rounded-full bg-gray-200 p-2`} onPress={callAPI}>
+      <TouchableHighlight style={tw`rounded-full bg-gray-200 p-2`} onPress={async()=>{await Auth.signOut()}}>
         <Ionicons name="menu" size={24} color="black" />
       </TouchableHighlight>
       <View>

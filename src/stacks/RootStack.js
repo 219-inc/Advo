@@ -51,7 +51,7 @@ export default function Root() {
 
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-            {user ? (
+            {!user ? (
                 <Stack.Screen name="HomeStack" component={HomeStack} />
             ) : (
                 <>
