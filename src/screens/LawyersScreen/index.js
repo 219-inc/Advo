@@ -4,6 +4,7 @@ import LawyersScreen from './LawyersScreen';
 import SummaryScreen from './SummaryScreen';
 import LawyersList from './LawyersList';
 import TimeSlots from './TimeSlots';
+import BookConsult from './BookConsult';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,6 +15,7 @@ function LawyerStack(){
             <Stack.Screen name="SummaryScreen" component={SummaryScreen} />
             <Stack.Screen name="LawyersList" component={LawyersList} />
             <Stack.Screen name="TimeSlots" component={TimeSlots} />
+            <Stack.Screen name="BookConsult" component={BookConsult} />
         </Stack.Navigator>
     )
 }
