@@ -4,8 +4,7 @@ import tw from "twrnc";
 const QuestionAnswer = () => {
   return (
     <View style={tw`mt-3`}>
-    
-    </View>
+        </View>
   );
 };
 

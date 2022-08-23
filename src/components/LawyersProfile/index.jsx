@@ -5,5 +5,6 @@ import ClientStories from "./ClientStories";
 import Footer from "./Footer";
 import MoreAbout from "./MoreAbout";
 import QuestionAnswer from "./QuestionAnswer";
+import MySelf from "./MySelf";
 
-export { Header, Card, OfficeDetails, ClientStories ,Footer,MoreAbout,QuestionAnswer};
+export { Header, Card, OfficeDetails, ClientStories ,Footer,MoreAbout,QuestionAnswer,MySelf};

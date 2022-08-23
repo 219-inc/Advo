@@ -4,7 +4,7 @@ import tw from "twrnc";
 
 function Comment() {
   return (
-    <View style={tw`pb-4 border-b-8 m border-gray-100 `}>
+    <View style={tw`pb-4 border-b-8  border-gray-100 `}>
       <View style={tw`flex flex-row mt-3`}>
         <View style={tw``}>
           <Image

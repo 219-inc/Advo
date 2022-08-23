@@ -1,10 +1,15 @@
 import React from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import tw from "twrnc";
-import QuestionAnswer from "./QuestionAnswer";
+ 
+import {
+  AntDesign,
+} from "@expo/vector-icons";
+import MySelf from "./MySelf";
 
 const MoreAbout = () => {
-  const features = [];
+  
+   
   return (
     <View style={tw`mx-4 pb-3 border-b-2 border-gray-100`}>
       <View>
@@ -30,7 +35,7 @@ const MoreAbout = () => {
           )}
         />
       </View>
-      <View style={tw`border-t-2 border-b-2 border-gray-100 mt-3 `}>
+      <View style={tw`border-t-2 border-gray-100 mt-3 `}>
         <TouchableOpacity style={tw`  pt-1 pb-1 rounded-lg  `}>
           <Text
             style={tw`text-base text-gray-800 my-2 text-blue-500 font-bold`}
@@ -39,29 +44,55 @@ const MoreAbout = () => {
           </Text>
         </TouchableOpacity>
       </View>
-      <View>
-        <View style={tw``}>
+      <View style={tw`border-b-8 border-gray-100 -mx-4`}></View>
+      <View style={tw``}>
+        <View style={tw`flex flex-row `}>
           <TouchableOpacity>
             <Text style={tw`text-base font-bold text-blue-500 my-4`}>
               QnA answered by Dr.Simran Kataria
             </Text>
           </TouchableOpacity>
+          <AntDesign
+            name="right"
+            size={25}
+            style={tw` ml-1 text-blue-500 my-4 `}
+          />
         </View>
-        <View>
+        <View style={tw`border-b-8 border-gray-100 -mx-4`}></View>
+        <View style={tw`flex flex-row`}>
           <TouchableOpacity>
-            <Text>Articles Written by Dr.Simran Kataria</Text>
+            <Text style={tw`text-base font-bold text-blue-500 my-4`}>
+              Articles written by Dr. Simran Kataria
+            </Text>
           </TouchableOpacity>
+          <AntDesign
+            name="right"
+            size={25}
+            style={tw` ml-1 text-blue-500 my-4 `}
+          />
         </View>
+        <View style={tw`border-b-8 border-gray-100 -mx-4`}></View>
       </View>
       {/* <QuestionAnswer /> */}
-      <View>
-        <Text style={tw`text-xl`}>More about Adv. Ananya </Text>
+      <View style={tw`border-b-2 border-gray-100 pb-3`}>
+        <Text style={tw`text-xl font-semibold text-gray-800 mt-3`}>
+          More about Adv. Ananya
+        </Text>
       </View>
+      <View></View>
       <View>
-        <Text style={tw`text-base text-gray-700 font-semibold`}>
+        <Text style={tw`text-base text-gray-500 font-semibold mt-3`}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod facere
           deserunt nostrum cupiditate.
         </Text>
+      </View>
+      <View>
+        <MySelf title={"Specializations"}/>
+        <MySelf title={"Education"}/>
+        <MySelf title={"Experience"}/>
+        <MySelf title={"Awards and Recognition"}/>
+        <MySelf title={"Memberships"}/>
+        <MySelf title={"Registration"}/>
       </View>
     </View>
   );
