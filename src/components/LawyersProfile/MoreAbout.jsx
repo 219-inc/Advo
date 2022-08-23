@@ -1,51 +1,68 @@
 import React from "react";
-import { Text, View ,ScrollView} from "react-native";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import tw from "twrnc";
-import {
-  AntDesign,
-  Entypo,
-  FontAwesome,
-  Ionicons,
-  Octicons,
-  Feather,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
-import Comment from "./Comment";
+import QuestionAnswer from "./QuestionAnswer";
 
 const MoreAbout = () => {
+  const features = [];
   return (
-    <View style={tw` mt-10 `}>
-      <ScrollView>
-        <View style={tw`mx-4`}>
-          <View style={tw`border-b-2 border-gray-100`}>
-            <Text style={tw`text-2xl text-gray-800 font-bold `}>
-              Patient Stories
+    <View style={tw`mx-4 pb-3 border-b-2 border-gray-100`}>
+      <View>
+        <Text
+          style={tw`text-xl font-semibold text-gray-700 border-b-2 border-gray-100 pb-3 mt-3`}
+        >
+          Services by Dr.Simran Kataria
+        </Text>
+      </View>
+      <View>
+        <FlatList
+          data={[
+            { key: "Dental Filling" },
+            { key: "Dental Implant Fixing" },
+            { key: "Implant Rehabilitation" },
+            { key: "pedodontics" },
+            { key: "Zirconia" },
+          ]}
+          renderItem={({ item }) => (
+            <Text style={tw`text-base text-gray-700 font-semibold`}>
+              {item.key}
             </Text>
-            <Text style={tw`text-gray-700 text-sm mb-1 pb-1`}>
-              These stories represent patient opinions and experiences. They do
-              not reflect the doctor's medical Capabilites.
+          )}
+        />
+      </View>
+      <View style={tw`border-t-2 border-b-2 border-gray-100 mt-3 `}>
+        <TouchableOpacity style={tw`  pt-1 pb-1 rounded-lg  `}>
+          <Text
+            style={tw`text-base text-gray-800 my-2 text-blue-500 font-bold`}
+          >
+            Show all services
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <View>
+        <View style={tw``}>
+          <TouchableOpacity>
+            <Text style={tw`text-base font-bold text-blue-500 my-4`}>
+              QnA answered by Dr.Simran Kataria
             </Text>
-          </View>
-          <View style={tw`flex flex-row mt-3 items-center`}>
-            <View style={tw` flex flex-row mr-4`}>
-              <FontAwesome
-                style={tw`text-green-600 `}
-                name="thumbs-up"
-                size={30}
-              />
-              <Text style={tw`text-2xl `}> 98%</Text>
-            </View>
-            <View>
-              <Text style={tw` text-base `}>
-                Out of 224 patients who were surveyed,98% of them recommend
-                visiting the doctor.
-              </Text>
-            </View>
-          </View>
+          </TouchableOpacity>
         </View>
-        {/* <Patient /> */}
-        <Comment/>
-      </ScrollView>
+        <View>
+          <TouchableOpacity>
+            <Text>Articles Written by Dr.Simran Kataria</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      {/* <QuestionAnswer /> */}
+      <View>
+        <Text style={tw`text-xl`}>More about Adv. Ananya </Text>
+      </View>
+      <View>
+        <Text style={tw`text-base text-gray-700 font-semibold`}>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod facere
+          deserunt nostrum cupiditate.
+        </Text>
+      </View>
     </View>
   );
 };

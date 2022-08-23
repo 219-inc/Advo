@@ -4,9 +4,12 @@ import {
   Header,
   Card,
   OfficeDetails,
+  ClientStories,
+  Footer,
   MoreAbout,
+  QuestionAnswer
 } from "component/LawyersProfile";
-import Footer from "../../components/LawyersProfile/Footer";
+
 
 const LawyersProfile = ({ route }) => {
   const { name, category, experience, rating, location, image } = route.params;
@@ -17,7 +20,9 @@ const LawyersProfile = ({ route }) => {
         <Header />
         <Card name={name} image={image} />
         <OfficeDetails />
-        <MoreAbout />
+        <ClientStories />
+        <MoreAbout/>
+         
         <Footer/>
       </ScrollView>
     </View>

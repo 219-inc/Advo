@@ -4,7 +4,7 @@ import tw from "twrnc";
 
 function Comment() {
   return (
-    <View style={tw`pb-4`}>
+    <View style={tw`pb-4 border-b-8 m border-gray-100 `}>
       <View style={tw`flex flex-row mt-3`}>
         <View style={tw``}>
           <Image
@@ -29,15 +29,15 @@ function Comment() {
       </View>
       <View style={tw`flex flex-row mx-4 mt-3 `}>
         <TouchableOpacity
-          style={tw`border-2 px-6 pt-1 pb-1 rounded-lg mx-auto border-gray-500`}
+          style={tw`border-2 px-2 pt-1 pb-1 rounded-lg mx-auto border-gray-500`}
         >
-          <Text style={tw`text-base text-gray-800`}>Share Your Story </Text>
+          <Text style={tw`text-xl text-gray-800 font-semibold`}>Share Your Story </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={tw`border-2 px-6 pt-1 pb-1 rounded-lg mx-auto border-gray-500`}
+          style={tw`border-2 px-2 pt-1 pb-1 rounded-lg mx-auto border-gray-500`}
         >
-          <Text style={tw`text-base text-gray-800`}>Read All Stories </Text>
+          <Text style={tw`text-xl text-gray-800 font-semibold`}>Read All Stories </Text>
         </TouchableOpacity>
       </View>
     </View>
