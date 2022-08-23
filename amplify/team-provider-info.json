@@ -1,0 +1,51 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-astro-dev-135858-authRole",
+      "UnauthRoleArn": "arn:aws:iam::427510318272:role/amplify-astro-dev-135858-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::427510318272:role/amplify-astro-dev-135858-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-astro-dev-135858-deployment",
+      "UnauthRoleName": "amplify-astro-dev-135858-unauthRole",
+      "StackName": "amplify-astro-dev-135858",
+      "StackId": "arn:aws:cloudformation:ap-south-1:427510318272:stack/amplify-astro-dev-135858/51544b50-17bd-11ed-8d16-06c2eb4b433e",
+      "AmplifyAppId": "d648hzho0fuo0",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-astro-dev-135858-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "auth": {
+        "AstroAuth": {}
+      },
+      "function": {
+        "Numerology": {
+          "deploymentBucketName": "amplify-astro-dev-135858-deployment",
+          "s3Key": "amplify-builds/Numerology-6b306645476b496c336e-build.zip"
+        },
+        "AppContentMgmt": {
+          "deploymentBucketName": "amplify-astro-dev-135858-deployment",
+          "s3Key": "amplify-builds/AppContentMgmt-4b474351734f527a4977-build.zip"
+        },
+        "AstroAuthCreateAuthChallenge": {
+          "deploymentBucketName": "amplify-astro-dev-135858-deployment",
+          "s3Key": "amplify-builds/AstroAuthCreateAuthChallenge-654c556f793462517a61-build.zip"
+        },
+        "AstroAuthDefineAuthChallenge": {
+          "deploymentBucketName": "amplify-astro-dev-135858-deployment",
+          "s3Key": "amplify-builds/AstroAuthDefineAuthChallenge-7834754c2b7431517974-build.zip"
+        },
+        "AstroAuthPreSignup": {
+          "deploymentBucketName": "amplify-astro-dev-135858-deployment",
+          "s3Key": "amplify-builds/AstroAuthPreSignup-6656414e582b38615358-build.zip"
+        },
+        "AstroAuthVerifyAuthChallengeResponse": {
+          "deploymentBucketName": "amplify-astro-dev-135858-deployment",
+          "s3Key": "amplify-builds/AstroAuthVerifyAuthChallengeResponse-4738397757795870576d-build.zip"
+        },
+        "AdminQueries5c214cc7": {
+          "deploymentBucketName": "amplify-astro-dev-135858-deployment",
+          "s3Key": "amplify-builds/AdminQueries5c214cc7-2b6877535070477a7957-build.zip"
+        }
+      }
+    }
+  }
+}

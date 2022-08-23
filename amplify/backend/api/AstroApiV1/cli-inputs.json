@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "paths": {
+    "/numerology": {
+      "name": "/numerology",
+      "lambdaFunction": "Numerology",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/app-content": {
+      "name": "/app-content",
+      "lambdaFunction": "AppContentMgmt",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}
