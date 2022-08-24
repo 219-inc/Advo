@@ -2,6 +2,7 @@
   "name": "advo-admin",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -12,6 +13,7 @@
     "@aws-amplify/datastore": "^3.12.7",
     "autoprefixer": "^10.4.8",
     "aws-amplify": "^4.3.32",
+    "http": "^0.0.1-security",
     "postcss": "^8.4.16",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
