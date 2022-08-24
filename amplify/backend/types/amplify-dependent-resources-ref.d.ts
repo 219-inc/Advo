@@ -1,54 +1,23 @@
 export type AmplifyDependentResourcesAttributes = {
     "auth": {
-        "AstroAuth": {
+        "lawyerconsultation24035181": {
             "IdentityPoolId": "string",
             "IdentityPoolName": "string",
             "UserPoolId": "string",
             "UserPoolArn": "string",
             "UserPoolName": "string",
             "AppClientIDWeb": "string",
-            "AppClientID": "string",
-            "CreatedSNSRole": "string"
+            "AppClientID": "string"
         }
     },
     "function": {
-        "Numerology": {
+        "restAuth": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",
             "LambdaExecutionRole": "string"
         },
-        "AppContentMgmt": {
-            "Name": "string",
-            "Arn": "string",
-            "Region": "string",
-            "LambdaExecutionRole": "string"
-        },
-        "AstroAuthCreateAuthChallenge": {
-            "Name": "string",
-            "Arn": "string",
-            "LambdaExecutionRole": "string",
-            "Region": "string"
-        },
-        "AstroAuthDefineAuthChallenge": {
-            "Name": "string",
-            "Arn": "string",
-            "LambdaExecutionRole": "string",
-            "Region": "string"
-        },
-        "AstroAuthPreSignup": {
-            "Name": "string",
-            "Arn": "string",
-            "LambdaExecutionRole": "string",
-            "Region": "string"
-        },
-        "AstroAuthVerifyAuthChallengeResponse": {
-            "Name": "string",
-            "Arn": "string",
-            "LambdaExecutionRole": "string",
-            "Region": "string"
-        },
-        "AdminQueries5c214cc7": {
+        "ListLawyers": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",
@@ -56,15 +25,17 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "api": {
-        "AstroApiV1": {
+        "restAuthApi": {
             "RootUrl": "string",
             "ApiName": "string",
             "ApiId": "string"
-        },
-        "AdminQueries": {
-            "RootUrl": "string",
-            "ApiName": "string",
-            "ApiId": "string"
+        }
+    },
+    "analytics": {
+        "lawyerConsultationdev": {
+            "Region": "string",
+            "Id": "string",
+            "appName": "string"
         }
     }
 }

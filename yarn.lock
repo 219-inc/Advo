@@ -72,7 +72,7 @@
   dependencies:
     "@aws-amplify/core" "4.7.1"
 
-"@aws-amplify/core@4.7.1":
+"@aws-amplify/core@4.7.1", "@aws-amplify/core@^4.7.1":
   version "4.7.1"
   resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-4.7.1.tgz#86fdb346d50a7af7a50d168cecca22fba3f08bf9"
   integrity sha512-FlgA79KyQfPMc+jijif5Ys3t1pFnUrWlvtwayeiU+WcyTFrl7rkuZn5SzJConzNpvAQMsapy/qI41wS+yn0kQg==
@@ -86,7 +86,7 @@
     universal-cookie "^4.0.4"
     zen-observable-ts "0.8.19"
 
-"@aws-amplify/datastore@3.12.7":
+"@aws-amplify/datastore@3.12.7", "@aws-amplify/datastore@^3.12.7":
   version "3.12.7"
   resolved "https://registry.yarnpkg.com/@aws-amplify/datastore/-/datastore-3.12.7.tgz#e11b56b372715bcc0ae22e5400da2f6a0c0e6b84"
   integrity sha512-r9ROcGyl+/nNZzZ1Pkry6GDDspW0HrFT7gpZUSC5LR73gZrT454sDQXruV6gYCj6+KguZT45xpxx83ycT8yjwg==
@@ -2588,9 +2588,9 @@ dlv@^1.1.3:
   integrity sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==
 
 electron-to-chromium@^1.4.202:
-  version "1.4.226"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.226.tgz#837ea1d19b8305a913cd5f31d135681c4b6d63b1"
-  integrity sha512-CvevLaSiUp0u12K0e+QhMX1hn724nSUNO9ToBek+FMHk/5RofrQs5MChjrD0re0IwqxDFxFMSZD+uic05i2Z5w==
+  version "1.4.227"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.227.tgz#28e46e2a701fed3188db3ca7bf0a3a475e484046"
+  integrity sha512-I9VVajA3oswIJOUFg2PSBqrHLF5Y+ahIfjOV9+v6uYyBqFZutmPxA6fxocDUUmgwYevRWFu1VjLyVG3w45qa/g==
 
 entities@2.2.0:
   version "2.2.0"

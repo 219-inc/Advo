@@ -1,55 +1,15 @@
 {
   "auth": {
-    "AstroAuth": {
+    "lawyerconsultation24035181": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "AstroAuthCreateAuthChallenge",
-          "triggerProvider": "Cognito",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
-        },
-        {
-          "category": "function",
-          "resourceName": "AstroAuthDefineAuthChallenge",
-          "triggerProvider": "Cognito",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
-        },
-        {
-          "category": "function",
-          "resourceName": "AstroAuthPreSignup",
-          "triggerProvider": "Cognito",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
-        },
-        {
-          "category": "function",
-          "resourceName": "AstroAuthVerifyAuthChallengeResponse",
-          "triggerProvider": "Cognito",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
-        }
-      ],
-      "customAuth": true,
+      "dependsOn": [],
+      "customAuth": false,
       "frontendAuthConfig": {
         "socialProviders": [],
         "usernameAttributes": [],
         "signupAttributes": [
-          "BIRTHDATE",
-          "GENDER",
-          "NAME",
-          "PHONE_NUMBER"
+          "EMAIL"
         ],
         "passwordProtectionSettings": {
           "passwordPolicyMinLength": 8,
@@ -60,101 +20,51 @@
           "SMS"
         ],
         "verificationMechanisms": [
-          "PHONE_NUMBER"
+          "EMAIL"
         ]
       }
     }
   },
   "function": {
-    "Numerology": {
+    "restAuth": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "AppContentMgmt": {
+    "ListLawyers": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
-    },
-    "AstroAuthCreateAuthChallenge": {
-      "build": true,
+    }
+  },
+  "api": {
+    "restAuthApi": {
+      "service": "API Gateway",
       "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "AstroAuthDefineAuthChallenge": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "AstroAuthPreSignup": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "AstroAuthVerifyAuthChallengeResponse": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "AdminQueries5c214cc7": {
-      "service": "Lambda",
-      "providerPlugin": "awscloudformation",
-      "build": true,
       "dependsOn": [
         {
-          "category": "auth",
-          "resourceName": "AstroAuth",
+          "category": "function",
+          "resourceName": "restAuth",
           "attributes": [
-            "UserPoolId"
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "ListLawyers",
+          "attributes": [
+            "Name",
+            "Arn"
           ]
         }
       ]
     }
   },
-  "api": {
-    "AstroApiV1": {
-      "service": "API Gateway",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "Numerology",
-          "attributes": [
-            "Name",
-            "Arn"
-          ]
-        },
-        {
-          "category": "function",
-          "resourceName": "AppContentMgmt",
-          "attributes": [
-            "Name",
-            "Arn"
-          ]
-        }
-      ]
-    },
-    "AdminQueries": {
-      "service": "API Gateway",
-      "providerPlugin": "awscloudformation",
-      "authorizationType": "AMAZON_COGNITO_USER_POOLS",
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "AstroAuth",
-          "attributes": [
-            "UserPoolId"
-          ]
-        },
-        {
-          "category": "function",
-          "resourceName": "AdminQueries5c214cc7",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
-        }
-      ]
+  "analytics": {
+    "lawyerConsultationdev": {
+      "service": "Pinpoint",
+      "providerPlugin": "awscloudformation"
     }
   }
 }

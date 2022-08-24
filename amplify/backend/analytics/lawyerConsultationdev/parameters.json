@@ -1,0 +1,21 @@
+{
+    "appName": "lawyerConsultationdev",
+    "roleName": "pinpointLambdaRole539308d6",
+    "cloudformationPolicyName": "cloudformationPolicy539308d6",
+    "cloudWatchPolicyName": "cloudWatchPolicy539308d6",
+    "pinpointPolicyName": "pinpointPolicy539308d6",
+    "authPolicyName": "pinpoint_amplify_539308d6",
+    "unauthPolicyName": "pinpoint_amplify_539308d6",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    }
+}

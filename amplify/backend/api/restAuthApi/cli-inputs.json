@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "paths": {
+    "/hello": {
+      "name": "/hello",
+      "lambdaFunction": "restAuth",
+      "permissions": {
+        "setting": "protected",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ],
+        "guest": [
+          "read"
+        ]
+      }
+    },
+    "/list-lawyers": {
+      "name": "/list-lawyers",
+      "lambdaFunction": "ListLawyers",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}
