@@ -16,15 +16,14 @@ const LawyersProfile = ({ route }) => {
 
   return (
     <View style={tw`bg-white h-full`}>
-      <ScrollView>
+      <ScrollView style={tw`mb-16`}>
         <Header />
         <Card name={name} image={image} />
         <OfficeDetails />
         <ClientStories />
         <MoreAbout/>
-         
-        <Footer/>
       </ScrollView>
+        <Footer/>
     </View>
   );
 };

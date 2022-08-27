@@ -38,7 +38,7 @@ const MoreAbout = () => {
       <View style={tw`border-t-2 border-gray-100 mt-3 `}>
         <TouchableOpacity style={tw`  pt-1 pb-1 rounded-lg  `}>
           <Text
-            style={tw`text-base text-gray-800 my-2 text-blue-500 font-bold`}
+            style={{ color:'#24a0ed',...tw`text-base text-gray-800 my-2 font-bold`}}
           >
             Show all services
           </Text>
@@ -48,7 +48,12 @@ const MoreAbout = () => {
       <View style={tw``}>
         <View style={tw`flex flex-row `}>
           <TouchableOpacity>
-            <Text style={tw`text-base font-bold text-blue-500 my-4`}>
+            <Text
+              style={{
+                color: "#24a0ed",
+                ...tw`text-base font-bold  my-4`,
+              }}
+            >
               QnA answered by Dr.Simran Kataria
             </Text>
           </TouchableOpacity>
@@ -61,7 +66,12 @@ const MoreAbout = () => {
         <View style={tw`border-b-8 border-gray-100 -mx-4`}></View>
         <View style={tw`flex flex-row`}>
           <TouchableOpacity>
-            <Text style={tw`text-base font-bold text-blue-500 my-4`}>
+            <Text
+              style={{
+                color: "#24a0ed",
+                ...tw`text-base font-bold  my-4`,
+              }}
+            >
               Articles written by Dr. Simran Kataria
             </Text>
           </TouchableOpacity>
@@ -87,12 +97,12 @@ const MoreAbout = () => {
         </Text>
       </View>
       <View>
-        <MySelf title={"Specializations"}/>
-        <MySelf title={"Education"}/>
-        <MySelf title={"Experience"}/>
-        <MySelf title={"Awards and Recognition"}/>
-        <MySelf title={"Memberships"}/>
-        <MySelf title={"Registration"}/>
+        <MySelf title={"Specializations"} />
+        <MySelf title={"Education"} />
+        <MySelf title={"Experience"} />
+        <MySelf title={"Awards and Recognition"} />
+        <MySelf title={"Memberships"} />
+        <MySelf title={"Registration"} />
       </View>
     </View>
   );

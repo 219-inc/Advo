@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, ScrollView, Image, TouchableOpacity } from "react-native";
+import { Text, View, Image, TouchableOpacity } from "react-native";
 import tw from "twrnc";
 
 function Comment() {
@@ -27,17 +27,17 @@ function Comment() {
           eligendi odit hic .
         </Text>
       </View>
-      <View style={tw`flex flex-row mx-4 mt-3 `}>
+      <View style={tw`flex flex-row mx-4 mt-3 my-3`}>
         <TouchableOpacity
-          style={tw`border-2 px-2 pt-1 pb-1 rounded-lg mx-auto border-gray-500`}
+          style={tw`border-2 px-4 py-3 rounded-lg mx-auto border-gray-500 `}
         >
-          <Text style={tw`text-xl text-gray-800 font-semibold`}>Share Your Story </Text>
+          <Text style={tw`text-lg text-gray-800 font-semibold`}>Share Your Story </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={tw`border-2 px-2 pt-1 pb-1 rounded-lg mx-auto border-gray-500`}
+          style={tw`border-2 px-4 py-3 rounded-lg mx-auto border-gray-500`}
         >
-          <Text style={tw`text-xl text-gray-800 font-semibold`}>Read All Stories </Text>
+          <Text style={tw`text-lg text-gray-800 font-semibold`}>Read All Stories </Text>
         </TouchableOpacity>
       </View>
     </View>
