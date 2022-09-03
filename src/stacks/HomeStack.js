@@ -2,7 +2,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import tw from 'twrnc'
 
 //screens
-// import DrawerStack from './Drawer';
+import DrawerStack from './DrawerStack';
 import HomeScreen from 'screen/HomeScreen';
 import LawyersScreen from 'screen/LawyersScreen';
 import ProfileScreen from 'screen/ProfileScreen';
@@ -18,7 +18,7 @@ export default function HomeStack() {
     <Tab.Navigator activeColor={tw`text-yellow-500`.color} barStyle={{ backgroundColor: '#1F2937' }}>
         <Tab.Screen 
             name="Home" 
-            component={HomeScreen}
+            component={DrawerStack}
             options={{
                 tabBarLabel:'Home',
                 tabBarIcon: ({color}) => (

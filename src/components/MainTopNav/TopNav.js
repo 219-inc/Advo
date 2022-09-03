@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { View, Text, TouchableHighlight } from 'react-native'
 import tw from 'twrnc'
 import {API, Auth} from 'aws-amplify'
-
+import { useNavigation } from '@react-navigation/native';
 import Payments from 'function/Payments';
 import NotificationBoundaryContext from 'layout/NotificationBoundary';
 
@@ -13,6 +13,7 @@ import UserProfileIcon from 'component/UserProfileIcon';
 const TopNav = () => {
 
   const notification = useContext(NotificationBoundaryContext);
+  const navigation = useNavigation()
 
   async function callAPI(){
     const user = await Auth.currentAuthenticatedUser()
@@ -63,7 +64,7 @@ const TopNav = () => {
     <View style={tw`flex flex-row justify-between`}>
       <TouchableHighlight
         style={tw`rounded-full bg-gray-200 p-2`}
-        onPress={placeOrder}
+        onPress={() => navigation.openDrawer()}
       >
         <Ionicons name="menu" size={24} color="black" />
       </TouchableHighlight>
