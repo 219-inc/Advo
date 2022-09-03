@@ -22,12 +22,21 @@ const OfficeDetails = () => {
         <TouchableOpacity
           style={tw`w-full rounded-lg border-2 border-gray-800 bg-white text-center items-center justify-center py-3`}
         >
-          <Text style={tw`font-semibold text-gray-800 text-lg`}>Contact Office</Text>
+          <Text style={tw`font-semibold text-gray-800 text-lg`}>
+            Contact Office
+          </Text>
         </TouchableOpacity>
       </View>
       <View style={tw`mx-4 my-2`}>
         <Text style={tw`text-lg font-semibold text-gray-800`}>Location</Text>
-        <View style={tw`rounded-xl bg-gray-200 w-full h-48 my-3`}></View>
+        <View style={tw`rounded-xl bg-gray-200 w-full h-48 my-3`}>
+          <Image
+            source={{
+              uri: "https://media.wired.com/photos/59269cd37034dc5f91bec0f1/master/pass/GoogleMapTA.jpg",
+            }}
+            style={tw`h-full w-full rounded-xl`}
+          />
+        </View>
       </View>
     </View>
   );
