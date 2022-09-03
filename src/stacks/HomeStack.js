@@ -17,7 +17,7 @@ export default function HomeStack() {
   return (
     <Tab.Navigator activeColor={tw`text-yellow-500`.color} barStyle={{ backgroundColor: '#1F2937' }}>
         <Tab.Screen 
-            name="Home" 
+            name="Main" 
             component={DrawerStack}
             options={{
                 tabBarLabel:'Home',

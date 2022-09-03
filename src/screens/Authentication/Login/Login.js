@@ -46,12 +46,6 @@ const Login = () => {
   return (
     <SafeAreaView style={tw`h-full px-4 bg-gray-800 pt-4`}>
       <StatusBar backgroundColor="#1F2937" barStyle="light-content" />
-      <Text 
-        style={tw`text-yellow-600 text-2xl font-semibold`}
-      >
-        Advo
-      </Text>
-      <View style={tw`bg-yellow-600 rounded-lg w-8 h-1`}></View>
       <View style={tw`my-32 flex flex-col`}>
         <Text 
           style={tw`text-gray-100 text-center text-2xl font-semibold mb-8`}

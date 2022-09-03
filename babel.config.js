@@ -21,6 +21,7 @@ module.exports = function(api) {
             context: "./src/context",
             function: "./src/functions",
             layout: "./src/layouts",
+            constants: "./src/constants",
           },
         },
       ],
