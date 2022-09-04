@@ -1,4 +1,4 @@
-import { View, StatusBar, Animated, Dimensions } from "react-native";
+import { View, StatusBar, Animated, Dimensions, KeyboardAvoidingView } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { Auth, Hub } from "aws-amplify";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -37,7 +37,7 @@ const SplashScreen = () => {
 
   const [user, setUser] = useState(undefined);
 
-  const [isFirstLaunch, setIsFirstLaunch] = useState(false);
+  const [isFirstLaunch, setIsFirstLaunch] = useState(true);
 
   const checkIfSignedIn = async () => {
     try {
@@ -92,7 +92,7 @@ const SplashScreen = () => {
           // Moving to Right Most...
           toValue: {
             x: -150,
-            y: user ? 0 : Dimensions.get("window").height / 2 - 20,
+            y: !isFirstLaunch && user ? 0 : Dimensions.get("window").height / 2 - 20,
           },
           useNativeDriver: true,
         }),
@@ -112,7 +112,7 @@ const SplashScreen = () => {
           flex: 1,
           zIndex: 1,
           transform: [{ translateY: startAnimation }],
-          top: user ? -70 : 0,
+          top: !isFirstLaunch && user ? -70 : 0,
         }}
       >
         <Animated.View
@@ -144,19 +144,20 @@ const SplashScreen = () => {
       </Animated.View>
 
       <Animated.View
-        style={{
+        style={[
+          tw`rounded-xl bg-white`,
+          {
           position: "absolute",
           top: 0,
           bottom: 0,
           left: 0,
           right: 0,
-          backgroundColor: "rgba(0,0,0,0.04)",
           zIndex: 0,
           transform: [
             { translateY: contentTransition },
             { translateX: contentTransition },
           ],
-        }}
+        }]}
       >
         <RootStack user={user} isFirstLaunch={isFirstLaunch} />
       </Animated.View>
