@@ -21,7 +21,7 @@ const Consultation = () => {
           <Text
             style={tw`text-sm text-slate-50 pb-3 text-center border-b-4 border-black font-bold pl-2 mt-2`}
           >
-            Paid
+            Paid service
           </Text>
         </TouchableOpacity>
         <TouchableOpacity style={tw`w-1/2 `}>
