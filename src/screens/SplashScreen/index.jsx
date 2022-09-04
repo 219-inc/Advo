@@ -1,4 +1,4 @@
-import { View, StatusBar, Animated, Dimensions } from "react-native";
+import { View, StatusBar, Animated, Dimensions, KeyboardAvoidingView } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { Auth, Hub } from "aws-amplify";
 import AsyncStorage from "@react-native-async-storage/async-storage";

@@ -62,3 +62,24 @@ export const Categories = [
     // source: require("assets/images/criminal-law.jpg"),
   },
 ]
+
+export const WalletDetails = [
+  {
+    id: 1,
+    date: "12/12/2020",
+    title: "Consultation",
+    amount: -40,
+  },
+  {
+    id: 2,
+    date: "12/12/2020",
+    title: "From Game",
+    amount: 20,
+  },
+  {
+    id: 3,
+    date: "12/12/2020",
+    title: "Discount",
+    amount: 40,
+  }
+]
