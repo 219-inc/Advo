@@ -1,10 +1,11 @@
-import { View, Text, Image, TouchableHighlight } from 'react-native'
+import { View, Text, Image, TouchableHighlight, Dimensions } from 'react-native'
 import tw from 'twrnc'
 import { useNavigation } from '@react-navigation/native';
 import { Entypo } from '@expo/vector-icons';
 
 const Listing = ({data}) => {
   const navigation = useNavigation();
+
   return (
     <TouchableHighlight 
         style={tw`my-2 w-full rounded-lg px-2 py-2`} 
