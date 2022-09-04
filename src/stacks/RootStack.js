@@ -1,10 +1,12 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import Login from "screen/Authentication/Login";
+import Login from "screen/Auth-v2/Login";
 import SignUp from "screen/Authentication/SignupScreen";
 import ConfirmEmail from "screen/Authentication/ConfirmEmail";
 import ForgotPassword from "screen/Authentication/ForgotPassword";
 import ChangePassword from "screen/Authentication/ChangePassword";
+
+import OTP from "screen/Auth-v2/OTP";
 
 import OnboardingScreens from "screen/OnboardingScreens";
 
@@ -30,6 +32,7 @@ export default function Root({ user, isFirstLaunch }) {
       ) : (
         <>
           <Stack.Screen name="SignIn" component={Login} />
+          <Stack.Screen name="OTP" component={OTP} />
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="ConfirmEmail" component={ConfirmEmail} />
           <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
