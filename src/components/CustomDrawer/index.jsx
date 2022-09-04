@@ -16,6 +16,7 @@ import { Auth } from "aws-amplify";
 
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import UserProfileIcon from "component/UserProfileIcon";
 
 const index = (props) => {
   const navigation = useNavigation();
@@ -41,15 +42,15 @@ const index = (props) => {
         <View
           style={tw`py-4 px-3 -mt-2 mb-2 flex flex-row bg-gray-800 justify-start`}
         >
-          <Image
-            source={require("assets/images/skate_2.png")}
-            style={tw`h-20 w-20 rounded-full`}
-          />
+          <UserProfileIcon style={tw`h-20 w-20 rounded-full`} />
           <View style={tw`flex flex-col  my-auto`}>
             <Text style={tw`text-white font-semibold text-lg mx-3`}>
               {user_name}
             </Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={tw`mx-3 flex flex-row`}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Profile")}
+              style={tw`mx-3 flex flex-row`}
+            >
               <Text style={tw`text-yellow-500 font-semibold mr-1`}>
                 View Profile
               </Text>

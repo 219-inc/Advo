@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { View, Text, TouchableHighlight, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableHighlight, TouchableOpacity, StatusBar } from 'react-native'
 import tw from 'twrnc'
 import {API, Auth} from 'aws-amplify'
 import { useNavigation } from '@react-navigation/native';
@@ -61,11 +61,12 @@ const TopNav = () => {
 
   return (
     <View style={tw`flex flex-row justify-between`}>
+      <StatusBar barStyle="dark-content" backgroundColor={"#fff"} />
       <TouchableHighlight
         style={tw`rounded-full bg-gray-200 p-2`}
         onPress={() => navigation.openDrawer()}
       >
-        <Ionicons name="menu" size={24} color="black" />
+        <Ionicons name="menu" size={24} style={tw`text-gray-500`} />
       </TouchableHighlight>
       <TouchableOpacity
         onPress={() => {}}

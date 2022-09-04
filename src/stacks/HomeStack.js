@@ -5,6 +5,7 @@ import tw from "twrnc";
 import DrawerStack from "./DrawerStack";
 import LawyersScreen from "screen/LawyersScreen";
 import ProfileScreen from "screen/ProfileScreen";
+import LocationSelector from "screen/LocationSelector";
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,7 @@ export default function HomeStack() {
       <Stack.Screen name="Main" component={DrawerStack} />
       <Stack.Screen name="Lawyers" component={LawyersScreen} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="LocationSelector" component={LocationSelector} />
     </Stack.Navigator>
   );
 }
