@@ -39,8 +39,11 @@ const index = (props) => {
     <View style={{ flex: 1 }}>
       <StatusBar backgroundColor={"#1F2937"} barStyle={"dark-content"} />
       <DrawerContentScrollView {...props}>
-        <View
+        <ImageBackground
           style={tw`py-4 px-3 -mt-2 mb-2 flex flex-row bg-gray-800 justify-start`}
+          source={{
+            uri: "https://papik.pro/en/uploads/posts/2022-07/thumbs/1658714737_43-papik-pro-p-drawings-waves-on-transparent-background-45.png",
+          }}
         >
           <UserProfileIcon style={tw`h-20 w-20 rounded-full`} />
           <View style={tw`flex flex-col  my-auto`}>
@@ -61,7 +64,7 @@ const index = (props) => {
               />
             </TouchableOpacity>
           </View>
-        </View>
+        </ImageBackground>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
       <View style={tw`py-4 px-4 border-t border-gray-300`}>
