@@ -6,17 +6,61 @@ import {
   Feather,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
-// import CheckBox from "@react-native-community/checkbox";
-
-// const [toggleCheckBox, setToggleCheckBox] = useState(false);
+import { useContext } from "react";
+import Payments from "function/Payments";
+import NotificationBoundaryContext from "layout/NotificationBoundary";
+import { useNavigation } from "@react-navigation/native";
 
 const BookConsult = () => {
+  const notification = useContext(NotificationBoundaryContext);
+  const navigation = useNavigation()
+  async function placeOrder(amt) {
+    const order = new Payments({
+      ammount: 100,
+      currency: "INR",
+    });
+    await order.generateOrderId();
+
+    await order
+      .completeOrder({
+        description: "Adv. Ananya Pandey Video Consultation",
+        image:
+          "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
+        name: "Divyansh Gupta",
+        contact: "918178392040",
+        user_name: "divyansh",
+        color: "#7C3AED",
+      })
+      .then((id) => {
+        notification.create({
+          content: `
+          Transaction Successful
+        `,
+          type: notification.types.Success,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        notification.create({
+          content: `
+          Transaction Failed
+        `,
+          type: notification.types.Error,
+        });
+      });
+  }
   return (
     <View className={tw`bg-white pt-2`}>
       <View
         style={tw`absolute top-0 w-full z-10 bg-white flex flex-row border-b-2 border-gray-100 py-3 items-center`}
       >
-        <AntDesign size={30} style={tw`ml-4 text-gray-500`} name="arrowleft" />
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <AntDesign
+            size={30}
+            style={tw`ml-4 text-gray-500`}
+            name="arrowleft"
+          />
+        </TouchableOpacity>
         <Feather
           size={20}
           style={tw` ml-2 mr-1 text-white bg-purple-600 rounded-full p-1 text-center`}
@@ -265,7 +309,10 @@ const BookConsult = () => {
             </View>
           </View>
           <View style={{ backgroundColor: "#7C3AED", ...tw`w-48 rounded-lg` }}>
-            <TouchableOpacity style={tw`pl-6 pr-6 pt-2 pb-2`}>
+            <TouchableOpacity
+              onPress={() => placeOrder(891.65)}
+              style={tw`pl-6 pr-6 pt-2 pb-2`}
+            >
               <Text style={tw`text-white text-center font-semibold`}>
                 Pay & Confirm Video Consult
               </Text>
