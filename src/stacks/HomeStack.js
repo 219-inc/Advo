@@ -1,51 +1,23 @@
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import tw from 'twrnc'
+import { createStackNavigator } from "@react-navigation/stack";
+import tw from "twrnc";
 
 //screens
-import DrawerStack from './DrawerStack';
-import HomeScreen from 'screen/HomeScreen';
-import LawyersScreen from 'screen/LawyersScreen';
-import ProfileScreen from 'screen/ProfileScreen';
+import DrawerStack from "./DrawerStack";
+import LawyersScreen from "screen/LawyersScreen";
+import ProfileScreen from "screen/ProfileScreen";
 
-//icons
-import { AntDesign, FontAwesome5, FontAwesome } from '@expo/vector-icons';
-import UserProfileIcon from 'component/UserProfileIcon';
-
-const Tab = createMaterialBottomTabNavigator();
+const Stack = createStackNavigator();
 
 export default function HomeStack() {
   return (
-    <Tab.Navigator activeColor={tw`text-yellow-500`.color} barStyle={{ backgroundColor: '#1F2937' }}>
-        <Tab.Screen 
-            name="Main" 
-            component={DrawerStack}
-            options={{
-                tabBarLabel:'Home',
-                tabBarIcon: ({color}) => (
-                    <AntDesign name="home" size={24} color={color} />
-                )
-            }}
-        />
-        <Tab.Screen 
-            name="Lawyers" 
-            component={LawyersScreen}
-            options={{
-                tabBarLabel:'Lawyers',
-                tabBarIcon: ({color}) => (
-                    <FontAwesome5 name="balance-scale" size={18} color={color} />
-                )
-            }}
-        />
-        <Tab.Screen 
-            name="Profile" 
-            component={ProfileScreen}
-            options={{
-                tabBarLabel:'Profile',
-                tabBarIcon: () => (
-                    <UserProfileIcon style={tw`h-6 w-6 rounded-full`}/>
-                )
-            }}
-        />
-    </Tab.Navigator>
+    <Stack.Navigator
+      activeColor={tw`text-yellow-500`.color}
+      barStyle={{ backgroundColor: "#1F2937" }}
+      screenOptions={{ headerShown: false }}
+    >
+      <Stack.Screen name="Main" component={DrawerStack} />
+      <Stack.Screen name="Lawyers" component={LawyersScreen} />
+      <Stack.Screen name="Profile" component={ProfileScreen} />
+    </Stack.Navigator>
   );
 }
