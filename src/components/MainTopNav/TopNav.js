@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { View, Text, TouchableHighlight } from 'react-native'
+import { View, Text, TouchableHighlight, TouchableOpacity } from 'react-native'
 import tw from 'twrnc'
 import {API, Auth} from 'aws-amplify'
 import { useNavigation } from '@react-navigation/native';
@@ -67,9 +67,12 @@ const TopNav = () => {
       >
         <Ionicons name="menu" size={24} color="black" />
       </TouchableHighlight>
-      <View>
-        <UserProfileIcon style={tw`h-10 w-10 rounded-full`} />
-      </View>
+      <TouchableOpacity
+        onPress={() => {}}
+        style={tw`rounded-full bg-gray-200 p-2`}
+      >
+        <Ionicons name="wallet-outline" size={24} style={tw`text-gray-500`} />
+      </TouchableOpacity>
     </View>
   );
 }
