@@ -1,16 +1,16 @@
 export const OnboardingPages = [
   {
-    title: "Welcome to the app",
+    title: "Welcome to Advo",
     description: "This is a description of the first page",
     source: require("assets/images/skate_1.png"),
   },
   {
-    title: "Second page",
+    title: "Instant Video Consultations",
     description: "This is a description of the second page",
     source: require("assets/images/skate_2.png"),
   },
   {
-    title: "Third page",
+    title: "Consult with Experts",
     description: "This is a description of the third page",
     source: require("assets/images/skate_3.png"),
   },
