@@ -16,7 +16,7 @@ const BookConsult = () => {
   const navigation = useNavigation()
   async function placeOrder(amt) {
     const order = new Payments({
-      ammount: 100,
+      ammount: amt,
       currency: "INR",
     });
     await order.generateOrderId();
@@ -25,7 +25,7 @@ const BookConsult = () => {
       .completeOrder({
         description: "Adv. Ananya Pandey Video Consultation",
         image:
-          "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
+          "https://www.parkaman.com/wp-content/uploads/2018/08/How-to-Become-a-Corporate-Lawyer.jpg",
         name: "Divyansh Gupta",
         contact: "918178392040",
         user_name: "divyansh",
