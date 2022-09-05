@@ -1,0 +1,35 @@
+{
+    "name": "AdminQueries",
+    "GetUser": {
+        "method": "GET",
+        "url": "/getUser"
+    },
+    "ListUsers": {
+        "method": "GET",
+        "url": "/listUsers"
+    },
+    "DisableUser": {
+        "method": "POST",
+        "url": "/disableUser"
+    },
+    "EnableUser": {
+        "method": "POST",
+        "url": "/enableUser"
+    },
+    "AddUserToGroup":{
+        "method": "POST",
+        "url": "/addUserToGroup"
+    },
+    "RemoveUserFromGroup":{
+        "method": "POST",
+        "url": "/removeUserFromGroup"
+    },
+    "SignOutUser":{
+        "method": "POST",
+        "url": "/signUserOut"
+    },
+    "ListGroupsForUser": {
+        "method": "GET",
+        "url": "/listGroupsForUser"
+    }
+}

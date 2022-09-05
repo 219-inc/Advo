@@ -1,43 +1,64 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg'
-import { Amplify, API } from "aws-amplify";
-import awsExports from "./aws-exports";
+import {lazy, Suspense, useEffect, useState } from 'react'
+import { Routes, Route } from "react-router-dom";
 
-Amplify.configure(awsExports);
+const Protected = lazy(() => import("@/layout/Protected"));
+const ErrorBoundary = lazy(() => import("@/layout/ErrorBoundary"));
+
+import PreLoader from '@/components/PreLoader';
+
+import AuthRoutes from '@/routes/AuthRoutes';
+import ProtectedRoutes from "@/routes/ProtectedRoutes";
+
+import { Auth } from 'aws-amplify';
+import { isAdmin } from '@/functions/isAdmin';
 
 function App() {
 
-  const [lawyers, setLawyers] = useState([]);
+  const [user, setUser] = useState(null);
 
-  const getLawyers = async () => {
-    const lawyers = await API.get("restAuthApi", "/list-lawyers?type=personal");
-    setLawyers(lawyers);
-  }
+  useEffect(() => {
+    (async () => {
+      try{
+        let _user = await Auth.currentAuthenticatedUser();
+        setUser(_user);
+        try{
+          await isAdmin()
+        }catch(e){
+          console.log(e)
+          alert("You are not allowed to access this page")
+          setUser(null)
+        }
+      }catch(err){
+        console.log(err);
+      }
+    })()
+  }, [])
 
   return (
-    <div className="flex flex-col justify-center items-center bg-gray-900 h-screen">
-      <div className='flex flex-row space-x-8'>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="w-20 animate-bounce" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="w-20 animate-bounce" alt="React logo" />
-        </a>
-      </div>
-      <h1 className="text-4xl my-2 font-semibold text-white">Vite + React</h1>
-      <div className="flex flex-col my-2 justify-center items-center space-y-3">
-        <button onClick={getLawyers} className="bg-gray-800 border-gray-600 rounded py-2 px-4 w-48 text-gray-500 font-semibold hover:text-gray-400 hover:shadow-lg">Create lawyer</button>
-      </div>
-      <div className="flex flex-col my-2 justify-center items-center space-y-3">
-        {lawyers.map(lawyer => (
-          <div key={lawyer.id} className="flex flex-col space-y-2">
-            <p className="text-gray-600 font-semibold">{lawyer.name}</p>
-            <p className="text-gray-600 font-semibold">{lawyer.type}</p>
-          </div>
-        ))}
-      </div>
-    </div>
+    <>
+      {user ? (
+        <Protected user={user}>
+          <ErrorBoundary>
+            <Suspense fallback={<PreLoader />}>
+              <Routes>
+                {ProtectedRoutes.map((route) => (
+                  <Route key={route.path} {...route} />
+                ))}
+              </Routes>
+            </Suspense>
+          </ErrorBoundary>
+        </Protected>
+      ) : (
+        <ErrorBoundary>
+          <Routes>
+            {AuthRoutes.map((route) => (
+              <Route key={route.path} {...route} />
+            ))}
+          </Routes>
+        </ErrorBoundary>
+      )}
+    </>
   );
 }
 
-export default App
+export default App;

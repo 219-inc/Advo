@@ -1,0 +1,37 @@
+import { lazy } from "react";
+
+const HomePage = lazy(() => import("@/pages/HomePage"));
+const SamplePage = lazy(() => import("@/pages/SamplePage"));
+const UsersPage = lazy(() => import("@/pages/UsersPage"));
+const HoroscopePage = lazy(() => import("@/pages/HoroscopePage"));
+const ContentPage = lazy(() => import("@/pages/ContentPage"));
+
+const NotFoundPage = lazy(() => import("@/pages/NotFoundPage"));
+
+const routes = [
+  {
+    path: "/",
+    element: <HomePage />,
+  },
+  {
+    path: "/sample",
+    element: <SamplePage />,
+  },
+  {
+    path: "/users",
+    element: <UsersPage />,
+  },
+  {
+    path: "/horoscope",
+    element: <HoroscopePage />,
+  },
+  {
+    path: "/content",
+    element: <ContentPage />,
+  },
+  {
+    path: "*",
+    element: <NotFoundPage />,
+  },
+];
+export default routes;

@@ -1,0 +1,7 @@
+{
+    "name": "AstroApiV1",
+    "ContentMgmt": {
+        "path": "/app-content",
+        "method": "ANY"
+    }
+}
