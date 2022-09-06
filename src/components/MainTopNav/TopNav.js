@@ -8,8 +8,6 @@ import NotificationBoundaryContext from 'layout/NotificationBoundary';
 
 import { Ionicons  } from '@expo/vector-icons';
 
-import UserProfileIcon from 'component/UserProfileIcon';
-
 const TopNav = () => {
   const notification = useContext(NotificationBoundaryContext);
   const navigation = useNavigation()
