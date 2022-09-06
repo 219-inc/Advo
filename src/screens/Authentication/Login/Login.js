@@ -33,7 +33,7 @@ const Login = () => {
 
     try {
       // await Auth.signIn(data.username, data.password)
-      const user = await Auth.signIn(data.username);
+      const user = await Auth.signIn(`+91${data.username}`);
       navigation.navigate('OtpScreen', { user })
     } catch (err) {
       Alert.alert("Oops", err.message);
