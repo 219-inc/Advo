@@ -10,11 +10,13 @@
       "StackName": "amplify-lawyerconsultation-dev-124516",
       "StackId": "arn:aws:cloudformation:ap-south-1:551961123650:stack/amplify-lawyerconsultation-dev-124516/3400cd60-0f0e-11ed-9521-0a89c3199c66",
       "AmplifyAppId": "d26yrzsuvuoc8i",
-      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-lawyerconsultation-dev-124516-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-lawyerconsultation-dev-124516-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-lawyerconsultation-dev-124516-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
-        "lawyerconsultation24035181": {}
+        "lawyerconsultation24035181": {},
+        "AdvoAuth": {}
       },
       "function": {
         "restAuth": {
@@ -24,6 +26,26 @@
         "ListLawyers": {
           "deploymentBucketName": "amplify-lawyerconsultation-dev-124516-deployment",
           "s3Key": "amplify-builds/ListLawyers-4c74713330376a6d6b79-build.zip"
+        },
+        "AdvoAuthCreateAuthChallenge": {
+          "deploymentBucketName": "amplify-lawyerconsultation-dev-124516-deployment",
+          "s3Key": "amplify-builds/AdvoAuthCreateAuthChallenge-346d48667a4157386c53-build.zip"
+        },
+        "AdvoAuthDefineAuthChallenge": {
+          "deploymentBucketName": "amplify-lawyerconsultation-dev-124516-deployment",
+          "s3Key": "amplify-builds/AdvoAuthDefineAuthChallenge-77376b43684d71626471-build.zip"
+        },
+        "AdvoAuthPreSignup": {
+          "deploymentBucketName": "amplify-lawyerconsultation-dev-124516-deployment",
+          "s3Key": "amplify-builds/AdvoAuthPreSignup-73733571527157386775-build.zip"
+        },
+        "AdvoAuthVerifyAuthChallengeResponse": {
+          "deploymentBucketName": "amplify-lawyerconsultation-dev-124516-deployment",
+          "s3Key": "amplify-builds/AdvoAuthVerifyAuthChallengeResponse-6637455934756d696664-build.zip"
+        },
+        "AdminQueries337d6624": {
+          "deploymentBucketName": "amplify-lawyerconsultation-dev-124516-deployment",
+          "s3Key": "amplify-builds/AdminQueries337d6624-38657461556337666c78-build.zip"
         }
       }
     }
