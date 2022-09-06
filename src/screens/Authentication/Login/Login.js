@@ -34,26 +34,7 @@ const Login = () => {
     try {
       // await Auth.signIn(data.username, data.password)
       const user = await Auth.signIn(data.username);
-      //navigate to home screen
-      // window.location.reload()
-      let otp = prompt("ENTER OTP");
-      await Auth.sendCustomChallengeAnswer(user, otp)
-        .then(async () => {
-          try {
-            //await isAdmin();
-            //window.location.reload();
-            ToastAndroid.show("Welcome Back", ToastAndroid.SHORT);
-          } catch (e) {
-            // _errors.throw(
-            //   "You are not allowed to access this page",
-            //   _errors.ERROR
-            // );
-          }
-        })
-        .catch((er) => {
-          console.log(er);
-          _errors.throw("OTP is incorrect", _errors.ERROR);
-        });
+      navigation.navigate('OtpScreen', { user })
     } catch (err) {
       Alert.alert("Oops", err.message);
     }
@@ -92,14 +73,14 @@ const Login = () => {
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              placeholder="Username"
+              placeholder="Phone Number"
             />
           )}
           name="username"
         />
         {errors.username && <Text>This is required.</Text>}
 
-        <Controller
+        {/* <Controller
           control={control}
           rules={{
             maxLength: 100,
@@ -116,7 +97,7 @@ const Login = () => {
           )}
           name="password"
         />
-        {errors.password && <Text>This is required.</Text>}
+        {errors.password && <Text>This is required.</Text>} */}
         <TouchableOpacity
           style={tw`bg-yellow-600 py-4 px-4 rounded-lg mt-4 flex justify-center disabled:opacity-50`}
           activeOpacity={0.7}
@@ -124,16 +105,16 @@ const Login = () => {
           disabled={isButtonDisabled}
         >
           <Text style={tw`text-center text-white font-semibold`}>
-            {isLoading ? "Loading..." : "Sign In"}
+            {isLoading ? "Loading..." : "Get One Time Password"}
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={tw`mt-3`} onPress={onForgotPasswordPressed}>
+        {/* <TouchableOpacity style={tw`mt-3`} onPress={onForgotPasswordPressed}>
           <Text style={tw`text-yellow-600 font-semibold text-center`}>
             Forgot your password?
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
-      <View
+      {/* <View
         style={tw`absolute bottom-0 w-full h-16 mx-4 pt-2 items-center border-t border-gray-500`}
       >
         <TouchableOpacity style={tw`mt-3`} onPress={onSignUpPressed}>
@@ -142,7 +123,7 @@ const Login = () => {
             <Text style={tw`text-yellow-600 `}>Sign up.</Text>
           </Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
     </SafeAreaView>
   );
 };
