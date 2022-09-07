@@ -3,8 +3,8 @@ import { lazy } from "react";
 const HomePage = lazy(() => import("@/pages/HomePage"));
 const SamplePage = lazy(() => import("@/pages/SamplePage"));
 const UsersPage = lazy(() => import("@/pages/UsersPage"));
-const HoroscopePage = lazy(() => import("@/pages/HoroscopePage"));
 const ContentPage = lazy(() => import("@/pages/ContentPage"));
+const LawyerApplications = lazy(() => import("@/pages/LawyerApplications"));
 
 const NotFoundPage = lazy(() => import("@/pages/NotFoundPage"));
 
@@ -22,12 +22,12 @@ const routes = [
     element: <UsersPage />,
   },
   {
-    path: "/horoscope",
-    element: <HoroscopePage />,
-  },
-  {
     path: "/content",
     element: <ContentPage />,
+  },
+  {
+    path: "/lawyer_registration",
+    element: <LawyerApplications />,
   },
   {
     path: "*",

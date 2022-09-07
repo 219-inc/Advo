@@ -16,11 +16,16 @@ const navLinks = [
                 icon: <GrUserSettings className="w-5 h-5" />,
                 to: '/users'
             },
-             {
-                name: 'Horoscope',
-                icon: <BiSun className="w-5 h-5" />,
-                to: '/horoscope'
-            },
+        ]
+    },
+    {
+        type: 'Applications',
+        routes: [
+            {
+                name: 'Lawyer Registration',
+                icon: <AiOutlineBell className="w-5 h-5" />,
+                to: '/lawyer_registration'
+            }
         ]
     },
     {

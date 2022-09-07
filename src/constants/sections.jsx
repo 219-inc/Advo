@@ -1,5 +1,5 @@
 import authMethods from "./authMethods";
-import bottomTabOptions from "./bottomTabOptions";
+import bottomTabOptions from "./SideMenuOptions";
 
 const sections = [
   {

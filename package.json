@@ -2,7 +2,6 @@
   "name": "advo-admin",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -11,6 +10,7 @@
   "dependencies": {
     "@heroicons/react": "^1.0.6",
     "@tailwindcss/forms": "^0.5.2",
+    "@tanstack/react-table": "^8.5.13",
     "animate.css": "^4.1.1",
     "aws-amplify": "^4.3.29",
     "flowbite-datepicker": "^1.2.2",
