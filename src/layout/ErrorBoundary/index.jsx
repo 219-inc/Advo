@@ -48,7 +48,7 @@ const ErrorBoundary = ({children}) => {
                 <>
                   {error.type === "WARN" && (
                     <Warning
-                      key={error.id}
+                      key={index}
                       id={error.id}
                       message={error.message}
                       removeError={removeError}
@@ -56,7 +56,7 @@ const ErrorBoundary = ({children}) => {
                   )}
                   {error.type === "SUCCESS" && (
                     <Success
-                      key={error.id}
+                      key={index}
                       id={error.id}
                       message={error.message}
                       removeError={removeError}
@@ -64,7 +64,7 @@ const ErrorBoundary = ({children}) => {
                   )}
                   {error.type === "ERROR" && (
                     <Error
-                      key={error.id}
+                      key={index}
                       id={error.id}
                       message={error.message}
                       removeError={removeError}

@@ -1,7 +1,7 @@
 {
-    "name": "AstroApiV1",
+    "name": "AdvoApis",
     "ContentMgmt": {
-        "path": "/app-content",
-        "method": "ANY"
+        "path": "/current-user",
+        "method": "GET"
     }
 }

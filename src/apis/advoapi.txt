@@ -1,0 +1,5 @@
+{
+      name: "AdvoApis",
+      endpoint: "https://jza2nkfge1.execute-api.ap-south-1.amazonaws.com/dev",
+      region: "ap-south-1",
+    },

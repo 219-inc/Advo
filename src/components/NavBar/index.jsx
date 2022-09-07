@@ -9,7 +9,7 @@ function NavBar() {
                   <button className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 rounded-md flex w-full w-auto items-center items-stretch justify-end justify-start">
                       <div  className="flex items-center">
                           <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/light-with-button-svg3.svg" alt="logo" />
-                          <h2 className="block text-base text-gray-700 font-bold leading-normal px-3">ASTRO | ADMIN</h2>
+                          <h2 className="block text-base text-gray-700 font-bold leading-normal px-3">ADVO | ADMIN</h2>
                       </div>
                   </button>
                   <div className="flex">

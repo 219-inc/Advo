@@ -25,23 +25,31 @@
         },
         "AdvoAuthCreateAuthChallenge": {
           "deploymentBucketName": "amplify-lawyerconsultation-dev-124516-deployment",
-          "s3Key": "amplify-builds/AdvoAuthCreateAuthChallenge-346d48667a4157386c53-build.zip"
+          "s3Key": "amplify-builds/AdvoAuthCreateAuthChallenge-56376b6361575a305331-build.zip"
         },
         "AdvoAuthDefineAuthChallenge": {
           "deploymentBucketName": "amplify-lawyerconsultation-dev-124516-deployment",
-          "s3Key": "amplify-builds/AdvoAuthDefineAuthChallenge-77376b43684d71626471-build.zip"
+          "s3Key": "amplify-builds/AdvoAuthDefineAuthChallenge-6e2f2f5576666c706d49-build.zip"
         },
         "AdvoAuthPreSignup": {
           "deploymentBucketName": "amplify-lawyerconsultation-dev-124516-deployment",
-          "s3Key": "amplify-builds/AdvoAuthPreSignup-73733571527157386775-build.zip"
+          "s3Key": "amplify-builds/AdvoAuthPreSignup-446841722f50434d634d-build.zip"
         },
         "AdvoAuthVerifyAuthChallengeResponse": {
           "deploymentBucketName": "amplify-lawyerconsultation-dev-124516-deployment",
-          "s3Key": "amplify-builds/AdvoAuthVerifyAuthChallengeResponse-6637455934756d696664-build.zip"
+          "s3Key": "amplify-builds/AdvoAuthVerifyAuthChallengeResponse-6f38504f7869796d3068-build.zip"
         },
         "AdminQueries337d6624": {
           "deploymentBucketName": "amplify-lawyerconsultation-dev-124516-deployment",
-          "s3Key": "amplify-builds/AdminQueries337d6624-38657461556337666c78-build.zip"
+          "s3Key": "amplify-builds/AdminQueries337d6624-627139364e4d374b3739-build.zip"
+        },
+        "AdvoGetCurrentAuthUser": {
+          "deploymentBucketName": "amplify-lawyerconsultation-dev-124516-deployment",
+          "s3Key": "amplify-builds/AdvoGetCurrentAuthUser-4c2b4c67727a736d306c-build.zip"
+        },
+        "AdvoCreateUser": {
+          "deploymentBucketName": "amplify-lawyerconsultation-dev-124516-deployment",
+          "s3Key": "amplify-builds/AdvoCreateUser-4738616f4b5951487a67-build.zip"
         }
       },
       "auth": {
