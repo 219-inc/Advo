@@ -107,6 +107,16 @@
           ]
         }
       ]
+    },
+    "AdvoCreateUser": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "AdvoGetCurrentAuthUser": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "api": {
@@ -125,6 +135,22 @@
         {
           "category": "function",
           "resourceName": "ListLawyers",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "AdvoCreateUser",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "AdvoGetCurrentAuthUser",
           "attributes": [
             "Name",
             "Arn"

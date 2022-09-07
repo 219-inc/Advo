@@ -23,6 +23,26 @@
       "permissions": {
         "setting": "open"
       }
+    },
+    "/create-user": {
+      "name": "/create-user",
+      "lambdaFunction": "AdvoCreateUser",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create"
+        ]
+      }
+    },
+    "/current-user": {
+      "name": "/current-user",
+      "lambdaFunction": "AdvoGetCurrentAuthUser",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "read"
+        ]
+      }
     }
   }
 }

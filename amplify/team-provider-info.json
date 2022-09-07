@@ -46,6 +46,14 @@
         "AdminQueries337d6624": {
           "deploymentBucketName": "amplify-lawyerconsultation-dev-124516-deployment",
           "s3Key": "amplify-builds/AdminQueries337d6624-38657461556337666c78-build.zip"
+        },
+        "AdvoGetCurrentAuthUser": {
+          "deploymentBucketName": "amplify-lawyerconsultation-dev-124516-deployment",
+          "s3Key": "amplify-builds/AdvoGetCurrentAuthUser-65684556777864706e57-build.zip"
+        },
+        "AdvoCreateUser": {
+          "deploymentBucketName": "amplify-lawyerconsultation-dev-124516-deployment",
+          "s3Key": "amplify-builds/AdvoCreateUser-53432f70426f4e31484e-build.zip"
         }
       }
     }
