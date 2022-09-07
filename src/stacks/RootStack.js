@@ -31,7 +31,7 @@ export default function Root({ user, isFirstLaunch }) {
         </>
       ) : (
         <>
-          <Stack.Screen name="SignIn" component={Login} />
+          <Stack.Screen name="SignIn" component={isFirstLaunch ? OnboardingScreens : Login} />
           <Stack.Screen name="OTP" component={OTP} />
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="ConfirmEmail" component={ConfirmEmail} />

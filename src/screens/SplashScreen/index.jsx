@@ -37,7 +37,7 @@ const SplashScreen = () => {
 
   const [user, setUser] = useState(undefined);
 
-  const [isFirstLaunch, setIsFirstLaunch] = useState(false);
+  const [isFirstLaunch, setIsFirstLaunch] = useState(true);
 
   const checkIfSignedIn = async () => {
     try {
