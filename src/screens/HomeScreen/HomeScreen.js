@@ -17,7 +17,7 @@ const HomeScreen = () => {
   useEffect(() => {
     (async () => {
       let user = await Auth.currentAuthenticatedUser()
-      let username = user.attributes.preferred_username
+      let username = user.attributes.phone_number;
       username = username.charAt(0).toUpperCase() + username.slice(1)
       setUserName(username)
     })()
@@ -33,7 +33,7 @@ const HomeScreen = () => {
             uri: "https://freevector-images.s3.amazonaws.com/uploads/vector/preview/40490/vecteezy_background-white_fj1220.jpg",
           }}
         />
-        <View style={tw`absolute w-full px-6`}>
+        <View style={tw`absolute w-full px-4`}>
           <MainTopNav />
           <View style={tw`pt-5`}>
             <Text style={tw`font-semibold text-3xl`}>Welcome</Text>
@@ -46,7 +46,7 @@ const HomeScreen = () => {
           </View>
         </View>
       </View>
-      <ScrollView style={tw`px-4 mt-14`}>
+      <ScrollView style={tw`px-2 mt-14`}>
         <SearchBar />
         <QuickActions />
         <SelectCategory />

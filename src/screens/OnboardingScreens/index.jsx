@@ -1,10 +1,13 @@
 import { StatusBar } from "expo-status-bar";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import React from "react";
 import Animated, { useAnimatedScrollHandler, useSharedValue } from "react-native-reanimated";
+import tw from 'twrnc'
 
 import { OnboardingPages } from "constants";
 import OnboardingPage from "components/OnboardingPage";
+
+import { FontAwesome5 } from "@expo/vector-icons";
 
 const OnboardingScreens = () => {
 
@@ -36,6 +39,16 @@ const OnboardingScreens = () => {
           />
         ))}
       </Animated.ScrollView>
+      <TouchableOpacity
+        style={tw`absolute -bottom-30 -right-30 w-80 h-80 bg-yellow-500 rounded-full flex flex-row`}
+      >
+        <FontAwesome5
+          name="arrow-right"
+          size={48}
+          color="white"
+          style={tw`mx-28 my-24`}
+        />
+      </TouchableOpacity>
     </View>
   );
 };

@@ -1,9 +1,11 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import HomeScreen from "screen/HomeScreen";
+import LawyersScreen from "screen/LawyersScreen";
+
 import CustomDrawer from "components/CustomDrawer";
 
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, Octicons } from "@expo/vector-icons";
 
 const Drawer = createDrawerNavigator();
 
@@ -29,6 +31,15 @@ export default function DrawerStack() {
         options={{
           drawerIcon: ({ focused, color, size }) => (
             <AntDesign name="home" size={size} focused color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Lawyers"
+        component={LawyersScreen}
+        options={{
+          drawerIcon: ({ focused, color, size }) => (
+            <Octicons name="law" size={size} focused color={color} />
           ),
         }}
       />

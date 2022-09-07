@@ -69,7 +69,7 @@ const TopNav = () => {
         <Ionicons name="menu" size={24} style={tw`text-gray-500`} />
       </TouchableHighlight>
       <TouchableOpacity
-        onPress={() => {}}
+        onPress={() => navigation.navigate('Wallet')}
         style={tw`rounded-full bg-gray-200 p-2`}
       >
         <Ionicons name="wallet-outline" size={24} style={tw`text-gray-500`} />
