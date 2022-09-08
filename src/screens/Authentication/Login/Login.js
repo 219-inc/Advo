@@ -32,7 +32,6 @@ const Login = () => {
     setIsButtonDisabled(true);
 
     try {
-      // await Auth.signIn(data.username, data.password)
       const user = await Auth.signIn(`+91${data.username}`);
       navigation.navigate('OtpScreen', { user })
     } catch (err) {

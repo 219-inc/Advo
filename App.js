@@ -5,9 +5,10 @@ import { Amplify } from "aws-amplify";
 import awsconfig from "./src/aws-exports";
 
 import { LocationProvider } from "context/LocationContext";
-import { NotificationBoundary } from "./src/layouts/NotificationBoundary";
+import { UserProvider } from "context/User";
+import { NotificationBoundary } from "layout/NotificationBoundary";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import SplashScreen from "screen/SplashScreen";
+import RootStack from "stack/RootStack";
 
 Amplify.configure(awsconfig);
 
@@ -15,13 +16,15 @@ export default function App() {
   return (
     <NotificationBoundary>
       <LocationProvider>
-        <SafeAreaProvider>
-          <SafeAreaView style={tw`h-full bg-gray-800`}>
-            <NavigationContainer>
-              <SplashScreen />
-            </NavigationContainer>
-          </SafeAreaView>
-        </SafeAreaProvider>
+        <UserProvider>
+          <SafeAreaProvider>
+            <SafeAreaView style={tw`h-full bg-gray-800`}>
+              <NavigationContainer>
+                <RootStack />
+              </NavigationContainer>
+            </SafeAreaView>
+          </SafeAreaProvider>
+        </UserProvider>
       </LocationProvider>
     </NotificationBoundary>
   );

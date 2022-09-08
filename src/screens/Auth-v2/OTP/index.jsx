@@ -1,41 +1,101 @@
+import { useState, useEffect } from "react";
 import {
   View,
   Text,
-  StatusBar,
-  TextInput,
-  TouchableOpacity,
+  ToastAndroid
 } from "react-native";
 import tw from "twrnc";
+import { useForm, Controller } from "react-hook-form";
+import { Auth } from "aws-amplify";
+import { useNavigation } from "@react-navigation/native";
 
-import { Ionicons } from "@expo/vector-icons";
-const OTP = () => {
+import Header from "component/Registration/Header";
+import ContinueButton from "component/Registration/ContinueButton";
+import Input from "component/Registration/Input";
+
+const OTP = ({route}) => {
+  const [disabled, setDisabled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const navigation = useNavigation();
+
+  const { user } = route.params;
+
+  const {
+    control,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  let otp = watch("otp");
+
+  useEffect(() => {
+    if (otp && otp.length > 0) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [otp]);
+
+  async function onOtpSubmit({otp}) {
+    if (isLoading) return;
+    setIsLoading(true);
+    setDisabled(true);
+
+    await Auth.sendCustomChallengeAnswer(user, otp)
+      .then(async () => {
+        try {
+          ToastAndroid.show("Welcome Back", ToastAndroid.SHORT);
+        } catch (e) {
+          console.log(e);
+          alert("An error occured! Please try again later.");
+        }
+      })
+      .catch((er) => {
+        console.log(er);
+      });
+  }
+
   return (
-    <View style={tw`py-18 px-3 bg-white h-full`}>
-      <StatusBar barStyle="dark-content" backgroundColor={"#fff"} />
-      <View style={tw`flex flex-row`}>
-        <Ionicons name="phone-portrait-outline" size={24} color="black" />
-      </View>
-      <Text style={tw`font-semibold text-3xl tracking-normal mt-2`}>
-        Phone Verification
-      </Text>
-      <Text style={tw`text-gray-400 px-1 my-2`}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia sequi
-        id, quas, quia, voluptates quibusdam voluptas quod voluptate quidem
-        quos.
-      </Text>
-      <View
-        style={tw`px-1.5 mt-6 flex flex-row bg-gray-200 rounded-lg px-4 items-center justify-start`}
-      >
-        <Text style={tw`text-neutral-400 font-semibold mr-1`}>+91</Text>
-        <TextInput placeholder="Phone Number" style={tw`w-80 py-3`} />
-      </View>
-      <View style={tw`absolute bottom-6 left-3 w-full`}>
-        <TouchableOpacity
-          style={tw`py-4 text-center items-center justify-center bg-yellow-500 w-full rounded-lg`}
+    <View style={tw`h-full bg-white pt-10 px-4`}>
+      <Header
+        page_title="Phone Verification"
+        title={"Verify your phone number"}
+        description={"Please enter the otp sent to your number to verify."}
+      />
+      <Controller
+        control={control}
+        rules={{
+          required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <Input
+            placeholder={"OTP"}
+            name={"otp"}
+            value={value}
+            onBlur={onBlur}
+            onChange={onChange}
+            keyboardType={Platform.OS === "ios" ? "number-pad" : "numeric"}
+            maxLength={6}
+            minLength={6}
+          />
+        )}
+        name="otp"
+      />
+      {errors.otp && (
+        <View
+          style={tw`rounded-lg my-1 px-1 py-2 bg-red-200 border border-red-300 items-center justify-center`}
         >
-          <Text style={tw`text-white`}>Continue</Text>
-        </TouchableOpacity>
-      </View>
+          <Text style={tw`text-sm text-red-700 font-semibold`}>
+            OTP is required
+          </Text>
+        </View>
+      )}
+      <ContinueButton
+        disabled={disabled}
+        onPress={handleSubmit(onOtpSubmit)}
+      />
     </View>
   );
 };
