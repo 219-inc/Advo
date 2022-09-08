@@ -7,7 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 const Reminders = () => {
   const {goBack} = useNavigation();
   return (
-    <View style={tw`bg-gray-800 h-full`}>
+    <View style={tw` h-full`}>
       <View style={tw`flex flex-row pl-3 pt-3 pb-3 bg-blue-600` }>
         <TouchableOpacity onPress={() => goBack()}>
           <MaterialIcons
@@ -17,16 +17,16 @@ const Reminders = () => {
           />
         </TouchableOpacity>
         <Text style={tw`text-slate-50  text-xl ml-3 font-semibold`}>
-          My Bookings
+          My Reminders
         </Text>
       </View>
 
        
       <View style={tw`mb-3`}>
-        <Text style={tw`text-slate-50 text-center mt-3 font-bold text-base`}>
+        <Text style={tw` text-center mt-3 font-bold text-base`}>
            You have no reminders.
         </Text>
-        <Text style={tw`text-slate-50 text-center mt-3`}>
+        <Text style={tw` text-center mt-3`}>
            Set a reminder for your next booking to get notified.
         </Text>
       </View>

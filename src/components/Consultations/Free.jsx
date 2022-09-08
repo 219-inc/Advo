@@ -8,17 +8,14 @@ const Free = () => {
   return (
     <View style={tw`h-full`}>
       <View style={tw`mb-3 `}>
-        <Text style={tw`text-slate-50 text-center mt-3 font-bold text-base`}>
-          Get Well.
+        <Text style={tw` text-center mt-3 font-bold text-base`}>
+           Talk To Expert
         </Text>
-        <Text style={tw`text-slate-50 text-center mt-3`}>
-          Start by looking for doctors near you,read ptient stories and book
-          appointment
+        <Text style={tw` mx-6 text-center mt-3`}>
+          You haven't asked any queries yet. Ask a Question now!.
         </Text>
       </View>
-      <View>
         <Button text="Consult Now" />
-      </View>
     </View>
   );
 }

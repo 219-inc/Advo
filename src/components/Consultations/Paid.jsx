@@ -6,19 +6,17 @@ import Button from "../Button";
 
 const Paid = () => {
   return (
-    <View style={tw`h-full`}>
+    <View style={tw`h-full `}>
       <View style={tw`mb-3 `}>
-        <Text style={tw`text-slate-50 text-center mt-3 font-bold text-base`}>
+        <Text style={tw`  text-center mt-3 font-bold text-base`}>
           Get Well.
         </Text>
-        <Text style={tw`text-slate-50 text-center mt-3`}>
-          Start by looking for doctors near you,read ptient stories and book
+        <Text style={tw` mx-6 text-center mt-3`}>
+          Start by looking for doctors near you,read patient stories and book
           appointment
         </Text>
       </View>
-      <View >
         <Button text="Consult Now" />
-      </View>
     </View>
   );
 };
