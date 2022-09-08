@@ -3,21 +3,15 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Auth, Hub } from "aws-amplify";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import Login from "screen/Auth-v2/Login";
-import SignUp from "screen/Authentication/SignupScreen";
-import ConfirmEmail from "screen/Authentication/ConfirmEmail";
-import ForgotPassword from "screen/Authentication/ForgotPassword";
-import ChangePassword from "screen/Authentication/ChangePassword";
-import OtpScreen from "screen/Authentication/OtpScreen";
-
-import RegisterUser from "screen/Auth-v2/RegisterUser";
-import OTP from "screen/Auth-v2/OTP";
+import Login from "screen/Authentication/Login";
+import RegisterUser from "screen/Authentication/RegisterUser";
+import OTP from "screen/Authentication/OTP";
+import WelcomeScreen from "screen/Authentication/WelcomeScreen";
 
 import OnboardingScreens from "screen/OnboardingScreens";
 
 import HomeStack from "./HomeStack";
 import LawyersProfile from "screen/LawyersProfile";
-import WelcomeScreen from "screen/Auth-v2/WelcomeScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -89,12 +83,6 @@ export default function Root() {
             name="SignIn"
             component={isFirstLaunch ? OnboardingScreens : Login}
           />
-          <Stack.Screen name="OtpScreen" component={OtpScreen} />
-          <Stack.Screen name="SignUp" component={SignUp} />
-          <Stack.Screen name="ConfirmEmail" component={ConfirmEmail} />
-          <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-          <Stack.Screen name="ChangePassword" component={ChangePassword} />
-          {/* Auth V2 Routes */}
           <Stack.Screen name="OTP" component={OTP} />
           <Stack.Screen name="RegisterUser" component={RegisterUser} />
         </>
