@@ -17,7 +17,7 @@ const HomeScreen = () => {
   useEffect(() => {
     (async () => {
       let user = await Auth.currentAuthenticatedUser()
-      let username = user.attributes.preferred_username
+      let username = user.attributes.phone_number;
       username = username.charAt(0).toUpperCase() + username.slice(1)
       setUserName(username)
     })()
