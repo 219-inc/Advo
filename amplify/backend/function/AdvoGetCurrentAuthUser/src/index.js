@@ -7,13 +7,10 @@ exports.handler = async (event) => {
     
     let userId = event.requestContext.authorizer?.jwt.claims.sub
 
+    let user = await QueryExec(`SELECT * FROM users WHERE userId = '${userId}'`)
+
     return {
         statusCode: 200,
-    //  Uncomment below to enable CORS requests
-    //  headers: {
-    //      "Access-Control-Allow-Origin": "*",
-    //      "Access-Control-Allow-Headers": "*"
-    //  }, 
-        body: JSON.stringify(userId),
+        body: JSON.stringify(user),
     };
 };
