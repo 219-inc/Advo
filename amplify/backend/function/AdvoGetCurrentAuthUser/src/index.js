@@ -11,7 +11,7 @@ exports.handler = async (event) => {
     let userId = event.requestContext.authorizer?.jwt.claims.sub
 
     let user = await queryExec(
-      `SELECT * FROM users WHERE userId = '${userId}'`
+      `SELECT * FROM AdvoUsers WHERE userId = '${userId}'`
     );
 
     return {
