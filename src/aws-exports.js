@@ -30,6 +30,11 @@ const awsmobile = {
       endpoint: "https://jy79vqifhi.execute-api.ap-south-1.amazonaws.com/dev",
       region: "ap-south-1",
     },
+    {
+      name: "AdvoApis",
+      endpoint: "https://jy79vqifhi.execute-api.ap-south-1.amazonaws.com/dev",
+      region: "ap-south-1",
+    },
   ],
   aws_mobile_analytics_app_id: "cd89a5747d0b4085b116ff577d04c0a0",
   aws_mobile_analytics_app_region: "ap-south-1",
