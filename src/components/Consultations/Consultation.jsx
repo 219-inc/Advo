@@ -13,7 +13,7 @@ const Consultation = () => {
   const {goBack} = useNavigation();
   return (
     <View style={tw`bg-gray-800 h-full`}>
-      <View style={tw`flex flex-row pl-3 pt-3 pb-3 bg-blue-600`}>
+      <View style={tw`flex flex-row pl-3 pt-3 pb-3 bg-gray-800`}>
         <TouchableOpacity>
           <MaterialIcons
             name="arrow-back"
@@ -27,11 +27,21 @@ const Consultation = () => {
         </Text>
       </View>
 
-       
-        <Tab.Navigator>
-          <Tab.Screen  name="Paid" component={Paid} />
-          <Tab.Screen name="Free" component={Free} />
-        </Tab.Navigator>
+      <Tab.Navigator
+        tabBarOptions={{
+          activeTintColor: "#fff",
+          inactiveTintColor: "lightgray",
+          activeBackgroundColor: "",
+          inactiveBackgroundColor: "",
+          style: {
+            backgroundColor: "#CA8A04",
+            paddingBottom: 3,
+          },
+        }}
+      >
+        <Tab.Screen name="Paid" component={Paid} />
+        <Tab.Screen name="Free" component={Free} />
+      </Tab.Navigator>
     </View>
   );
 };

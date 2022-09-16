@@ -9,7 +9,7 @@ const Appointments = () => {
   const { goBack } = useNavigation();
   return (
     <View style={tw` h-full`}>
-      <View style={tw`flex flex-row bg-blue-600 pl-3 pb-3 pt-3`}>
+      <View style={tw`flex flex-row bg-gray-800 pl-3 pb-3 pt-3`}>
         <TouchableOpacity onPress={() => goBack()}>
           <MaterialIcons
             name="arrow-back"
@@ -25,7 +25,7 @@ const Appointments = () => {
 
       <View style={tw`w-1/3.65`}>
         <Text
-          style={tw`text-sm  border-b-4 border-black font-bold pl-2 mt-2`}
+          style={tw`text-sm pb-1 border-b-4 border-yellow-600 font-bold pl-2 mt-2`}
         >
           Appointments
         </Text>
@@ -35,7 +35,7 @@ const Appointments = () => {
           You haven't booked any appointment yet
         </Text>
         <Text style={tw` text-center mt-3`}>
-          Start by looking for doctors near you,read ptient stories and book
+          Start by looking for doctors near you,read patient stories and book
           appointment
         </Text>
       </View>

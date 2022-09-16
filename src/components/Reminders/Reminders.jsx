@@ -8,7 +8,7 @@ const Reminders = () => {
   const {goBack} = useNavigation();
   return (
     <View style={tw` h-full`}>
-      <View style={tw`flex flex-row pl-3 pt-3 pb-3 bg-blue-600` }>
+      <View style={tw`flex flex-row pl-3 pt-3 pb-3 bg-gray-800` }>
         <TouchableOpacity onPress={() => goBack()}>
           <MaterialIcons
             name="arrow-back"
