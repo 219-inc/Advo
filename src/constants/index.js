@@ -42,3 +42,41 @@ export const userTableHeaders = [
     label: "User Status"
   }
 ];
+
+export const LawyerApplicationTableHeaders = [
+  {
+    id: "applicationId",
+    label: "Application ID",
+    accesor: "applicationId"
+  },
+  {
+    id: "userId",
+    label: "User ID",
+    accesor: "userId"
+  },
+  {
+    id: "specialization",
+    label: "Specialization",
+    accesor: "specialization"
+  },
+  {
+    id: "city",
+    label: "City",
+    accesor: "city"
+  },
+  {
+    id: "application_status",
+    label: "Application Status",
+    accesor: "application_status"
+  },
+  {
+    id: "createdOn",
+    label: "Created On",
+    accesor: "createdOn"
+  },
+  {
+    id: "updatedOn",
+    label: "Updated On",
+    accesor: "updatedOn"
+  }
+]

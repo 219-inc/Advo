@@ -31,5 +31,18 @@
     "ListGroupsForUser": {
         "method": "GET",
         "url": "/listGroupsForUser"
+    },
+    "GetLawyerApplications": {
+        "method": "GET",
+        "url": "/lawyerApplications"
+    },
+    "ApproveLawyerApplication":{
+        "method": "POST",
+        "addToGroup": "/addUserToGroup",
+        "updateApplication": "/updateLawyerApplicationStatus"
+    },
+    "GetUserFromDB": {
+        "method": "GET",
+        "url": "/userDetails"
     }
 }

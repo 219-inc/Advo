@@ -40,19 +40,9 @@ export default class Admin {
 
         let users = []
 
-        rest.Users.forEach(user => {
-            let userObject = {
-                phoneNumber: user.Username,
-                isUserEnabled: user.Enabled,
-                status: user.UserStatus,
-                createdOn: user.CreateDate,
-                id: user.Attributes[0].Value,
-                name: user.Attributes[3].Value,
-                gender: user.Attributes[2].Value,
-                birthdate: user.Attributes[1].Value,
-            }
-
-            users.push(userObject);
+        rest.Users.forEach(async user => {
+            //get user details 
+            users.push(await this.GetUserFromDB(user.Username))
         })
 
         return users;
@@ -223,5 +213,64 @@ export default class Admin {
             }
         }
         return await API.get(this.apiName, api.ListGroupsForUser.url, request);
+    }
+
+    async GetUserFromDB(userId){
+        let request = {
+            queryStringParameters: {
+                "userId": userId
+            },
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `${(await Auth.currentSession()).getAccessToken().getJwtToken()}`
+            }
+        }
+        return await API.get(this.apiName, api.GetUserFromDB.url, request);
+    }   
+
+    async GetLawyerApplications() {
+        let request = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `${(await Auth.currentSession()).getAccessToken().getJwtToken()}`
+            }
+        }
+        let applications = await API.get(this.apiName, api.GetLawyerApplications.url, request);
+
+        //process applications to replace the user id with the user's details
+        for (let i = 0; i < applications.length; i++) {
+            applications[i].user = await this.GetUserFromDB(
+              applications[i].userId
+            );
+        }
+
+        return applications;
+    }
+
+    async ApproveLawyerApplication(applicationId, username) {
+        let request = {
+            body: {
+                "groupname": "AdvoLawyers",
+                "username": username
+            },
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `${(await Auth.currentSession()).getAccessToken().getJwtToken()}`
+            }
+        }
+        await API.post(this.apiName, api.ApproveLawyerApplication.addToGroup, request);
+
+        //update the application status
+        request = {
+            body: {
+                "applicationId": applicationId,
+                "status": "approved"
+            },
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `${(await Auth.currentSession()).getAccessToken().getJwtToken()}`
+            }
+        }
+        return await API.post(this.apiName, api.ApproveLawyerApplication.updateApplication, request);
     }
 }

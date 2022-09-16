@@ -12,7 +12,9 @@
  * and limitations under the License.
  */
 
-const { CognitoIdentityServiceProvider } = require('aws-sdk');
+const { CognitoIdentityServiceProvider } = require("aws-sdk");
+const queryExec = require("./QueryExec");
+
 
 const cognitoIdentityServiceProvider = new CognitoIdentityServiceProvider();
 const userPoolId = process.env.USERPOOL;
@@ -27,7 +29,9 @@ async function addUserToGroup(username, groupname) {
   console.log(`Attempting to add ${username} to ${groupname}`);
 
   try {
-    const result = await cognitoIdentityServiceProvider.adminAddUserToGroup(params).promise();
+    const result = await cognitoIdentityServiceProvider
+      .adminAddUserToGroup(params)
+      .promise();
     console.log(`Success adding ${username} to ${groupname}`);
     return {
       message: `Success adding ${username} to ${groupname}`,
@@ -48,7 +52,9 @@ async function removeUserFromGroup(username, groupname) {
   console.log(`Attempting to remove ${username} from ${groupname}`);
 
   try {
-    const result = await cognitoIdentityServiceProvider.adminRemoveUserFromGroup(params).promise();
+    const result = await cognitoIdentityServiceProvider
+      .adminRemoveUserFromGroup(params)
+      .promise();
     console.log(`Removed ${username} from ${groupname}`);
     return {
       message: `Removed ${username} from ${groupname}`,
@@ -67,7 +73,9 @@ async function confirmUserSignUp(username) {
   };
 
   try {
-    const result = await cognitoIdentityServiceProvider.adminConfirmSignUp(params).promise();
+    const result = await cognitoIdentityServiceProvider
+      .adminConfirmSignUp(params)
+      .promise();
     console.log(`Confirmed ${username} registration`);
     return {
       message: `Confirmed ${username} registration`,
@@ -85,7 +93,9 @@ async function disableUser(username) {
   };
 
   try {
-    const result = await cognitoIdentityServiceProvider.adminDisableUser(params).promise();
+    const result = await cognitoIdentityServiceProvider
+      .adminDisableUser(params)
+      .promise();
     console.log(`Disabled ${username}`);
     return {
       message: `Disabled ${username}`,
@@ -103,7 +113,9 @@ async function enableUser(username) {
   };
 
   try {
-    const result = await cognitoIdentityServiceProvider.adminEnableUser(params).promise();
+    const result = await cognitoIdentityServiceProvider
+      .adminEnableUser(params)
+      .promise();
     console.log(`Enabled ${username}`);
     return {
       message: `Enabled ${username}`,
@@ -123,7 +135,9 @@ async function getUser(username) {
   console.log(`Attempting to retrieve information for ${username}`);
 
   try {
-    const result = await cognitoIdentityServiceProvider.adminGetUser(params).promise();
+    const result = await cognitoIdentityServiceProvider
+      .adminGetUser(params)
+      .promise();
     return result;
   } catch (err) {
     console.log(err);
@@ -138,10 +152,12 @@ async function listUsers(Limit, PaginationToken) {
     ...(PaginationToken && { PaginationToken }),
   };
 
-  console.log('Attempting to list users');
+  console.log("Attempting to list users");
 
   try {
-    const result = await cognitoIdentityServiceProvider.listUsers(params).promise();
+    const result = await cognitoIdentityServiceProvider
+      .listUsers(params)
+      .promise();
 
     // Rename to NextToken for consistency with other Cognito APIs
     result.NextToken = result.PaginationToken;
@@ -161,10 +177,12 @@ async function listGroups(Limit, PaginationToken) {
     ...(PaginationToken && { PaginationToken }),
   };
 
-  console.log('Attempting to list groups');
+  console.log("Attempting to list groups");
 
   try {
-    const result = await cognitoIdentityServiceProvider.listGroups(params).promise();
+    const result = await cognitoIdentityServiceProvider
+      .listGroups(params)
+      .promise();
 
     // Rename to NextToken for consistency with other Cognito APIs
     result.NextToken = result.PaginationToken;
@@ -188,13 +206,19 @@ async function listGroupsForUser(username, Limit, NextToken) {
   console.log(`Attempting to list groups for ${username}`);
 
   try {
-    const result = await cognitoIdentityServiceProvider.adminListGroupsForUser(params).promise();
+    const result = await cognitoIdentityServiceProvider
+      .adminListGroupsForUser(params)
+      .promise();
     /**
      * We are filtering out the results that seem to be innapropriate for client applications
      * to prevent any informaiton disclosure. Customers can modify if they have the need.
      */
-    result.Groups.forEach(val => {
-      delete val.UserPoolId, delete val.LastModifiedDate, delete val.CreationDate, delete val.Precedence, delete val.RoleArn;
+    result.Groups.forEach((val) => {
+      delete val.UserPoolId,
+        delete val.LastModifiedDate,
+        delete val.CreationDate,
+        delete val.Precedence,
+        delete val.RoleArn;
     });
 
     return result;
@@ -215,7 +239,9 @@ async function listUsersInGroup(groupname, Limit, NextToken) {
   console.log(`Attempting to list users in group ${groupname}`);
 
   try {
-    const result = await cognitoIdentityServiceProvider.listUsersInGroup(params).promise();
+    const result = await cognitoIdentityServiceProvider
+      .listUsersInGroup(params)
+      .promise();
     return result;
   } catch (err) {
     console.log(err);
@@ -233,11 +259,78 @@ async function signUserOut(username) {
   console.log(`Attempting to signout ${username}`);
 
   try {
-    const result = await cognitoIdentityServiceProvider.adminUserGlobalSignOut(params).promise();
+    const result = await cognitoIdentityServiceProvider
+      .adminUserGlobalSignOut(params)
+      .promise();
     console.log(`Signed out ${username} from all devices`);
     return {
       message: `Signed out ${username} from all devices`,
     };
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
+async function getLawyerApplications() {
+  try {
+    let query = `SELECT applicationId, userId, specialization, city, application_status, createdOn, updatedOn FROM LawyerApplications ORDER BY createdOn DESC`;
+    const result = await queryExec(query);
+
+    let applications = []
+
+    result.records.forEach((record) => {
+      applications.push({
+        applicationId: record[0].stringValue,
+        userId: record[1].stringValue,
+        specialization: record[2].stringValue,
+        city: record[3].stringValue,
+        application_status: record[4].stringValue,
+        createdOn: record[5].stringValue,
+        updatedOn: record[6].stringValue,
+      })
+    })
+        
+
+    return applications;
+
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
+async function updateLawyerApplicationStatus(applicationId, status) {
+  try {
+    let query = `UPDATE LawyerApplications SET application_status = '${status}' WHERE applicationId = '${applicationId}'`;
+    const result = await queryExec(query);
+
+    return result;
+
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
+async function getUserDetails(userId) {
+  try {
+    let query = `SELECT * FROM AdvoUsers WHERE userId = '${userId}'`;
+    const result = await queryExec(query);
+
+    let user = {}
+
+    result.records.forEach((record) => {
+      user = {
+        name: record[1].stringValue,
+        email: record[2].stringValue,
+        phone: record[3].stringValue,
+      }
+    })
+        
+
+    return user;
+
   } catch (err) {
     console.log(err);
     throw err;
@@ -256,4 +349,7 @@ module.exports = {
   listGroupsForUser,
   listUsersInGroup,
   signUserOut,
+  getLawyerApplications,
+  updateLawyerApplicationStatus,
+  getUserDetails,
 };

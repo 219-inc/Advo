@@ -13,7 +13,8 @@ export default function SamplePage({ throwError }) {
 
   useEffect(() => {
     (async () => {
-      let users = await admin.ListUsers();
+      let users = await admin.GetLawyerApplications();
+      console.log(users);
       setUsers(users);
     })();
   }, []);
