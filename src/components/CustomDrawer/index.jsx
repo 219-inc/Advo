@@ -12,7 +12,7 @@ import {
   DrawerItemList,
 } from "@react-navigation/drawer";
 import tw from "twrnc";
-import { Auth } from "aws-amplify";
+import { Auth, API } from "aws-amplify";
 
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -26,12 +26,29 @@ const index = (props) => {
     (async () => {
       let user = await Auth.currentAuthenticatedUser();
       let username = user.attributes.phone_number;
+
+      console.log(user.signInUserSession.accessToken.jwtToken);
+
+      let requestInfo = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.signInUserSession.idToken.jwtToken}`,
+        },
+      };
+      try {
+        let response = await API.get("AdvoApis", "/current-user", requestInfo);
+
+        console.log(response);
+      } catch (err) {
+        console.log(err);
+      }
+
       username = username.charAt(0).toUpperCase() + username.slice(1);
       setUserName(username);
     })();
   }, []);
 
-  function logout(){
+  function logout() {
     Auth.signOut();
   }
 
@@ -67,6 +84,15 @@ const index = (props) => {
         </ImageBackground>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
+      <View style={tw`py-4 px-4 border-t border-gray-300`}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("LawyerApplication")}
+          style={tw`flex flex-row justify-start`}
+        >
+          <MaterialIcons name="person" size={24} color="black" />
+          <Text style={tw`ml-2 my-auto`}>Are you a lawyer?</Text>
+        </TouchableOpacity>
+      </View>
       <View style={tw`py-4 px-4 border-t border-gray-300`}>
         <TouchableOpacity
           onPress={logout}

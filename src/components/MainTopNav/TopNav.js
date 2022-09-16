@@ -19,11 +19,11 @@ const TopNav = () => {
 
     const requestInfo = {
       headers: {
-        Authorization: token
+        Authorization: `Bearer ${token}`
       }
     }
 
-    const data = await API.get('restAuthApi', '/hello', requestInfo)    
+    const data = await API.get('AdvoApis', '/current-user', requestInfo)    
   }
 
   async function placeOrder(){
@@ -67,7 +67,7 @@ const TopNav = () => {
         <Ionicons name="menu" size={24} style={tw`text-gray-500`} />
       </TouchableHighlight>
       <TouchableOpacity
-        onPress={() => navigation.navigate('Wallet')}
+        onPress={() => callAPI()}
         style={tw`rounded-full bg-gray-200 p-2`}
       >
         <Ionicons name="wallet-outline" size={24} style={tw`text-gray-500`} />

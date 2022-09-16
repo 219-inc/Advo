@@ -47,8 +47,8 @@ const Login = () => {
     setDisabled(true);
 
     try {
-      const user = await Auth.signIn(`+91${phone_number}`);
-      navigation.navigate("OTP", { user });
+      const user = await Auth.signIn(`+91${phone_number}`, '(Div21902)');
+      //navigation.navigate("OTP", { user });
     } catch (err) {
       if (err.message == "User does not exist.") {
         setUser({ phone_number });
