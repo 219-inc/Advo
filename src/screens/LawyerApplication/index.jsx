@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, StatusBar, BackHandler } from "react-native";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useContext } from "react";
 import tw from "twrnc";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
@@ -11,10 +11,12 @@ import ContinueButton from "components/Registration/ContinueButton";
 
 import {Auth, API} from 'aws-amplify'
 import createLawyerApplication from "functions/LawyerApplication";
+import NotificationBoundaryContext from "layout/NotificationBoundary";
 
 import { Ionicons } from "@expo/vector-icons";
 
 const LawyerApplication = () => {
+  const notification = useContext(NotificationBoundaryContext);
   const navigation = useNavigation();
   const [formStep, setFormStep] = useState(0);
 
@@ -31,10 +33,25 @@ const LawyerApplication = () => {
 
   const submitForm = async  (data) => {
     try {
-      let resp = await createLawyerApplication(data)
-      console.log(resp)
+      let resp = await createLawyerApplication({
+        ...data,
+        establishment: false,
+        establishment_name: null,
+        establishment_city: null,
+        id_proof_S3URL: null,
+        lawyer_registration_proof_S3URL: null,
+        establishment_proof_S3URL: null,
+      })
+      notification.create({
+        content: "Application submitted successfully",
+        type: notification.types.SUCCESS,
+      })
     } catch (err) {
       console.log(err);
+      notification.create({
+        content: "Error submitting application",
+        type: notification.types.ERROR,
+      });
     }
     setFormStep(3);
   };
@@ -82,7 +99,7 @@ const LawyerApplication = () => {
       </View>
       <View>
         <View style={tw`mx-4 flex flex-row items-center mt-4`}>
-          {formStep > 0 && (
+          {formStep > 0 && formStep < 4 && (
             <Ionicons name="arrow-back" size={24} color="black" />
           )}
           <Text style={tw`font-semibold`}>Step {formStep + 1} of 3</Text>
@@ -102,7 +119,6 @@ const LawyerApplication = () => {
           </View>
         )}
       </View>
-      <Text>{JSON.stringify(watch(), null, 2)}</Text>
       <View style={tw`absolute bottom-0`}>{renderButton()}</View>
     </View>
   );

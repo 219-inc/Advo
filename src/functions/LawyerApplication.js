@@ -16,7 +16,7 @@ export default function createLawyerApplication(data) {
         Authorization: `Bearer ${token}`,
       },
     };
-    API.post("AdvoApis", CREATE_LAWYER_APPLICATION, {
+    API.post("AdvoApis", "/lawyer-application", {
       body: data,
       ...requestInfo,
     })
