@@ -32,7 +32,7 @@ const awsmobile = {
     },
     {
       name: "AdvoApis",
-      endpoint: "https://jy79vqifhi.execute-api.ap-south-1.amazonaws.com/dev",
+      endpoint: "https://jza2nkfge1.execute-api.ap-south-1.amazonaws.com/dev",
       region: "ap-south-1",
     },
   ],

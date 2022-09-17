@@ -6,7 +6,7 @@ import {
   StatusBar,
   TouchableOpacity,
 } from "react-native";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
   DrawerContentScrollView,
   DrawerItemList,
@@ -14,39 +14,69 @@ import {
 import tw from "twrnc";
 import { Auth, API } from "aws-amplify";
 
-import { AntDesign, MaterialIcons } from "@expo/vector-icons";
+import { AntDesign, MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import UserProfileIcon from "component/UserProfileIcon";
+
+import UserContext from "context/User";
 
 const index = (props) => {
   const navigation = useNavigation();
   const [user_name, setUserName] = useState("");
 
+  const { user, setUser } = useContext(UserContext);
+
   useEffect(() => {
     (async () => {
-      let user = await Auth.currentAuthenticatedUser();
-      let username = user.attributes.phone_number;
-
-      console.log(user.signInUserSession.accessToken.jwtToken);
+      let session = await Auth.currentSession();
+      const token = session.getIdToken().getJwtToken();
 
       let requestInfo = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${user.signInUserSession.idToken.jwtToken}`,
+          Authorization: `Bearer ${token}`,
         },
       };
-      try {
-        let response = await API.get("AdvoApis", "/current-user", requestInfo);
 
-        console.log(response);
-      } catch (err) {
-        console.log(err);
-      }
-
-      username = username.charAt(0).toUpperCase() + username.slice(1);
-      setUserName(username);
+      let _user = await API.get("AdvoApis", "/current-user", requestInfo);
+      setUser(_user);
+      setUserName(_user.name);
     })();
   }, []);
+
+  function renderLawyer() {
+    if (user?.isLawyer) {
+      return (
+        <TouchableOpacity
+          onPress={() => navigation.navigate("LawyerStack")}
+          style={tw`flex flex-row justify-start`}
+        >
+          <MaterialIcons name="person" size={24} color="black" />
+          <Text style={tw`ml-2 my-auto`}>Lawyers Portal</Text>
+        </TouchableOpacity>
+      );
+    } else if (user?.lawyerApplicationStatus == "applied") {
+      return (
+        <TouchableOpacity
+          onPress={() => navigation.navigate("LawyerApplication")}
+          style={tw`flex flex-row justify-start`}
+        >
+          <Ionicons name="document-attach-outline" size={24} color="black" />
+          <Text style={tw`ml-2 my-auto`}>View application staus</Text>
+        </TouchableOpacity>
+      );
+    } else {
+      return (
+        <TouchableOpacity
+          onPress={() => navigation.navigate("LawyerApplication")}
+          style={tw`flex flex-row justify-start`}
+        >
+          <MaterialIcons name="person" size={24} color="black" />
+          <Text style={tw`ml-2 my-auto`}>Are you a lawyer?</Text>
+        </TouchableOpacity>
+      );
+    }
+  }
 
   function logout() {
     Auth.signOut();
@@ -85,13 +115,7 @@ const index = (props) => {
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
       <View style={tw`py-4 px-4 border-t border-gray-300`}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("LawyerApplication")}
-          style={tw`flex flex-row justify-start`}
-        >
-          <MaterialIcons name="person" size={24} color="black" />
-          <Text style={tw`ml-2 my-auto`}>Are you a lawyer?</Text>
-        </TouchableOpacity>
+        {renderLawyer()}
       </View>
       <View style={tw`py-4 px-4 border-t border-gray-300`}>
         <TouchableOpacity

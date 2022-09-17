@@ -10,7 +10,7 @@ const ContinueButton = ({ onPress, disabled }) => {
   function continueOnPress(callback) {
     setLoading(true);
     callback();
-    // setLoading(false)
+    setLoading(false)
   }
 
   return (
@@ -19,6 +19,7 @@ const ContinueButton = ({ onPress, disabled }) => {
         disabled ? "bg-white border border-black" : ""
       }`}
       onPress={() => continueOnPress(onPress)}
+      disabled={disabled}
     >
       {!loading ? (
         <View style={tw`items-center justify-center flex flex-row`}>

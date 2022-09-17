@@ -13,6 +13,7 @@ import OnboardingScreens from "screen/OnboardingScreens";
 import HomeStack from "./HomeStack";
 import LawyersProfile from "screen/LawyersProfile";
 import LawyerApplication from "screen/LawyerApplication";
+import SplashScreen from "screen/SplashScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -80,6 +81,7 @@ export default function Root() {
         </>
       ) : (
         <>
+          <Stack.Screen name="Splash" component={SplashScreen} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen
             name="SignIn"

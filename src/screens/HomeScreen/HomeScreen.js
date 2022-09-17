@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { View, Text, Image, ScrollView, StatusBar } from 'react-native'
 import tw from 'twrnc'
-import { Auth } from 'aws-amplify'
+import { Auth, API } from 'aws-amplify'
 
 import MainTopNav from 'component/MainTopNav'
 import SearchBar from 'component/SearchBar'
@@ -11,13 +11,32 @@ import Nearby from 'component/Nearby'
 
 import LocationDropDown from "component/LocationDropDown";
 
+import UserContext from 'context/User'
+
 const HomeScreen = () => {
   const [user_name, setUserName] = useState('')
+  const {user, setUser} = useContext(UserContext)
+
+  const getUser = async () => {
+    let session = await Auth.currentSession();
+    const token = session.getIdToken().getJwtToken();
+
+    let requestInfo = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    let _user = await API.get("AdvoApis", "/current-user", requestInfo);
+    setUser(_user);
+    return _user;
+  };
 
   useEffect(() => {
     (async () => {
-      let user = await Auth.currentAuthenticatedUser()
-      let username = user.attributes.phone_number;
+      let _user = await getUser();
+      let username = _user.name;
       username = username.charAt(0).toUpperCase() + username.slice(1)
       setUserName(username)
     })()

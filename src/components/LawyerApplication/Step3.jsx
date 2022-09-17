@@ -3,33 +3,15 @@ import { View, Text, Image, TextInput } from "react-native";
 import tw from "twrnc";
 import { Controller } from "react-hook-form";
 
-import UserContext from "context/User";
-
-const Step1 = ({ control, errors }) => {
-
-  const { user } = useContext(UserContext);
-
+const Step3 = ({control, errors}) => {
   return (
     <View>
-      <View
-        style={tw`bg-white h-24 mx-3 my-4 rounded-lg shadow-md flex flex-row px-4`}
-      >
-        <View style={tw`w-1/4 rounded-l-lg`}>
-          <Image
-            style={tw`h-20 w-20 rounded-full mx-auto my-auto`}
-            source={{
-              uri: "https://scontent.cdninstagram.com/v/t51.2885-19/300785011_1478582582659712_62925286134686875_n.jpg?stp=dst-jpg_s150x150&_nc_ht=scontent.cdninstagram.com&_nc_cat=108&_nc_ohc=My_9AyBNQJMAX8quRXt&edm=APs17CUBAAAA&ccb=7-5&oh=00_AT9-sgPMn8uT6OkNLo1zXKLofcBRsvnYPUcNo4N_f498OA&oe=632B241B&_nc_sid=978cb9",
-            }}
-          />
-        </View>
-        <View style={tw`w-3/4 flex flex-col justify-center mx-3`}>
-          <Text style={tw`text-lg font-semibold`}>{user?.name}</Text>
-          <Text style={tw`text-sm text-gray-400`}>{user?.email}</Text>
-          <Text style={tw`text-sm text-gray-400`}>{user?.phone}</Text>
-        </View>
-      </View>
-      <View style={tw`bg-white mx-3 my-4 rounded-lg shadow-md flex px-4 py-3`}>
-        <Text style={tw`text-lg font-semibold mb-3`}>Personal Information</Text>
+      <View style={tw`bg-white mx-3 my-4 rounded-lg shadow-md flex p-4`}>
+        <Text style={tw`text-lg font-semibold`}>Education Qualification</Text>
+        <Text style={tw`text-gray-700 font-semibold mb-3`}>
+          Please enter your base level qualification
+        </Text>
+
         <Controller
           control={control}
           rules={{
@@ -37,22 +19,22 @@ const Step1 = ({ control, errors }) => {
           }}
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
-              placeholder="Your City"
+              placeholder="Degree"
               style={tw`py-3 px-4 bg-gray-200 rounded mb-3`}
               value={value}
               onBlur={onBlur}
               onChangeText={onChange}
-              name={"city"}
+              name={"degree"}
             />
           )}
-          name={"city"}
+          name={"degree"}
         />
-        {errors.city && (
+        {errors.degree && (
           <View
             style={tw`rounded-lg mb-2 px-1 py-2 bg-red-200 border border-red-300 items-center justify-center`}
           >
             <Text style={tw`text-sm text-red-700 font-semibold`}>
-              City is required
+              Degree is required
             </Text>
           </View>
         )}
@@ -63,22 +45,22 @@ const Step1 = ({ control, errors }) => {
           }}
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
-              placeholder="Your Gender"
+              placeholder="College/Institute"
               style={tw`py-3 px-4 bg-gray-200 rounded mb-3`}
               value={value}
               onBlur={onBlur}
               onChangeText={onChange}
-              name={"gender"}
+              name={"institution"}
             />
           )}
-          name={"gender"}
+          name={"institution"}
         />
-        {errors.gender && (
+        {errors.institution && (
           <View
             style={tw`rounded-lg mb-2 px-1 py-2 bg-red-200 border border-red-300 items-center justify-center`}
           >
             <Text style={tw`text-sm text-red-700 font-semibold`}>
-              Gender is required
+              College/Institute is required
             </Text>
           </View>
         )}
@@ -89,22 +71,50 @@ const Step1 = ({ control, errors }) => {
           }}
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
-              placeholder="Your specialization"
+              placeholder="Year of completion"
               style={tw`py-3 px-4 bg-gray-200 rounded mb-3`}
               value={value}
               onBlur={onBlur}
               onChangeText={onChange}
-              name={"specialization"}
+              keyBoardType={"numeric"}
+              name={"year_of_completion"}
             />
           )}
-          name={"specialization"}
+          name={"year_of_completion"}
         />
-        {errors.specialization && (
+        {errors.year_of_completion && (
           <View
             style={tw`rounded-lg mb-2 px-1 py-2 bg-red-200 border border-red-300 items-center justify-center`}
           >
             <Text style={tw`text-sm text-red-700 font-semibold`}>
-              Specialization is required
+              Year of Completion is required
+            </Text>
+          </View>
+        )}
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              placeholder="Years of experience"
+              style={tw`py-3 px-4 bg-gray-200 rounded mb-3`}
+              value={value}
+              onBlur={onBlur}
+              onChangeText={onChange}
+              keyBoardType={"numeric"}
+              name={"years_of_experience"}
+            />
+          )}
+          name={"years_of_experience"}
+        />
+        {errors.years_of_experience && (
+          <View
+            style={tw`rounded-lg mb-2 px-1 py-2 bg-red-200 border border-red-300 items-center justify-center`}
+          >
+            <Text style={tw`text-sm text-red-700 font-semibold`}>
+              Years of Experience is required
             </Text>
           </View>
         )}
@@ -113,4 +123,4 @@ const Step1 = ({ control, errors }) => {
   );
 };
 
-export default Step1;
+export default Step3;

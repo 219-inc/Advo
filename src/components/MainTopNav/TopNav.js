@@ -13,17 +13,17 @@ const TopNav = () => {
   const navigation = useNavigation()
 
   async function callAPI(){
-    const user = await Auth.currentAuthenticatedUser()
-    const token = user.signInUserSession.idToken.jwtToken
-    console.log({token})
+    const session = await Auth.currentSession();
+    const token = (session).getAccessToken().getJwtToken();
 
     const requestInfo = {
       headers: {
-        Authorization: `Bearer ${token}`
+        "Authorization": `Bearer ${token}`
       }
     }
 
-    const data = await API.get('AdvoApis', '/current-user', requestInfo)    
+    const data = await API.get('AdvoApis', '/current-user', requestInfo)  
+    console.log({data})  
   }
 
   async function placeOrder(){
@@ -67,7 +67,7 @@ const TopNav = () => {
         <Ionicons name="menu" size={24} style={tw`text-gray-500`} />
       </TouchableHighlight>
       <TouchableOpacity
-        onPress={() => callAPI()}
+        onPress={() => navigation.navigate('Wallet')}
         style={tw`rounded-full bg-gray-200 p-2`}
       >
         <Ionicons name="wallet-outline" size={24} style={tw`text-gray-500`} />
