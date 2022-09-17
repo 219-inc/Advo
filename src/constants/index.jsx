@@ -78,8 +78,8 @@ export const LawyerApplicationTableHeaders = [
     accessor: "applicationId",
     Cell: ({ cell }) =>{
       return(
-        <Link to={`/lawyer-application-details/${cell.value}`}>
-          <FiEdit2/>
+        <Link to={`/lawyer-application-details/${cell.value}`} className="font-semibold text-blue-300 text-center mx-2 hover:text-blue-600">
+          View
         </Link>
       )
     }

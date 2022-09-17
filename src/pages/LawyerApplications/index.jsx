@@ -14,40 +14,17 @@ function LawyerApplications() {
     
   let admin = new Admin();
 
-  // const printTableHeaders = () => {
-  //   return LawyerApplicationTableHeaders.map((header, index) => {
-  //     return (
-  //       console.log(header , index)
-
-  //     );
-  //   });
-  // };
-
-  //  printTableHeaders();
-
- 
-  
   useEffect(() => {
     (async () => {
       let _applications = await admin.GetLawyerApplications();
       setApplications(_applications);
-      //print the userid from app
-       console.log(_applications)     
-    
-     
     })();
   }, []);
-
-
-
-
-  
-  
   return (
     <div className="bg-white">
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Astro | Lawyer Applications</title>
+        <title>Advo | Lawyer Applications</title>
       </Helmet>
       <div className="px-6 md:py-0 py-3">
         <h1 className="text-5xl text-black font-semibold">

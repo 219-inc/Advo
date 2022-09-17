@@ -247,6 +247,26 @@ export default class Admin {
         return applications;
     }
 
+    async updateApplicationStatus(applicationId, status) {
+        let request = {
+          body: {
+            applicationId,
+            status,
+          },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${(await Auth.currentSession())
+              .getAccessToken()
+              .getJwtToken()}`,
+          },
+        };
+        return await API.post(
+          this.apiName,
+          api.ApproveLawyerApplication.updateApplication,
+          request
+        );
+    }
+
     async ApproveLawyerApplication(applicationId, username) {
         let request = {
             body: {
@@ -261,16 +281,10 @@ export default class Admin {
         await API.post(this.apiName, api.ApproveLawyerApplication.addToGroup, request);
 
         //update the application status
-        request = {
-            body: {
-                "applicationId": applicationId,
-                "status": "approved"
-            },
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `${(await Auth.currentSession()).getAccessToken().getJwtToken()}`
-            }
-        }
-        return await API.post(this.apiName, api.ApproveLawyerApplication.updateApplication, request);
+        await this.updateApplicationStatus(applicationId, "approved");
+    }
+
+    async RejectLawyerApplication(applicationId) {
+        await this.updateApplicationStatus(applicationId, "rejected");
     }
 }
