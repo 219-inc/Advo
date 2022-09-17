@@ -21,7 +21,7 @@
         },
         "ListLawyers": {
           "deploymentBucketName": "amplify-lawyerconsultation-dev-124516-deployment",
-          "s3Key": "amplify-builds/ListLawyers-54454b366e593538716c-build.zip"
+          "s3Key": "amplify-builds/ListLawyers-74655430566775335363-build.zip"
         },
         "AdvoAuthCreateAuthChallenge": {
           "deploymentBucketName": "amplify-lawyerconsultation-dev-124516-deployment",

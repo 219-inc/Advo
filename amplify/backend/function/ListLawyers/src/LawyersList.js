@@ -7,7 +7,7 @@ class LawyersList {
   }
 
   async getLawyersList() {
-    let sql = `SELECT * FROM AdvoLawyers WHERE lawyerType = '${this.type}' AND isActive = true`;
+    let sql = `SELECT * FROM AdvoLawyers WHERE speciality = '${this.type}' AND isActive = true`;
     let response = await queryExec(sql);
     let lawyers = response.records.map((lawyer) => new Lawyer(lawyer));
     return lawyers;
