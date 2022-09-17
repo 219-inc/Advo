@@ -21,7 +21,7 @@
         },
         "ListLawyers": {
           "deploymentBucketName": "amplify-lawyerconsultation-dev-124516-deployment",
-          "s3Key": "amplify-builds/ListLawyers-4978436b62715431337a-build.zip"
+          "s3Key": "amplify-builds/ListLawyers-54454b366e593538716c-build.zip"
         },
         "AdvoAuthCreateAuthChallenge": {
           "deploymentBucketName": "amplify-lawyerconsultation-dev-124516-deployment",
@@ -45,7 +45,7 @@
         },
         "AdvoGetCurrentAuthUser": {
           "deploymentBucketName": "amplify-lawyerconsultation-dev-124516-deployment",
-          "s3Key": "amplify-builds/AdvoGetCurrentAuthUser-48354e384b377438697a-build.zip"
+          "s3Key": "amplify-builds/AdvoGetCurrentAuthUser-48673336437151345048-build.zip"
         },
         "AdvoCreateUser": {
           "deploymentBucketName": "amplify-lawyerconsultation-dev-124516-deployment",
@@ -53,7 +53,7 @@
         },
         "CreateLawyerApplication": {
           "deploymentBucketName": "amplify-lawyerconsultation-dev-124516-deployment",
-          "s3Key": "amplify-builds/CreateLawyerApplication-59776258624d78626d44-build.zip"
+          "s3Key": "amplify-builds/CreateLawyerApplication-734b6c7a53597449702f-build.zip"
         }
       },
       "auth": {

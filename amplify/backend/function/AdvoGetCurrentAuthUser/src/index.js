@@ -10,7 +10,9 @@ const processUser = (user) => {
     name: user[1].stringValue,
     email: user[2].stringValue,
     phone: user[3].stringValue,
-    createdOn: user[4].stringValue,
+    lastActive: user[4].stringValue,
+    isLawyer: user[5].booleanValue,
+    lawyerApplicationStatus: user[6].stringValue,
   };
 };
 
