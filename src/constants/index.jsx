@@ -1,5 +1,7 @@
 import authMethods from "./authMethods";
 import SideMenuOptions from "./SideMenuOptions";
+import {FiEdit2} from 'react-icons/fi' ;
+import {Link} from 'react-router-dom';
 
 export const sections = [
   {
@@ -42,41 +44,45 @@ export const userTableHeaders = [
     label: "User Status"
   }
 ];
-
+function viewApplicationDetails(id){
+  
+}
 export const LawyerApplicationTableHeaders = [
+
   {
-    id: "applicationId",
-    label: "Application ID",
-    accesor: "applicationId"
-  },
-  {
-    id: "userId",
-    label: "User ID",
-    accesor: "userId"
+    id: "user",
+    Header: "User",
+    accessor: "user.email"
   },
   {
     id: "specialization",
-    label: "Specialization",
-    accesor: "specialization"
+    Header: "Specialization",
+    accessor: "specialization"
   },
-  {
-    id: "city",
-    label: "City",
-    accesor: "city"
-  },
+ 
   {
     id: "application_status",
-    label: "Application Status",
-    accesor: "application_status"
+    Header: "Application Status",
+    accessor: "application_status"
   },
-  {
-    id: "createdOn",
-    label: "Created On",
-    accesor: "createdOn"
-  },
+ 
   {
     id: "updatedOn",
-    label: "Updated On",
-    accesor: "updatedOn"
+    Header: "Updated On",
+    accessor: "updatedOn"
+  }
+  ,
+  {
+    id: "Actions",
+    Header: "Actions",
+    accessor: "applicationId",
+    Cell: ({ cell }) =>{
+      return(
+        <Link to={`/lawyer-application-details/${cell.value}`}>
+          <FiEdit2/>
+        </Link>
+      )
+    }
+    
   }
 ]

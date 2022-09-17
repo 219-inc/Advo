@@ -2,6 +2,8 @@ import { useEffect, useState, useContext } from "react";
 import { Helmet } from "react-helmet";
 import Admin from "@/functions/Admin";
 
+import Table, { AvatarCell } from './Table'  // new
+
 import ErrorContext from "@/context/ErrorContext";
 
 import { LawyerApplicationTableHeaders } from "@/constants";
@@ -9,16 +11,38 @@ import { LawyerApplicationTableHeaders } from "@/constants";
 function LawyerApplications() {
   const errors = useContext(ErrorContext);
   const [applications, setApplications] = useState(null);
-
+    
   let admin = new Admin();
 
+  // const printTableHeaders = () => {
+  //   return LawyerApplicationTableHeaders.map((header, index) => {
+  //     return (
+  //       console.log(header , index)
+
+  //     );
+  //   });
+  // };
+
+  //  printTableHeaders();
+
+ 
+  
   useEffect(() => {
     (async () => {
       let _applications = await admin.GetLawyerApplications();
       setApplications(_applications);
+      //print the userid from app
+       console.log(_applications)     
+    
+     
     })();
   }, []);
 
+
+
+
+  
+  
   return (
     <div className="bg-white">
       <Helmet>
@@ -36,7 +60,12 @@ function LawyerApplications() {
       <hr />
       <div className="h-full p-6 bg-gray-100">
         {!applications && <h3>Loading...</h3>}
-        {applications && <>{JSON.stringify(applications)}</>}
+        {applications && <>
+         
+          <Table columns={LawyerApplicationTableHeaders} data={applications}/>
+         
+        </>
+        }
       </div>
     </div>
   );
