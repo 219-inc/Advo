@@ -81,7 +81,7 @@ export default function Root() {
         </>
       ) : (
         <>
-          <Stack.Screen name="Splash" component={SplashScreen} />
+          {/* <Stack.Screen name="Splash" component={SplashScreen} /> */}
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen
             name="SignIn"

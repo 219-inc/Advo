@@ -22,7 +22,7 @@ import UserContext from "context/User";
 
 const index = (props) => {
   const navigation = useNavigation();
-  const [user_name, setUserName] = useState("");
+  const [_user, set_user] = useState("");
 
   const { user, setUser } = useContext(UserContext);
 
@@ -40,12 +40,13 @@ const index = (props) => {
 
       let _user = await API.get("AdvoApis", "/current-user", requestInfo);
       setUser(_user);
-      setUserName(_user.name);
+      set_user(_user);
+      console.log(token, _user);
     })();
   }, []);
 
   function renderLawyer() {
-    if (user?.isLawyer) {
+    if (_user?.isLawyer) {
       return (
         <TouchableOpacity
           onPress={() => navigation.navigate("LawyerStack")}
@@ -55,14 +56,14 @@ const index = (props) => {
           <Text style={tw`ml-2 my-auto`}>Lawyers Portal</Text>
         </TouchableOpacity>
       );
-    } else if (user?.lawyerApplicationStatus == "applied") {
+    } else if (_user?.lawyerApplicationStatus == "applied") {
       return (
         <TouchableOpacity
           onPress={() => navigation.navigate("LawyerApplication")}
           style={tw`flex flex-row justify-start`}
         >
           <Ionicons name="document-attach-outline" size={24} color="black" />
-          <Text style={tw`ml-2 my-auto`}>View application staus</Text>
+          <Text style={tw`ml-2 my-auto`}>View application status</Text>
         </TouchableOpacity>
       );
     } else {
@@ -95,7 +96,7 @@ const index = (props) => {
           <UserProfileIcon style={tw`h-20 w-20 rounded-full`} />
           <View style={tw`flex flex-col  my-auto`}>
             <Text style={tw`text-white font-semibold text-lg mx-3`}>
-              {user_name}
+              {_user.name}
             </Text>
             <TouchableOpacity
               onPress={() => navigation.navigate("Profile")}
