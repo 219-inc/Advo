@@ -337,6 +337,20 @@ async function getUserDetails(userId) {
   }
 }
 
+async function changeSideMenuContentStatus(name, status){
+  try {
+    let query = `UPDATE AppContent_SideMenu SET isEnabled = ${status} WHERE name = '${name}'`;
+    const result = await queryExec(query);
+
+    return result;
+
+  }
+  catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
 module.exports = {
   addUserToGroup,
   removeUserFromGroup,
@@ -352,4 +366,5 @@ module.exports = {
   getLawyerApplications,
   updateLawyerApplicationStatus,
   getUserDetails,
+  changeSideMenuContentStatus,
 };

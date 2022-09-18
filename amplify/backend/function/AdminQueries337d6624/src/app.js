@@ -30,6 +30,7 @@ const {
   getLawyerApplications,
   updateLawyerApplicationStatus,
   getUserDetails,
+  changeSideMenuContentStatus,
 } = require("./cognitoActions");
 
 const app = express();
@@ -328,6 +329,15 @@ app.post('/updateLawyerApplicationStatus', async (req, res, next) => {
 app.get("/userDetails", async (req, res, next) => {
   try {
     const response = await getUserDetails(req.query.userId);
+    res.status(200).json(response);
+  } catch (err) {
+    next(err);
+  }
+})
+
+app.post("/sideMenuContent", async (req, res, next) => {
+  try {
+    const response = await changeSideMenuContentStatus(req.body.name, req.body.status);
     res.status(200).json(response);
   } catch (err) {
     next(err);

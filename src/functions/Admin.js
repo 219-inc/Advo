@@ -287,4 +287,18 @@ export default class Admin {
     async RejectLawyerApplication(applicationId) {
         await this.updateApplicationStatus(applicationId, "rejected");
     }
+
+    async changeSideMenuOptionStatus(option, status) {
+        let request = {
+            body: {
+                "name": option,
+                "status": status
+            },
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `${(await Auth.currentSession()).getAccessToken().getJwtToken()}`
+            }
+        }
+        return await API.post(this.apiName, "/sideMenuContent", request);
+    }
 }

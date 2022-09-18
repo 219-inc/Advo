@@ -1,7 +1,7 @@
 {
-    "name": "AdvoApis",
+    "name": "AdminQueries",
     "ContentMgmt": {
-        "path": "/current-user",
+        "path": "/",
         "method": "GET"
     }
 }

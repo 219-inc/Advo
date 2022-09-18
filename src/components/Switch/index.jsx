@@ -1,32 +1,21 @@
 import {useState, useContext} from "react";
 import Switch from "react-switch";
-
-import * as api from "../../apis/api.config.json";
-
-import { Auth, API } from 'aws-amplify';
+import Admin from '@/functions/Admin'
 
 import ErrorContext from "@/context/ErrorContext";
 
-function index({ method }) {
+function index({ method, path_name }) {
 
     const [isEnabled, setIsEnabled] = useState(method.isEnabled);
 
     const errors = useContext(ErrorContext);
+    let admin = new Admin();
 
     const onChange = async (checked) => {
-      const user = await Auth.currentAuthenticatedUser()
-      const token = user.signInUserSession.idToken.jwtToken
-
-      const requestInfo = {
-        headers: {
-          Authorization: token,
-        },
-      };
-
-      const data = await API.get(api.name, api.ContentMgmt.path, requestInfo)
+      await admin.changeSideMenuOptionStatus(method.name, checked);
       
       errors.throw(
-        `${method.name} authentication is now ${checked ? "enabled" : "disabled"}`,
+        `${method.name} is now ${checked ? "enabled" : "disabled"}`,
         errors.SUCCESS
       )
 

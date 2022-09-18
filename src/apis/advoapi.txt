@@ -3,3 +3,8 @@
       endpoint: "https://jza2nkfge1.execute-api.ap-south-1.amazonaws.com/dev",
       region: "ap-south-1",
     },
+    {
+      name: "AppContent",
+      endpoint: "https://vvevoavxr0.execute-api.ap-south-1.amazonaws.com/dev",
+      region: "ap-south-1",
+    },
