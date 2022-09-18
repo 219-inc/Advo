@@ -15,7 +15,6 @@ import Step2 from "components/LawyerApplication/Step2";
 import Step3 from "components/LawyerApplication/Step3";
 import ContinueButton from "components/Registration/ContinueButton";
 
-import { Auth, API } from "aws-amplify";
 import createLawyerApplication from "functions/LawyerApplication";
 import NotificationBoundaryContext from "layout/NotificationBoundary";
 import UserContext from "context/User";
