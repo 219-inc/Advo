@@ -54,6 +54,10 @@
         "CreateLawyerApplication": {
           "deploymentBucketName": "amplify-lawyerconsultation-dev-124516-deployment",
           "s3Key": "amplify-builds/CreateLawyerApplication-734b6c7a53597449702f-build.zip"
+        },
+        "AppContentManagement": {
+          "deploymentBucketName": "amplify-lawyerconsultation-dev-124516-deployment",
+          "s3Key": "amplify-builds/AppContentManagement-34304572486a49333249-build.zip"
         }
       },
       "auth": {
