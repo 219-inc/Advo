@@ -3,6 +3,10 @@ import Server from "../src/app";
 
 const app = Server();
 
+//test to check if server is connected to the database
+
+describe("Is server connected to the database", () => {});
+
 describe("GET /allUsers", () => {
   //should return 200 code
 

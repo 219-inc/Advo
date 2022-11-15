@@ -50,5 +50,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       
-      - name: Testing
+      - name: Generate prisma client
+        run: pnpm prisma:migrate
+
+      - name: Run Tests
         run: pnpm test
