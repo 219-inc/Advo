@@ -9,7 +9,7 @@ export default function () {
     res.send("Hello World");
   });
 
-  app.get("/allUser", async (req, res) => {
+  app.get("/allUsers", async (req, res) => {
     const users = await getUsers();
     res.send(users);
   });

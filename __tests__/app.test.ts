@@ -3,18 +3,37 @@ import Server from "../src/app";
 
 const app = Server();
 
-describe("GET /", () => {
-  //it should return 200 code
+describe("GET /allUsers", () => {
+  //should return 200 code
 
   test("It should respond with 200", async () => {
-    const response = await supertest(app).get("/");
+    const response = await supertest(app).get("/allUsers");
     expect(response.statusCode).toBe(200);
   });
 
-  //it should return Hello World
+  //should have json content type
 
-  test("It should respond with Hello World", async () => {
-    const response = await supertest(app).get("/");
-    expect(response.text).toBe("Hello World");
+  test("It should respond with json", async () => {
+    const response = await supertest(app).get("/allUsers");
+    expect(response.headers["content-type"]).toEqual(
+      expect.stringContaining("json")
+    );
+  });
+
+  //should return all users
+
+  test("It should respond with all users", async () => {
+    const response = await supertest(app).get("/allUsers");
+    expect(response.body).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          id: expect.any(Number),
+          firstname: expect.any(String),
+          lastname: expect.any(String),
+          email: expect.any(String),
+          uuid: expect.any(String),
+        }),
+      ])
+    );
   });
 });

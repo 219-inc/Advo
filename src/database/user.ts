@@ -19,6 +19,14 @@ export async function getUser(id: number) {
     where: {
       id: id,
     },
+    select: {
+      id: true,
+      firstname: true,
+      lastname: true,
+      email: true,
+      uuid: true,
+      password: true,
+    },
   });
 
   return user;
@@ -26,7 +34,15 @@ export async function getUser(id: number) {
 
 //get all users
 export async function getUsers() {
-  const users = await prisma.user.findMany();
+  const users = await prisma.user.findMany({
+    select: {
+      id: true,
+      firstname: true,
+      lastname: true,
+      email: true,
+      uuid: true,
+    },
+  });
 
   return users;
 }
@@ -67,6 +83,13 @@ export async function getUserByEmail(email: string) {
     where: {
       email: email,
     },
+    select: {
+      id: true,
+      firstname: true,
+      lastname: true,
+      email: true,
+      uuid: true,
+    },
   });
 
   return user;
@@ -77,6 +100,13 @@ export async function getUserByUUID(uuid: string) {
   const user = await prisma.user.findUnique({
     where: {
       uuid: uuid,
+    },
+    select: {
+      id: true,
+      firstname: true,
+      lastname: true,
+      email: true,
+      uuid: true,
     },
   });
 
