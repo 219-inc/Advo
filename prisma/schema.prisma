@@ -11,12 +11,74 @@ datasource db {
 }
 
 model User {
-  id         Int     @id @default(autoincrement())
-  uuid       String  @unique
-  email      String  @unique
-  firstname  String?
-  middlename String? @default("")
-  lastname   String?
-  bio        String?
-  password   String
+  id             String         @id @default(cuid())
+  email          String         @unique
+  firstname      String?
+  middlename     String?        @default("")
+  lastname       String?
+  password       String
+  role           String         @default("GEN_USER")
+  profilePicture String         @default("https://upload.wikimedia.org/wikipedia/commons/a/aa/Sin_cara.png")
+  bio            String         @default("")
+  LawyerReview   LawyerReview[]
+  createdAt      DateTime       @default(now())
+}
+
+model LawyerOffice {
+  id        String   @id @default(cuid())
+  name      String?
+  address   String?
+  city      String?
+  state     String?
+  zip       String?
+  phone     String?
+  email     String?
+  website   String
+  bio       String
+  logo      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Lawyer    Lawyer?
+}
+
+model Slot {
+  id        String   @id @default(cuid())
+  date      DateTime
+  startTime DateTime
+  endTime   DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Lawyer    Lawyer?  @relation(fields: [lawyerId], references: [id])
+  lawyerId  String?
+}
+
+model Lawyer {
+  id                    String         @id @default(cuid())
+  name                  String
+  email                 String         @unique
+  password              String
+  experience            Int?
+  role                  String         @default("LAWYER")
+  rating                Int            @default(0)
+  videoConsultationFee  Int?
+  officeConsultationFee Int?
+  verified              Boolean?       @default(false)
+  qualification         String?
+  LawyerReview          LawyerReview[]
+  LawyerOffice          LawyerOffice?  @relation(fields: [lawyerOfficeId], references: [id])
+  lawyerOfficeId        String?        @unique
+  createdAt             DateTime       @default(now())
+  slots                 Slot[]
+}
+
+model LawyerReview {
+  id        String   @id @default(cuid())
+  lawyer    Lawyer   @relation(fields: [lawyerId], references: [id])
+  lawyerId  String
+  by        User     @relation(fields: [byId], references: [id])
+  byId      String
+  title     String
+  review    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

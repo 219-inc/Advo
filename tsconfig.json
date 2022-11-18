@@ -4,9 +4,14 @@
         "outDir": "dist",
         "rootDir": "src",
         "strict": true,
+        "baseUrl": "./src", /* This is where all your code is*/
+        "typeRoots": [
+            "./node_modules/@types",
+            "./src/types"
+        ],
         "lib": [
             "esnext"
         ],
-        "esModuleInterop": true
+        "esModuleInterop": true,
     }
 }

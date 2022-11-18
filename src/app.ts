@@ -1,30 +1,23 @@
 import express from "express";
-import { createUser, getUsers } from "./database/user";
-import { User } from "./interfaces";
+
+import isAdmin from "./middlewares/isAdmin";
+import isLawyer from "./middlewares/isLawyer";
+import isAuthenticated from "./middlewares/isAuthenticated";
+
+import AuthRouter from "./routes/Auth";
+import AdminRouter from "./routes/Admin";
+import LawyerRouter from "./routes/Lawyers";
+import UserRouter from "./routes/Users";
 
 export default function () {
   const app = express();
 
-  app.get("/", (req, res) => {
-    res.send("Hello World");
-  });
+  app.use(express.json());
 
-  app.get("/allUsers", async (req, res) => {
-    const users = await getUsers();
-    res.send(users);
-  });
-
-  app.post("/user", async (req, res) => {
-    let userId = await createUser({
-      email: "john.doe@gmail.com",
-      firstname: "John",
-      lastname: "Doe",
-      uuid: "123456789",
-      password: "123",
-    } as User);
-
-    res.send({ userId });
-  });
+  app.use("/", AuthRouter);
+  app.use("/api/v1/admin", isAdmin, AdminRouter);
+  app.use("/api/v1/users", isAuthenticated, UserRouter);
+  app.use("/api/v1/lawyers", isLawyer, LawyerRouter);
 
   return app;
 }

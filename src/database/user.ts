@@ -1,17 +1,20 @@
 import prisma from ".";
-import { User as _user } from "../interfaces";
+import { User as _user } from "../types";
 
 //create user
 export async function createUser(user: _user) {
   const newuser = await prisma.user.create({
-    data: user,
+    data: {
+      ...user,
+      password: user.password as string,
+    },
   });
 
   return newuser.id;
 }
 
 //get user by id
-export async function getUser(id: number) {
+export async function getUser(id: string) {
   const user = await prisma.user.findUnique({
     where: {
       id: id,
@@ -21,7 +24,6 @@ export async function getUser(id: number) {
       firstname: true,
       lastname: true,
       email: true,
-      uuid: true,
       password: true,
     },
   });
@@ -37,7 +39,6 @@ export async function getUsers() {
       firstname: true,
       lastname: true,
       email: true,
-      uuid: true,
     },
   });
 
@@ -45,7 +46,7 @@ export async function getUsers() {
 }
 
 //update user
-export async function updateUser(id: number, user: _user) {
+export async function updateUser(id: string, user: _user) {
   const updateduser = await prisma.user.update({
     where: {
       id: id,
@@ -57,7 +58,7 @@ export async function updateUser(id: number, user: _user) {
 }
 
 //delete user
-export async function deleteUser(id: number) {
+export async function deleteUser(id: string) {
   const deleteduser = await prisma.user.delete({
     where: {
       id: id,
@@ -75,7 +76,7 @@ export async function deleteAllUsers() {
 }
 
 //get user by email
-export async function getUserByEmail(email: string) {
+export async function getUserByEmail(email: string, getPassword = false) {
   const user = await prisma.user.findUnique({
     where: {
       email: email,
@@ -85,25 +86,7 @@ export async function getUserByEmail(email: string) {
       firstname: true,
       lastname: true,
       email: true,
-      uuid: true,
-    },
-  });
-
-  return user;
-}
-
-//get user by uuid
-export async function getUserByUUID(uuid: string) {
-  const user = await prisma.user.findUnique({
-    where: {
-      uuid: uuid,
-    },
-    select: {
-      id: true,
-      firstname: true,
-      lastname: true,
-      email: true,
-      uuid: true,
+      password: getPassword ? true : false,
     },
   });
 
