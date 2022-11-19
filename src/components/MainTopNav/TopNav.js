@@ -12,20 +12,6 @@ const TopNav = () => {
   const notification = useContext(NotificationBoundaryContext);
   const navigation = useNavigation()
 
-  async function callAPI(){
-    const session = await Auth.currentSession();
-    const token = (session).getAccessToken().getJwtToken();
-
-    const requestInfo = {
-      headers: {
-        "Authorization": `Bearer ${token}`
-      }
-    }
-
-    const data = await API.get('AdvoApis', '/current-user', requestInfo)  
-    console.log({data})  
-  }
-
   async function placeOrder(){
     const order = new Payments({ammount: Math.floor(Math.random() * 100), currency: 'INR'})
     await order.generateOrderId()

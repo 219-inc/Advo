@@ -5,6 +5,7 @@ import {
   ImageBackground,
   StatusBar,
   TouchableOpacity,
+  NativeEventEmitter,
 } from "react-native";
 import { useState, useEffect, useContext } from "react";
 import {
@@ -12,7 +13,7 @@ import {
   DrawerItemList,
 } from "@react-navigation/drawer";
 import tw from "twrnc";
-import { Auth, API } from "aws-amplify";
+import Auth from "functions/auth";
 
 import { AntDesign, MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -22,31 +23,16 @@ import UserContext from "context/User";
 
 const index = (props) => {
   const navigation = useNavigation();
-  const [_user, set_user] = useState("");
 
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
+  const emitter = new NativeEventEmitter();
 
   useEffect(() => {
-    (async () => {
-      let session = await Auth.currentSession();
-      const token = session.getIdToken().getJwtToken();
-
-      let requestInfo = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      };
-
-      let _user = await API.get("AdvoApis", "/current-user", requestInfo);
-      setUser(_user);
-      set_user(_user);
-      console.log(token, _user);
-    })();
+    console.log("user", user);
   }, []);
 
   function renderLawyer() {
-    if (_user?.isLawyer) {
+    if (user?.isLawyer) {
       return (
         <TouchableOpacity
           onPress={() => navigation.navigate("LawyerStack")}
@@ -56,7 +42,7 @@ const index = (props) => {
           <Text style={tw`ml-2 my-auto`}>Lawyers Portal</Text>
         </TouchableOpacity>
       );
-    } else if (_user?.lawyerApplicationStatus == "applied") {
+    } else if (user?.lawyerApplicationStatus == "applied") {
       return (
         <TouchableOpacity
           onPress={() => navigation.navigate("LawyerApplication")}
@@ -80,7 +66,7 @@ const index = (props) => {
   }
 
   function logout() {
-    Auth.signOut();
+    Auth.logout();
   }
 
   return (
@@ -96,7 +82,7 @@ const index = (props) => {
           <UserProfileIcon style={tw`h-20 w-20 rounded-full`} />
           <View style={tw`flex flex-col  my-auto`}>
             <Text style={tw`text-white font-semibold text-lg mx-3`}>
-              {_user.name}
+              {user.firstname} {user.lastname}
             </Text>
             <TouchableOpacity
               onPress={() => navigation.navigate("Profile")}

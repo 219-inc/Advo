@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { DeviceEventEmitter } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Auth, Hub } from "aws-amplify";
+
+import Auth from "functions/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import Login from "screen/Authentication/Login";
@@ -14,6 +16,8 @@ import HomeStack from "./HomeStack";
 import LawyersProfile from "screen/LawyersProfile";
 import LawyerApplication from "screen/LawyerApplication";
 import SplashScreen from "screen/SplashScreen";
+
+import UserContext from "context/User";
 
 const Stack = createNativeStackNavigator();
 
@@ -30,8 +34,7 @@ const getData = async (key) => {
 };
 
 export default function Root() {
-  const [user, setUser] = useState(undefined);
-
+  const { user, setUser } = useContext(UserContext);
   const [isFirstLaunch, setIsFirstLaunch] = useState(true);
 
   const checkIfSignedIn = async () => {
@@ -58,13 +61,13 @@ export default function Root() {
 
   useEffect(() => {
     const listner = (data) => {
-      if (data.payload.event === "signIn" || data.payload.event === "signOut") {
+      if (data.payload.event === "login" || data.payload.event === "logout") {
         checkIfSignedIn();
       }
     };
 
-    Hub.listen("auth", listner);
-    return () => Hub.remove("auth", listner);
+    DeviceEventEmitter.addListener("auth", listner);
+    return () => DeviceEventEmitter.removeAllListeners("auth");
   }, []);
 
   const HomeComponent = () => (
@@ -77,7 +80,10 @@ export default function Root() {
         <>
           <Stack.Screen name="HomeStack" component={HomeComponent} />
           <Stack.Screen name="LawyersProfile" component={LawyersProfile} />
-          <Stack.Screen name="LawyerApplication" component={LawyerApplication} />
+          <Stack.Screen
+            name="LawyerApplication"
+            component={LawyerApplication}
+          />
         </>
       ) : (
         <>

@@ -1,15 +1,9 @@
 import { useState, useContext, useEffect } from "react";
-import {
-  View,
-  Text,
-  Alert,
-  Platform
-} from "react-native";
+import { View, Text, Alert, Platform, NativeEventEmitter } from "react-native";
 import tw from "twrnc";
 import { useNavigation } from "@react-navigation/native";
 import { useForm, Controller } from "react-hook-form";
-import { Auth } from "aws-amplify";
-
+import Auth from "functions/auth";
 
 import Header from "component/Registration/Header";
 import ContinueButton from "component/Registration/ContinueButton";
@@ -23,6 +17,7 @@ const Login = () => {
 
   const navigation = useNavigation();
   const { setUser } = useContext(UserContext);
+  const emitter = new NativeEventEmitter();
 
   const {
     control,
@@ -31,27 +26,27 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  let phone_number = watch("phone_number");
+  let email_address = watch("email_address");
 
   useEffect(() => {
-    if (phone_number && phone_number.length > 0) {
+    if (email_address && email_address.length > 0) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
-  }, [phone_number]);
+  }, [email_address]);
 
-  const onSignInPressed = async ({ phone_number }) => {
+  const onSignInPressed = async ({ email_address }) => {
     if (isLoading) return;
     setIsLoading(true);
     setDisabled(true);
 
     try {
-      const user = await Auth.signIn(`+91${phone_number}`, '(Div21902)');
+      const user = await Auth.login(`${email_address}`, "newPass");
       //navigation.navigate("OTP", { user });
     } catch (err) {
       if (err.message == "User does not exist.") {
-        setUser({ phone_number });
+        setUser({ email_address });
         navigation.navigate("RegisterUser");
       } else {
         Alert.alert("Error", err.message);
@@ -67,7 +62,7 @@ const Login = () => {
       <Header
         page_title="Sign In"
         title={"Welcome back"}
-        description={"Please enter your phone number to continue."}
+        description={"Please enter your email address to continue."}
       />
       <Controller
         control={control}
@@ -76,24 +71,21 @@ const Login = () => {
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
-            placeholder={"Phone Number"}
-            name={"phone_number"}
+            placeholder={"Email Address"}
+            name={"email_address"}
             value={value}
             onBlur={onBlur}
             onChange={onChange}
-            keyboardType={Platform.OS === "ios" ? "number-pad" : "numeric"}
-            maxLength={10}
-            minLength={10}
           />
         )}
-        name="phone_number"
+        name="email_address"
       />
-      {errors.phone_number && (
+      {errors.email_address && (
         <View
           style={tw`rounded-lg my-1 px-1 py-2 bg-red-200 border border-red-300 items-center justify-center`}
         >
           <Text style={tw`text-sm text-red-700 font-semibold`}>
-            Phone Number is required
+            Email is required
           </Text>
         </View>
       )}

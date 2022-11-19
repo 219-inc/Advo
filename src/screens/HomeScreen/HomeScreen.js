@@ -1,46 +1,29 @@
-import { useEffect, useState, useContext } from 'react'
-import { View, Text, Image, ScrollView, StatusBar } from 'react-native'
-import tw from 'twrnc'
-import { Auth, API } from 'aws-amplify'
+import { useEffect, useState, useContext } from "react";
+import { View, Text, Image, ScrollView, StatusBar } from "react-native";
+import tw from "twrnc";
+import { Auth, API } from "aws-amplify";
 
-import MainTopNav from 'component/MainTopNav'
-import SearchBar from 'component/SearchBar'
+import MainTopNav from "component/MainTopNav";
+import SearchBar from "component/SearchBar";
 import QuickActions from "component/Homev2/QuickActions";
-import SelectCategory from 'components/SelectCategory'
-import Nearby from 'component/Nearby'
+import SelectCategory from "components/SelectCategory";
+import Nearby from "component/Nearby";
 
 import LocationDropDown from "component/LocationDropDown";
 
-import UserContext from 'context/User'
+import UserContext from "context/User";
 
 const HomeScreen = () => {
-  const [user_name, setUserName] = useState('')
-  const {user, setUser} = useContext(UserContext)
-
-  const getUser = async () => {
-    let session = await Auth.currentSession();
-    const token = session.getIdToken().getJwtToken();
-
-    let requestInfo = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    let _user = await API.get("AdvoApis", "/current-user", requestInfo);
-    setUser(_user);
-    return _user;
-  };
+  const [user_name, setUserName] = useState("");
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     (async () => {
-      let _user = await getUser();
-      let username = _user.name;
-      username = username.charAt(0).toUpperCase() + username.slice(1)
-      setUserName(username)
-    })()
-  }, [])
+      let username = user.firstname;
+      username = username.charAt(0).toUpperCase() + username.slice(1);
+      setUserName(username);
+    })();
+  }, []);
 
   return (
     <View style={tw`bg-white h-full pt-4`}>
@@ -73,6 +56,6 @@ const HomeScreen = () => {
       </ScrollView>
     </View>
   );
-}
+};
 
-export default HomeScreen
+export default HomeScreen;
