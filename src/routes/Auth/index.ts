@@ -11,4 +11,6 @@ router.post("/register", UserController.register);
 router.post("/lawyer/create", LawyerController.create);
 router.post("/lawyer/login", LawyerController.login);
 
+router.post("/logout", UserController.logout);
+
 export default router;
