@@ -72,21 +72,21 @@ let routes = [
 const NoNet = () => <Text>Please Check your internet connection</Text>;
 
 export default function DrawerStack() {
-  const [enabled_routes, setEnabledRoutes] = useState([]);
+  // const [enabled_routes, setEnabledRoutes] = useState([]);
 
-  async function getEnabledRoutes() {
-    try {
-      const data = await API.get("AppContent", "/sideMenuContent");
+  // async function getEnabledRoutes() {
+  //   try {
+  //     const data = await API.get("AppContent", "/sideMenuContent");
 
-      setEnabledRoutes(data);
-    } catch (e) {
-      console.log(e);
-    }
-  }
+  //     setEnabledRoutes(data);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // }
 
-  useEffect(() => {
-    (async () => await getEnabledRoutes())();
-  }, []);
+  // useEffect(() => {
+  //   (async () => await getEnabledRoutes())();
+  // }, []);
 
   return (
     <Drawer.Navigator
@@ -102,16 +102,11 @@ export default function DrawerStack() {
         },
       }}
     >
-      {enabled_routes.length > 0 &&
-        routes.map((route) => {
-          if (enabled_routes.includes(route.props.name)) {
-            return route;
-          }
-        })}
+      {routes.map((route) => route)}
 
-      {enabled_routes.length == 0 && (
+      {/* {enabled_routes.length == 0 && (
         <Drawer.Screen name={"Nointernet"} component={NoNet} />
-      )}
+      )} */}
     </Drawer.Navigator>
   );
 }
