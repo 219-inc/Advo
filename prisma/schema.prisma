@@ -42,14 +42,15 @@ model LawyerOffice {
 }
 
 model Slot {
-  id        String   @id @default(cuid())
-  date      DateTime
-  startTime DateTime
-  endTime   DateTime
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Lawyer    Lawyer?  @relation(fields: [lawyerId], references: [id])
-  lawyerId  String?
+  id          String   @id @default(cuid())
+  date        DateTime
+  startTime   DateTime
+  endTime     DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  Lawyer      Lawyer?  @relation(fields: [lawyerId], references: [id])
+  lawyerId    String?
+  isAvailable Boolean  @default(true)
 }
 
 model Lawyer {

@@ -1,10 +1,15 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { createLawyer, getLawyerByEmail } from "../../database/lawyer";
 import bcrypt from "bcrypt";
 import { generateToken } from "../../modules/jwt";
 import { _lawyer } from "types";
+import { nextTick } from "process";
 
-export default async function (req: Request, res: Response) {
+export default async function (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const { email, password, name } = req.body;
     if (!email || !password || !name) {
@@ -46,17 +51,14 @@ export default async function (req: Request, res: Response) {
       "30d"
     );
 
-    return res.status(200).json({
-      message: "Lawyer created successfully",
-      tokens: {
-        accesstoken,
-        refreshToken,
-      },
-    });
+    return res
+      .cookie("accessToken", accesstoken, { httpOnly: true })
+      .cookie("refreshToken", refreshToken, { httpOnly: true })
+      .status(200)
+      .json({
+        message: "Lawyer created successfully",
+      });
   } catch (error: any) {
-    console.log(error);
-    res.status(500).send({
-      message: "Internal Server Error",
-    });
+    next(error);
   }
 }

@@ -1,11 +1,15 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { _lawyer } from "../../types";
 
 import { getLawyerByEmail } from "../../database/lawyer";
 import { generateToken } from "../../modules/jwt";
 
-export default async function (req: Request, res: Response) {
+export default async function (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
     let { email, password } = req.body;
 
@@ -39,14 +43,14 @@ export default async function (req: Request, res: Response) {
     let refreshToken = await generateToken(lawyer, "1y");
 
     //send token
-    res.status(200).json({
-      msg: "Login successful",
-      tokens: { accessToken, refreshToken },
-    });
+    res
+      .cookie("accessToken", accessToken, { httpOnly: true })
+      .cookie("refreshToken", refreshToken, { httpOnly: true })
+      .status(200)
+      .json({
+        msg: "Login successful",
+      });
   } catch (err) {
-    console.log(err);
-    res.status(500).send({
-      message: "Internal Server Error",
-    });
+    next(err);
   }
 }

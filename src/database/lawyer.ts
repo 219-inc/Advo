@@ -16,11 +16,12 @@ export async function createLawyer(lawyer: any) {
 }
 
 //get lawyer by uuid
-export async function getLawyer(id: string) {
+export async function getLawyer(id: string, select = {}) {
   const lawyer = await prisma.lawyer.findUnique({
     where: {
       id,
     },
+    select,
   });
 
   return lawyer;
@@ -39,8 +40,8 @@ export async function getLawyerByEmail(email: string, select: any = {}) {
 }
 
 //get all lawyers
-export async function getAllLawyers() {
-  const lawyers = await prisma.lawyer.findMany();
+export async function getAllLawyers(options = {}) {
+  const lawyers = await prisma.lawyer.findMany(options);
 
   return lawyers;
 }

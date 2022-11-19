@@ -11,7 +11,7 @@ interface JWTPayload {
 
 export default async function (req: any, res: Response, next: NextFunction) {
   try {
-    let accessToken = req.headers.authorization?.split(" ")[1];
+    let accessToken = req.cookies.accessToken;
     let payload = (await decodeToken(accessToken as string)) as JWTPayload;
 
     if (payload.role === "lawyer") {

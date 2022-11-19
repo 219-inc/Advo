@@ -1,7 +1,9 @@
 import { Router } from "express";
 import { _lawyer } from "../../types";
 
-import { getAllLawyers, getLawyer } from "../../database/lawyer";
+import LawyerController from "../../controllers/lawyer";
+
+import { getLawyer } from "../../database/lawyer";
 
 const router = Router();
 

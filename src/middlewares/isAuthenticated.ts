@@ -11,7 +11,7 @@ interface JWTPayload {
 
 export default async function (req: any, res: Response, next: NextFunction) {
   try {
-    let token = req.headers.authorization?.split(" ")[1];
+    let token = req.cookies.accessToken;
 
     if (!token) {
       return res.status(401).json({ msg: "Unauthorized" });

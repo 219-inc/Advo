@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { User as _user } from "../../types";
 
 import bcrypt from "bcrypt";
@@ -6,7 +6,11 @@ import bcrypt from "bcrypt";
 import { getUserByEmail, createUser } from "../../database/user";
 import { generateToken } from "../../modules/jwt";
 
-export default async function (req: Request, res: Response) {
+export default async function (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const { email, password, firstname, lastname, middlename } = req.body;
 
@@ -43,7 +47,7 @@ export default async function (req: Request, res: Response) {
       role: "GEN_USER",
     });
 
-    const refreshToken = await generateToken(
+    const refreshtoken = await generateToken(
       {
         id: newUser.id,
         email,
@@ -52,17 +56,14 @@ export default async function (req: Request, res: Response) {
       "30d"
     );
 
-    return res.status(200).json({
-      message: "User created successfully",
-      tokens: {
-        accesstoken,
-        refreshToken,
-      },
-    });
+    return res
+      .cookie("accessToken", accesstoken, { httpOnly: true })
+      .cookie("refreshToken", refreshtoken, { httpOnly: true })
+      .status(200)
+      .json({
+        message: "User created successfully",
+      });
   } catch (err) {
-    console.log(err);
-    res.status(500).send({
-      message: "Internal Server Error",
-    });
+    next(err);
   }
 }
