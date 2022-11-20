@@ -4,6 +4,7 @@ import tw from "twrnc";
 import { useNavigation } from "@react-navigation/native";
 import { useForm, Controller } from "react-hook-form";
 import Auth from "functions/auth";
+import useAxiosPrivate from "hooks/useAxiosPrivate";
 
 import Header from "component/Registration/Header";
 import ContinueButton from "component/Registration/ContinueButton";
@@ -14,10 +15,10 @@ import UserContext from "context/User";
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [disabled, setDisabled] = useState(true);
+  const [error, setError] = useState(null);
 
   const navigation = useNavigation();
   const { setUser } = useContext(UserContext);
-  const emitter = new NativeEventEmitter();
 
   const {
     control,
@@ -42,8 +43,16 @@ const Login = () => {
     setDisabled(true);
 
     try {
-      const user = await Auth.login(`${email_address}`, "newPass");
+      const { errors: loginError } = await Auth.login(
+        `${email_address}`,
+        "newPass"
+      );
       //navigation.navigate("OTP", { user });
+      if (loginError) {
+        setError(loginError);
+        setIsLoading(false);
+        setDisabled(false);
+      }
     } catch (err) {
       if (err.message == "User does not exist.") {
         setUser({ email_address });
@@ -86,6 +95,15 @@ const Login = () => {
         >
           <Text style={tw`text-sm text-red-700 font-semibold`}>
             Email is required
+          </Text>
+        </View>
+      )}
+      {error && (
+        <View
+          style={tw`rounded-lg my-1 px-1 py-2 bg-red-200 border border-red-300 items-center justify-center`}
+        >
+          <Text style={tw`text-sm text-red-700 font-semibold`}>
+            {error.message}
           </Text>
         </View>
       )}

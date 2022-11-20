@@ -1,8 +1,10 @@
 import { NativeEventEmitter } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "../apis/axios";
 
 const eventEmitter = new NativeEventEmitter();
-const BASE_URL = "http://192.168.1.4:3000";
+
+const BASE_URL = "http://192.168.1.5:3000";
 
 const getData = async (key) => {
   try {
@@ -25,83 +27,65 @@ const setData = async (key, value) => {
 };
 
 export default {
-  login: (email, password) => {
-    fetch(`${BASE_URL}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({
+  login: async (email, password) => {
+    try {
+      let res = await axios.post("/login", {
         email,
         password,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.msg === "Login successful") {
-          eventEmitter.emit("auth", {
-            payload: {
-              event: "login",
-            },
-          });
+      });
 
-          return data;
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  },
-  logout: () => {
-    fetch(`${BASE_URL}/logout`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.message === "Logged out successfully") {
-          eventEmitter.emit("auth", {
-            payload: {
-              event: "logout",
-            },
-          });
-        }
-      });
-  },
-  currentAuthenticatedUser: (options) =>
-    new Promise((resolve, reject) => {
-      if (options.bypassCache) {
-        fetch(BASE_URL + "/api/v1/users/current", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
+      if (res.data.msg === "Login successful") {
+        eventEmitter.emit("auth", {
+          payload: {
+            event: "login",
           },
-          credentials: "include",
-        })
-          .then((res) => res.json())
-          .then(async (data) => {
-            if (data.msg === "Unauthorized") {
-              return resolve(null);
-            }
-            await setData("user", JSON.stringify(data));
-            resolve(data);
-          })
-          .catch((err) => {
-            console.log(err);
-            reject(err);
-          });
-      } else {
-        getData("user").then((data) => {
-          if (data) {
-            resolve(JSON.parse(data));
-          } else {
-            resolve(null);
-          }
+        });
+
+        return res.data;
+      }
+
+      if (res.data.message) {
+        return {
+          errors: {
+            message: res.data.message,
+          },
+        };
+      }
+    } catch (err) {
+      console.log(err);
+      alert("Something went wrong");
+    }
+  },
+  logout: async () => {
+    try {
+      let res = await axios.post(`/logout`);
+      if (res.data.message === "Logged out successfully") {
+        eventEmitter.emit("auth", {
+          payload: {
+            event: "logout",
+          },
         });
       }
-    }),
+    } catch (err) {
+      console.log(err);
+      alert("Something went wrong");
+    }
+  },
+  currentAuthenticatedUser: (axiosPrivate) => async (options) => {
+    if (options.bypassCache) {
+      const res = await axiosPrivate.get("/api/v1/users/current");
+      if (res.data.message === "Unauthorized") {
+        return null;
+      }
+      await setData("user", JSON.stringify(res.data));
+      return res.data;
+    } else {
+      const data = await getData("user");
+      if (data) {
+        return JSON.parse(data);
+      } else {
+        return null;
+      }
+    }
+  },
 };

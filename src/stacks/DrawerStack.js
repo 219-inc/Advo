@@ -8,8 +8,6 @@ import Appointments from "../components/Appointments/Appointments";
 import Consultation from "../components/Consultations/Consultation";
 import Reminders from "../components/Reminders/Reminders";
 
-import { API } from "aws-amplify";
-
 import CustomDrawer from "components/CustomDrawer";
 
 import { AntDesign, Octicons, Fontisto, Ionicons } from "@expo/vector-icons";

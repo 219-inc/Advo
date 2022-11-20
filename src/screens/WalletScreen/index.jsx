@@ -1,17 +1,17 @@
-import { View, Text, TouchableOpacity, FlatList } from 'react-native'
-import tw from 'twrnc'
+import { View, Text, TouchableOpacity, FlatList } from "react-native";
+import tw from "twrnc";
 import { AntDesign } from "@expo/vector-icons";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 
-import { WalletDetails } from 'constants';
+import { WalletDetails } from "constants";
 
 const WalletScreen = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   //function to calculate total balance
   const calculateTotalBalance = () => {
     let totalBalance = 0;
-    WalletDetails.map(({amount}) => {
+    WalletDetails.map(({ amount }) => {
       totalBalance += amount;
     });
     return parseFloat(totalBalance);
@@ -28,7 +28,12 @@ const WalletScreen = () => {
           <Text style={tw`text-yellow-500`}>Back</Text>
         </TouchableOpacity>
         <Text style={tw`text-lg text-white`}>AdCash Balance</Text>
-        <Text style={tw`text-yellow-500 font-semibold text-4xl`}>₹{calculateTotalBalance()}</Text>
+        <Text style={tw`text-yellow-500 font-semibold text-4xl`}>
+          ₹{calculateTotalBalance()}
+        </Text>
+        <TouchableOpacity>
+          <Text style={tw`text-yellow-500`}>View Details</Text>
+        </TouchableOpacity>
       </View>
       <View style={tw`h-4/5 bg-white rounded-t-3xl`}>
         <View
@@ -67,6 +72,6 @@ const WalletScreen = () => {
       </View>
     </View>
   );
-}
+};
 
-export default WalletScreen
+export default WalletScreen;

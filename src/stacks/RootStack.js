@@ -18,6 +18,7 @@ import LawyerApplication from "screen/LawyerApplication";
 import SplashScreen from "screen/SplashScreen";
 
 import UserContext from "context/User";
+import useAxiosPrivate from "hooks/useAxiosPrivate";
 
 const Stack = createNativeStackNavigator();
 
@@ -36,10 +37,11 @@ const getData = async (key) => {
 export default function Root() {
   const { user, setUser } = useContext(UserContext);
   const [isFirstLaunch, setIsFirstLaunch] = useState(true);
+  const axiosPrivate = useAxiosPrivate();
 
   const checkIfSignedIn = async () => {
     try {
-      const authUser = await Auth.currentAuthenticatedUser({
+      const authUser = await Auth.currentAuthenticatedUser(axiosPrivate)({
         bypassCache: true,
       });
       setUser(authUser);

@@ -1,19 +1,15 @@
 import { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  ToastAndroid
-} from "react-native";
+import { View, Text, ToastAndroid } from "react-native";
 import tw from "twrnc";
 import { useForm, Controller } from "react-hook-form";
-import { Auth } from "aws-amplify";
+import Auth from "functions/auth";
 import { useNavigation } from "@react-navigation/native";
 
 import Header from "component/Registration/Header";
 import ContinueButton from "component/Registration/ContinueButton";
 import Input from "component/Registration/Input";
 
-const OTP = ({route}) => {
+const OTP = ({ route }) => {
   const [disabled, setDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -38,7 +34,7 @@ const OTP = ({route}) => {
     }
   }, [otp]);
 
-  async function onOtpSubmit({otp}) {
+  async function onOtpSubmit({ otp }) {
     if (isLoading) return;
     setIsLoading(true);
     setDisabled(true);
@@ -92,10 +88,7 @@ const OTP = ({route}) => {
           </Text>
         </View>
       )}
-      <ContinueButton
-        disabled={disabled}
-        onPress={handleSubmit(onOtpSubmit)}
-      />
+      <ContinueButton disabled={disabled} onPress={handleSubmit(onOtpSubmit)} />
     </View>
   );
 };

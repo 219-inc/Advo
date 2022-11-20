@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { View, Text, Image, ScrollView, StatusBar } from "react-native";
 import tw from "twrnc";
-import { Auth, API } from "aws-amplify";
 
 import MainTopNav from "component/MainTopNav";
 import SearchBar from "component/SearchBar";

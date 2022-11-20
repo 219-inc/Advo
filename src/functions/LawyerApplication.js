@@ -1,5 +1,4 @@
 import { CREATE_LAWYER_APPLICATION } from "../apis";
-import { Auth, API } from "aws-amplify";
 
 // function to get token
 async function getToken() {
@@ -16,15 +15,15 @@ export default function createLawyerApplication(data) {
         Authorization: `Bearer ${token}`,
       },
     };
-    API.post("AdvoApis", "/lawyer-application", {
-      body: data,
-      ...requestInfo,
-    })
-      .then((res) => {
-        resolve(res);
-      })
-      .catch((err) => {
-        reject(err);
-      });
+    // API.post("AdvoApis", "/lawyer-application", {
+    //   body: data,
+    //   ...requestInfo,
+    // })
+    //   .then((res) => {
+    //     resolve(res);
+    //   })
+    //   .catch((err) => {
+    //     reject(err);
+    //   });
   });
 }

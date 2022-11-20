@@ -1,16 +1,12 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaView } from "react-native";
 import tw from "twrnc";
-import { Amplify } from "aws-amplify";
-import awsconfig from "./src/aws-exports";
 
 import { LocationProvider } from "context/LocationContext";
 import { UserProvider } from "context/User";
 import { NotificationBoundary } from "layout/NotificationBoundary";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import RootStack from "stack/RootStack";
-
-Amplify.configure(awsconfig);
 
 export default function App() {
   return (
