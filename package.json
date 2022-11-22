@@ -12,7 +12,6 @@
     "@tailwindcss/forms": "^0.5.2",
     "@tanstack/react-table": "^8.5.13",
     "animate.css": "^4.1.1",
-    "aws-amplify": "^4.3.29",
     "flowbite-datepicker": "^1.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

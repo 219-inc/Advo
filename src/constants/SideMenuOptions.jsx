@@ -6,10 +6,17 @@ import { BsCalendarDate } from "react-icons/bs";
 import { GrUserManager } from "react-icons/gr";
 import { CgProfile } from "react-icons/cg";
 
-import { API } from "aws-amplify";
-
 async function getSideMenuContent() {
-  let data = await API.get("AppContent", "/sideMenuContent");
+  // let data = await API.get("AppContent", "/sideMenuContent");
+  let data = [
+    "Home",
+    "View Profile",
+    "Lawyers",
+    "Appointments",
+    "Consultation",
+    "Reminder",
+    "My Lawyers",
+  ];
   const options = [
     {
       id: "view_profile",

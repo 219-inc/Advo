@@ -2,11 +2,10 @@ import { lazy } from "react";
 
 const LoginPage = lazy(() => import("@/pages/Authentication/LoginPage"));
 const NotFoundPage = lazy(() => import("@/pages/NotFoundPage"));
-const HoroscopePage = lazy(() => import("@/pages/HoroscopePage"));
 
 const routes = [
   {
-    path: "/",
+    path: "login",
     element: <LoginPage />,
   },
   {

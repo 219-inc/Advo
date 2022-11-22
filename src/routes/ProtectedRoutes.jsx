@@ -15,23 +15,23 @@ const routes = [
     element: <HomePage />,
   },
   {
-    path: "/sample",
+    path: "sample",
     element: <SamplePage />,
   },
   {
-    path: "/users",
+    path: "users",
     element: <UsersPage />,
   },
   {
-    path: "/content",
+    path: "content",
     element: <ContentPage />,
   },
   {
-    path: "/lawyer_registration",
+    path: "lawyer_registration",
     element: <LawyerApplications />,
   },
   {
-    path: "/lawyer-application-details/:id",
+    path: "lawyer-application-details/:id",
     element: <ApplicationDetails />,
   },
   {

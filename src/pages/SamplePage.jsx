@@ -1,5 +1,4 @@
 import { useEffect, useState, useContext } from "react";
-import Admin from "@/functions/Admin";
 
 import ErrorContext from "@/context/ErrorContext";
 
@@ -8,16 +7,6 @@ import { userTableHeaders } from "@/constants";
 export default function SamplePage({ throwError }) {
   const errors = useContext(ErrorContext);
   const [users, setUsers] = useState(null);
-
-  let admin = new Admin();
-
-  useEffect(() => {
-    (async () => {
-      let users = await admin.GetLawyerApplications();
-      console.log(users);
-      setUsers(users);
-    })();
-  }, []);
 
   return (
     <div>

@@ -1,8 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { Helmet } from "react-helmet";
-import Admin from "@/functions/Admin";
 
-import Table, { AvatarCell } from './Table'  // new
+import Table, { AvatarCell } from "./Table"; // new
 
 import ErrorContext from "@/context/ErrorContext";
 
@@ -11,15 +10,7 @@ import { LawyerApplicationTableHeaders } from "@/constants";
 function LawyerApplications() {
   const errors = useContext(ErrorContext);
   const [applications, setApplications] = useState(null);
-    
-  let admin = new Admin();
 
-  useEffect(() => {
-    (async () => {
-      let _applications = await admin.GetLawyerApplications();
-      setApplications(_applications);
-    })();
-  }, []);
   return (
     <div className="bg-white">
       <Helmet>
@@ -37,12 +28,14 @@ function LawyerApplications() {
       <hr />
       <div className="h-full p-6 bg-gray-100">
         {!applications && <h3>Loading...</h3>}
-        {applications && <>
-         
-          <Table columns={LawyerApplicationTableHeaders} data={applications}/>
-         
-        </>
-        }
+        {applications && (
+          <>
+            <Table
+              columns={LawyerApplicationTableHeaders}
+              data={applications}
+            />
+          </>
+        )}
       </div>
     </div>
   );

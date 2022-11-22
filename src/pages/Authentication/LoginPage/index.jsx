@@ -1,17 +1,20 @@
-import { useState, useEffect, useContext } from "react";
-import { Auth } from "aws-amplify";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import useAuth from "@/hooks/useAuth";
+import useErrors from "@/hooks/useErrors";
+import { useNavigate, useLocation } from "react-router-dom";
+
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { useForm } from "react-hook-form";
-import { isAdmin } from "@/functions/isAdmin";
-import ErrorContext from "@/context/ErrorContext";
 
 import PreLoader from "@/components/PreLoader";
 
 function LoginPage() {
-  const [isLoading, setIsLoading] = useState(true);
-  let _errors = useContext(ErrorContext);
-  let navigate = useNavigate();
+  const { setIsAuthenticated } = useAuth();
+  let _errors = useErrors();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const {
     register,
@@ -20,59 +23,11 @@ function LoginPage() {
   } = useForm();
 
   const login = async (data) => {
-    try {
-      const user = await Auth.signIn(data.username, "(Div21902)");
-
-      if (user) {
-        try {
-          await isAdmin();
-          window.location.reload();
-        } catch (e) {
-          _errors.throw(
-            "You are not allowed to access this page",
-            _errors.ERROR
-          );
-        }
-      }
-
-      //navigate to home screen
-      // window.location.reload()
-      // let otp = prompt("ENTER OTP")
-      // await Auth.sendCustomChallengeAnswer(user, otp)
-      //   .then(async () => {
-      //     try{
-      //       await isAdmin()
-      //       window.location.reload()
-      //     }catch(e){
-      //       _errors.throw("You are not allowed to access this page", _errors.ERROR)
-      //     }
-      //   })
-      //   .catch(er => {
-      //     console.log(er)
-      //     _errors.throw("OTP is incorrect", _errors.ERROR)
-      //   })
-    } catch (e) {
-      if (e.code === "UserNotFoundException") {
-        _errors.throw("User not found", _errors.ERROR);
-      } else if (e.code === "UsernameExistsException") {
-        _errors.throw("Username already exists", _errors.ERROR);
-      } else if (e.message === "User is disabled.") {
-        _errors.throw("Your account is disabled!", _errors.ERROR);
-      } else {
-        _errors.throw("An unexpected error occurred!", _errors.ERROR);
-        console.log(e.code);
-        console.error(e);
-      }
-    }
+    setIsAuthenticated(true);
+    navigate(from, {
+      replace: true,
+    });
   };
-
-  useEffect(() => {
-    setTimeout(() => setIsLoading(false), 750);
-  }, []);
-
-  if (isLoading) {
-    return <PreLoader />;
-  }
 
   return (
     <>

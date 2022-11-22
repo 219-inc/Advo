@@ -1,6 +1,0 @@
-{
-  "secretArn": "arn:aws:secretsmanager:ap-south-1:551961123650:secret:dev/rds/database-1-VS6jrO",
-  "resourceArn": "arn:aws:rds:ap-south-1:551961123650:cluster:database-1",
-  "database": "AdvoDB",
-  "includeResultMetadata": true
-}
