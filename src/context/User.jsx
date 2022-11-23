@@ -1,4 +1,4 @@
-import { createContext, useMemo, useState } from "react";
+import { createContext, useMemo, useState, useContext } from "react";
 
 const UserContext = createContext();
 
@@ -8,7 +8,13 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   const value = useMemo(() => ({ user, setUser }), [user]);
-  return (
-    <UserContext.Provider value={value}>{children}</UserContext.Provider>
-  );
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
+};
+
+export const useUser = () => {
+  const context = useContext(UserContext);
+  if (!context) {
+    throw new Error("useUser must be used within a UserProvider");
+  }
+  return context;
 };

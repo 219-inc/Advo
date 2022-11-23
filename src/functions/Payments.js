@@ -2,9 +2,10 @@ import { encode as btoa } from "base-64";
 import RazorpayCheckout from "react-native-razorpay";
 
 import { ORDER_ID_URL } from "../apis/payments";
+import axios from "../apis/axios";
 
-let RZP_KEY_ID = "rzp_test_2x5CQc2U2UAiCl";
-let RZP_KEY_SECRET = "QPHVAbz1xrqfvUCZZCMmoeD6";
+let RZP_KEY_ID = "rzp_test_rIVcrDf82ldDwq";
+let RZP_KEY_SECRET = "YhjqIiE8YtKTfC885Ugp8Uuo";
 
 function uuidv4() {
   // Public Domain/MIT
@@ -38,9 +39,7 @@ export default class Payments {
    * them to the object's properties
    */
   constructor({ ammount, currency }) {
-    this.ammount = ammount * 100; //converting to subunits
-    this.currency = currency;
-    this.receipt = uuidv4();
+    this.ammount = ammount * 100;
     this.orderId = null;
   }
 
@@ -48,40 +47,19 @@ export default class Payments {
    * It generates an order id from the Razorpay API and stores it in the orderId variable
    */
   async generateOrderId() {
-    let headers = new Headers();
-    let order_id;
+    let res = await axios.post("/api/v1/payments/create", {
+      amount: this.ammount,
+    });
+    let order = res.data;
 
-    headers.append("Content-Type", "application/json");
-    headers.append(
-      "Authorization",
-      "Basic " + btoa(RZP_KEY_ID + ":" + RZP_KEY_SECRET)
-    );
-
-    await fetch(ORDER_ID_URL, {
-      method: "POST",
-      headers,
-      body: JSON.stringify({
-        amount: this.ammount.toString(),
-        currency: this.currency,
-        receipt: this.receipt,
-      }),
-    })
-      .then(async (res) => {
-        let order = await res.json();
-        order_id = order.id;
-      })
-      .catch((err) => {
-        alert("An Error Occured");
-        throw err;
-      });
-    this.orderId = order_id;
+    this.orderId = order.id;
   }
 
   /**
    * It opens a payment gateway and returns a promise with the payment id
    * @returns The payment_id is being returned.
    */
-  async completeOrder({description, image, name, contact, user_name, color}) {
+  async completeOrder({ description, image, name, contact, user_name, color }) {
     return new Promise((resolve, reject) => {
       var options = {
         description,
@@ -98,16 +76,21 @@ export default class Payments {
         theme: { color },
       };
       RazorpayCheckout.open(options)
-        .then((data) => {
+        .then(async (response) => {
           // handle success
-          console.log(`Success: ${data.razorpay_payment_id}`);
-          resolve(data.razorpay_payment_id);
+          await verifyPayment(response);
+          resolve("Payment Successful");
         })
-        .catch((error) => {
+        .catch(({error}) => {
           // handle failure
           console.log(`Error: ${error.code} | ${error.description}`);
-          reject(error);
+          reject(`${error.code} : ${error.description}`);
         });
     });
   }
+}
+
+async function verifyPayment(response) {
+  let res = await axios.post("/api/v1/payments/verify", response);
+  return res.data;
 }

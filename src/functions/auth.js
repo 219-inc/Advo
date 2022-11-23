@@ -4,8 +4,6 @@ import axios from "../apis/axios";
 
 const eventEmitter = new NativeEventEmitter();
 
-const BASE_URL = "http://192.168.1.5:3000";
-
 const getData = async (key) => {
   try {
     const value = await AsyncStorage.getItem(key);

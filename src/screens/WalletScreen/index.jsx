@@ -2,11 +2,18 @@ import { View, Text, TouchableOpacity, FlatList } from "react-native";
 import tw from "twrnc";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { useContext } from "react";
 
 import { WalletDetails } from "constants";
+import Payments from "function/Payments";
+
+import NotificationBoundaryContext from "layout/NotificationBoundary";
+import { useUser } from "context/User";
 
 const WalletScreen = () => {
   const navigation = useNavigation();
+  const notification = useContext(NotificationBoundaryContext);
+  const user = useUser();
 
   //function to calculate total balance
   const calculateTotalBalance = () => {
@@ -16,6 +23,37 @@ const WalletScreen = () => {
     });
     return parseFloat(totalBalance);
   };
+
+  async function placeOrder() {
+    const order = new Payments({
+      ammount: 100,
+      currency: "INR",
+    });
+    await order.generateOrderId();
+
+    await order
+      .completeOrder({
+        description: "Wallet Topup",
+        image:
+          "https://cdn.iconscout.com/icon/free/png-256/wallet-2130848-1794979.png",
+        name: "Advo Wallet Topup",
+        contact: "9123456789",
+        user_name: `${user.firstname} ${user.lastname}`,
+        color: "#ba8003",
+      })
+      .then((msg) => {
+        notification.create({
+          content: msg,
+          type: notification.types.Success,
+        });
+      })
+      .catch((err) => {
+        notification.create({
+          content: err,
+          type: notification.types.Error,
+        });
+      });
+  }
 
   return (
     <View style={tw`bg-gray-800 h-full`}>
@@ -31,8 +69,8 @@ const WalletScreen = () => {
         <Text style={tw`text-yellow-500 font-semibold text-4xl`}>
           ₹{calculateTotalBalance()}
         </Text>
-        <TouchableOpacity>
-          <Text style={tw`text-yellow-500`}>View Details</Text>
+        <TouchableOpacity onPress={placeOrder}>
+          <Text style={tw`text-yellow-500`}>Deposit</Text>
         </TouchableOpacity>
       </View>
       <View style={tw`h-4/5 bg-white rounded-t-3xl`}>
