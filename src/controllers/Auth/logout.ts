@@ -6,11 +6,17 @@ export default async function (
   next: NextFunction
 ) {
   try {
+    console.log("logout");
     res
       .clearCookie("accessToken")
       .clearCookie("refreshToken")
-      .json({ message: "Logged out successfully" });
-  } catch (error) {
-    next(error);
+      .json({ message: "Logged out successfully" })
+      .end();
+  } catch (error: any) {
+    next({
+      send: false,
+      status: 500,
+      message: error.message,
+    });
   }
 }

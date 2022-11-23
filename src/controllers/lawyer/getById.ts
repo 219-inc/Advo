@@ -17,7 +17,11 @@ export default async function (
     });
 
     res.status(200).json({ lawyer });
-  } catch (error) {
-    next(error);
+  } catch (error: any) {
+    next({
+      send: false,
+      status: 500,
+      message: error.message,
+    });
   }
 }

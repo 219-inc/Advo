@@ -1,42 +1,42 @@
-import express, {
-  ErrorRequestHandler,
-  NextFunction,
-  Request,
-  Response,
-} from "express";
+import express from "express";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
-import isAdmin from "./middlewares/isAdmin";
-import isLawyer from "./middlewares/isLawyer";
+import Role from "./utils/roles";
+
 import isAuthenticated from "./middlewares/isAuthenticated";
+import AllowedRoles from "./middlewares/checkRole";
+import ErrorHandler from "./utils/error";
 
 import AuthRouter from "./routes/Auth";
 import AdminRouter from "./routes/Admin";
 import LawyerRouter from "./routes/Lawyers";
 import UserRouter from "./routes/Users";
+import PaymentsRouter from "./routes/Payments";
 
 export default function () {
   const app = express();
 
+  app.use(
+    cors({
+      origin: "http://localhost:5173",
+      credentials: true,
+    })
+  );
   app.use(cookieParser());
   app.use(express.json());
 
   app.use("/", AuthRouter);
-  app.use("/api/v1/admin", isAdmin, AdminRouter);
-  app.use("/api/v1/users", isAuthenticated, UserRouter);
-  app.use("/api/v1/lawyers", isLawyer, LawyerRouter);
 
-  app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-    const errorStatus = err.status || 500;
-    const errorMessage = err.message;
+  app.use(isAuthenticated);
 
-    console.log(err);
+  app.use("/api/v1/admin", AllowedRoles([Role.Admin]), AdminRouter);
+  app.use("/api/v1/users", AllowedRoles([Role.User]), UserRouter);
+  app.use("/api/v1/lawyers", AllowedRoles([Role.Lawyer]), LawyerRouter);
 
-    return res.status(errorStatus).json({
-      message: "Internal Server Error",
-      status: errorStatus,
-    });
-  });
+  app.use("/api/v1/payments", PaymentsRouter);
+
+  app.use(ErrorHandler);
 
   return app;
 }

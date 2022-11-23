@@ -4,6 +4,7 @@ import { User as _user } from "../../types";
 
 import { getUserByEmail } from "../../database/user";
 import { generateToken } from "../../modules/jwt";
+import { loginValidation } from "../../validators";
 
 export default async function (
   req: Request,
@@ -11,12 +12,26 @@ export default async function (
   next: NextFunction
 ) {
   try {
+    let { error } = loginValidation(req.body);
+
+    if (error) {
+      return res.json({
+        status: 403,
+        message: error.details[0].message,
+        send: true,
+      });
+    }
+
     let { email, password } = req.body;
 
     let user = (await getUserByEmail(email, true)) as _user;
 
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return next({
+        status: 404,
+        message: "User not found",
+        send: true,
+      });
     }
 
     //compare password with bcrypt
@@ -26,10 +41,15 @@ export default async function (
     );
 
     if (!isPasswordCorrect) {
-      return res.status(401).json({ message: "Invalid credentials" });
+      return next({
+        status: 400,
+        message: "Invalid credentials",
+        send: true,
+      });
     }
 
     user.password = undefined;
+    user.role = "general_user";
 
     //generate token
     let accessToken = await generateToken(user);
@@ -43,7 +63,11 @@ export default async function (
       .json({
         msg: "Login successful",
       });
-  } catch (err) {
-    next(err);
+  } catch (err: any) {
+    next({
+      status: 500,
+      message: err.message,
+      send: false,
+    });
   }
 }

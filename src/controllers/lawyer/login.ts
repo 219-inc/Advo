@@ -4,6 +4,7 @@ import { _lawyer } from "../../types";
 
 import { getLawyerByEmail } from "../../database/lawyer";
 import { generateToken } from "../../modules/jwt";
+import { loginValidation } from "../../validators";
 
 export default async function (
   req: Request,
@@ -11,6 +12,16 @@ export default async function (
   next: NextFunction
 ) {
   try {
+    const { error } = loginValidation(req.body);
+
+    if (error) {
+      return next({
+        status: 400,
+        message: error.details[0].message,
+        send: true,
+      });
+    }
+
     let { email, password } = req.body;
 
     let lawyer = (await getLawyerByEmail(email, {
@@ -21,7 +32,11 @@ export default async function (
     })) as unknown as _lawyer;
 
     if (!lawyer) {
-      return res.status(404).json({ message: "Lawyer not found" });
+      return next({
+        status: 404,
+        send: true,
+        message: "Lawyer not found",
+      });
     }
 
     console.log(lawyer);
@@ -33,7 +48,11 @@ export default async function (
     );
 
     if (!isPasswordCorrect) {
-      return res.status(401).json({ message: "Invalid credentials" });
+      return next({
+        send: true,
+        status: 400,
+        message: "Invalid credentials",
+      });
     }
 
     lawyer.password = undefined;
@@ -50,7 +69,11 @@ export default async function (
       .json({
         msg: "Login successful",
       });
-  } catch (err) {
-    next(err);
+  } catch (err: any) {
+    next({
+      send: false,
+      status: 500,
+      message: err.message,
+    });
   }
 }

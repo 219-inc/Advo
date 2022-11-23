@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 
 import { getUserByEmail, createUser } from "../../database/user";
 import { generateToken } from "../../modules/jwt";
+import { signUpValidation } from "../../validators";
 
 export default async function (
   req: Request,
@@ -12,18 +13,25 @@ export default async function (
   next: NextFunction
 ) {
   try {
-    const { email, password, firstname, lastname, middlename } = req.body;
+    let { error } = signUpValidation(req.body);
 
-    //check if all fields are present
-    if (!email || !password || !firstname || !lastname) {
-      return res.status(400).json({ message: "All fields are required" });
+    if (error) {
+      return next({
+        send: true,
+        message: error.details[0].message,
+        status: 400,
+      });
     }
+
+    const { email, password, firstname, lastname, middlename } = req.body;
 
     //check if user already exists
     const user = await getUserByEmail(email);
 
     if (user) {
-      return res.status(404).json({
+      return next({
+        send: true,
+        status: 400,
         message: "User already exists",
       });
     }
@@ -63,7 +71,11 @@ export default async function (
       .json({
         message: "User created successfully",
       });
-  } catch (err) {
-    next(err);
+  } catch (err: any) {
+    next({
+      send: false,
+      status: 500,
+      message: err.message,
+    });
   }
 }

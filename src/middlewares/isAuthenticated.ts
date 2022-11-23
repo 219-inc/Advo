@@ -6,32 +6,50 @@ interface JWTPayload {
   iat: number;
   exp: number;
   email: string;
-  role: string;
+  roles: [string];
 }
 
 export default async function (req: any, res: Response, next: NextFunction) {
   try {
+    console.log(req.cookies);
     let token = req.cookies.accessToken;
 
     if (!token) {
-      return res.status(401).json({ msg: "Unauthorized" });
+      return next({
+        send: true,
+        status: 401,
+        message: "Unauthorized",
+      });
     }
 
-    let payload = (await decodeToken(token as string)) as JWTPayload;
+    let payload;
+
+    try {
+      payload = (await decodeToken(token as string)) as JWTPayload;
+    } catch (err) {
+      return next({
+        send: true,
+        status: 403,
+        message: "Token expired",
+      });
+    }
 
     if (payload) {
       req.isAuthenticated = true;
       req.user = payload;
       next();
     } else {
-      res.status(401).json({
+      next({
+        send: true,
+        status: 401,
         message: "Unauthorized",
       });
     }
-  } catch (err) {
-    console.log(err);
-    res.sendStatus(500).send({
-      message: "Internal Server Error",
+  } catch (err: any) {
+    next({
+      send: false,
+      status: 500,
+      message: err.message,
     });
   }
 }

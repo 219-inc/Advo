@@ -3,7 +3,7 @@ import { createLawyer, getLawyerByEmail } from "../../database/lawyer";
 import bcrypt from "bcrypt";
 import { generateToken } from "../../modules/jwt";
 import { _lawyer } from "types";
-import { nextTick } from "process";
+import { signUpValidation } from "../../validators";
 
 export default async function (
   req: Request,
@@ -11,16 +11,25 @@ export default async function (
   next: NextFunction
 ) {
   try {
-    const { email, password, name } = req.body;
-    if (!email || !password || !name) {
-      return res.status(400).json({ message: "All fields are required" });
+    const { error } = signUpValidation(req.body);
+
+    if (error) {
+      return next({
+        send: true,
+        message: error.details[0].message,
+        status: 400,
+      });
     }
+
+    const { email, password, name } = req.body;
 
     //check if user already exists
     const lawyer = await getLawyerByEmail(email);
 
     if (lawyer) {
-      return res.status(404).json({
+      return next({
+        send: true,
+        status: 400,
         message: "Lawyer already exists",
       });
     }
@@ -59,6 +68,10 @@ export default async function (
         message: "Lawyer created successfully",
       });
   } catch (error: any) {
-    next(error);
+    next({
+      send: false,
+      status: 500,
+      message: error.message,
+    });
   }
 }
