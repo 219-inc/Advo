@@ -8,6 +8,8 @@ import { useForm } from "react-hook-form";
 
 import PreLoader from "@/components/PreLoader";
 
+import Auth from "@/functions/auth";
+
 function LoginPage() {
   const { setIsAuthenticated } = useAuth();
   let _errors = useErrors();
@@ -23,10 +25,15 @@ function LoginPage() {
   } = useForm();
 
   const login = async (data) => {
-    setIsAuthenticated(true);
-    navigate(from, {
-      replace: true,
-    });
+    try {
+      const authUser = await Auth.login(data.email, data.password);
+      setIsAuthenticated(true);
+      navigate(from, {
+        replace: true,
+      });
+    } catch (err) {
+      _errors.throw("Failed to login", _errors.ERROR);
+    }
   };
 
   return (
@@ -47,18 +54,33 @@ function LoginPage() {
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
-                <label htmlFor="username" className="sr-only">
-                  Username
+                <label htmlFor="email" className="sr-only">
+                  Email
                 </label>
                 <input
-                  id="username"
-                  name="username"
+                  id="email"
+                  name="email"
                   type="text"
-                  autoComplete="username"
+                  autoComplete="email"
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="Username"
-                  {...register("username")}
+                  placeholder="Email"
+                  {...register("email")}
+                />
+              </div>
+              <div>
+                <label htmlFor="Password" className="sr-only">
+                  Password
+                </label>
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="password"
+                  required
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  placeholder="Password"
+                  {...register("password")}
                 />
               </div>
             </div>
