@@ -9,7 +9,12 @@ export default axios.create({
 export const axiosPrivate = axios.create({
   baseURL,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
   withCredentials: true,
 });
+
+export const endpoints = {
+  CREATE_LAWYER_APPLICATION: "/lawyer-application",
+  GET_ALL_LAWYERS: "/api/v1/users/lawyers",
+};

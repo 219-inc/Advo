@@ -36,7 +36,9 @@ const getData = async (key) => {
 
 export default function Root() {
   const { user, setUser } = useContext(UserContext);
+  const [isLoading, setIsLoading] = useState(true);
   const [isFirstLaunch, setIsFirstLaunch] = useState(true);
+
   const axiosPrivate = useAxiosPrivate();
 
   const checkIfSignedIn = async () => {
@@ -48,6 +50,7 @@ export default function Root() {
     } catch (e) {
       setUser(null);
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -77,28 +80,30 @@ export default function Root() {
   );
 
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {user ? (
-        <>
-          <Stack.Screen name="HomeStack" component={HomeComponent} />
-          <Stack.Screen name="LawyersProfile" component={LawyersProfile} />
-          <Stack.Screen
-            name="LawyerApplication"
-            component={LawyerApplication}
-          />
-        </>
+    <>
+      {isLoading ? (
+        <SplashScreen />
       ) : (
-        <>
-          {/* <Stack.Screen name="Splash" component={SplashScreen} /> */}
-          <Stack.Screen name="Welcome" component={WelcomeScreen} />
-          <Stack.Screen
-            name="SignIn"
-            component={isFirstLaunch ? OnboardingScreens : Login}
-          />
-          <Stack.Screen name="OTP" component={OTP} />
-          <Stack.Screen name="RegisterUser" component={RegisterUser} />
-        </>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          {user ? (
+            <>
+              <Stack.Screen name="HomeStack" component={HomeComponent} />
+              <Stack.Screen name="LawyersProfile" component={LawyersProfile} />
+              <Stack.Screen
+                name="LawyerApplication"
+                component={LawyerApplication}
+              />
+            </>
+          ) : (
+            <>
+              <Stack.Screen name="Welcome" component={OnboardingScreens} />
+              <Stack.Screen name="SignIn" component={Login} />
+              <Stack.Screen name="OTP" component={OTP} />
+              <Stack.Screen name="RegisterUser" component={RegisterUser} />
+            </>
+          )}
+        </Stack.Navigator>
       )}
-    </Stack.Navigator>
+    </>
   );
 }

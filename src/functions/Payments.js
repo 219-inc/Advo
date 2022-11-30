@@ -81,10 +81,10 @@ export default class Payments {
           await verifyPayment(response);
           resolve("Payment Successful");
         })
-        .catch(({error}) => {
+        .catch(({ error }) => {
           // handle failure
-          console.log(`Error: ${error.code} | ${error.description}`);
-          reject(`${error.code} : ${error.description}`);
+          console.log(error);
+          reject(`${error?.description}`);
         });
     });
   }

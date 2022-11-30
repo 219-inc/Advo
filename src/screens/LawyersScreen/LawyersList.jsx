@@ -1,54 +1,79 @@
-import { View, Text, FlatList, ScrollView, TouchableOpacity } from 'react-native'
-import tw from 'twrnc'
-import { useNavigation } from '@react-navigation/native';
+import { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-import { AntDesign } from '@expo/vector-icons';
+import tw from "twrnc";
+import LawyerCard from "component/LawyerCard";
+import useAxiosPrivate from "hooks/useAxiosPrivate";
 
-import LawyerCard from 'component/LawyerCard'
+import { endpoints } from "apis/axios";
 
-const lawyers = [
-  {
-    id: 1,
-    name: "Adv. Ananya Pandey",
-    category: "Personal",
-    rating: 4.5,
-    experience: "5+ years",
-    location: "New Delhi",
-    image:
-      "https://media.istockphoto.com/photos/shot-of-a-business-women-using-laptop-working-at-home-stock-photo-picture-id1326908785?k=20&m=1326908785&s=612x612&w=0&h=IXEbEvRZGHxZCSkNjzOWNOgjY8D-fNCL5ef5F9Ggskk=",
-  },
-  {
-    id: 2,
-    name: "Adv. Aditya Birla",
-    category: "Business",
-    rating: 4.5,
-    experience: "5+ years",
-    location: "New Delhi",
-    image: "http://moneyinc.com/wp-content/uploads/2016/06/Harish-Salve.jpg",
-  },
-  {
-    id: 3,
-    name: "Mukesh Jain",
-    category: "Industrial",
-    rating: 4.5,
-    experience: "5+ years",
-    location: "New Delhi",
-    image:
-      "https://www.irglobal.com/wp-content/uploads/2022/02/a6d298a5b3f9c81aad313dc2f3a239bf.png",
-  },
-  {
-    id: 4,
-    name: "Ch. Anoop Singh",
-    category: "Personal",
-    rating: 4.5,
-    experience: "5+ years",
-    location: "New Delhi",
-    image: "https://tlclegal.in/wp-content/uploads/2021/02/Vipin-Jain.jpg",
-  },
-];
+import { AntDesign } from "@expo/vector-icons";
 
-const LawyersList = ({route}) => {
+// const lawyers = [
+//   {
+//     id: 1,
+//     name: "Adv. Ananya Pandey",
+//     category: "Personal",
+//     rating: 4.5,
+//     experience: "5+ years",
+//     location: "New Delhi",
+//     image:
+//       "https://media.istockphoto.com/photos/shot-of-a-business-women-using-laptop-working-at-home-stock-photo-picture-id1326908785?k=20&m=1326908785&s=612x612&w=0&h=IXEbEvRZGHxZCSkNjzOWNOgjY8D-fNCL5ef5F9Ggskk=",
+//   },
+//   {
+//     id: 2,
+//     name: "Adv. Aditya Birla",
+//     category: "Business",
+//     rating: 4.5,
+//     experience: "5+ years",
+//     location: "New Delhi",
+//     image: "http://moneyinc.com/wp-content/uploads/2016/06/Harish-Salve.jpg",
+//   },
+//   {
+//     id: 3,
+//     name: "Mukesh Jain",
+//     category: "Industrial",
+//     rating: 4.5,
+//     experience: "5+ years",
+//     location: "New Delhi",
+//     image:
+//       "https://www.irglobal.com/wp-content/uploads/2022/02/a6d298a5b3f9c81aad313dc2f3a239bf.png",
+//   },
+//   {
+//     id: 4,
+//     name: "Ch. Anoop Singh",
+//     category: "Personal",
+//     rating: 4.5,
+//     experience: "5+ years",
+//     location: "New Delhi",
+//     image: "https://tlclegal.in/wp-content/uploads/2021/02/Vipin-Jain.jpg",
+//   },
+// ];
+
+const LawyersList = ({ route }) => {
   const navigation = useNavigation();
+  const axios = useAxiosPrivate();
+
+  const { title: category } = route.params;
+
+  const [lawyers, setLawyers] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const {
+        data: { lawyers },
+      } = await axios.get(`${endpoints.GET_ALL_LAWYERS}/?limit=10&page=1`);
+      console.log(lawyers);
+      setLawyers(lawyers);
+    })();
+  }, []);
 
   const Header = () => (
     <View style={tw`flex flex-row px-4 border-b-8 border-gray-100 px-4 pb-2`}>
@@ -80,6 +105,6 @@ const LawyersList = ({route}) => {
       />
     </ScrollView>
   );
-}
+};
 
-export default LawyersList
+export default LawyersList;

@@ -1,5 +1,5 @@
 import { View, Text, StatusBar, TouchableOpacity, Image } from "react-native";
-import tw from 'twrnc'
+import tw from "twrnc";
 import { useNavigation } from "@react-navigation/native";
 
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
@@ -7,9 +7,8 @@ import { useState } from "react";
 import DateSelector from "component/TimeSlots/DateSelector";
 import SlotList from "component/TimeSlots/SlotList";
 
-const TimeSlots = ({route}) => {
-
-  const { type, advocateDetails } = route.params
+const TimeSlots = ({ route }) => {
+  const { type, advocateDetails } = route.params;
   const [color, setColor] = useState(type == "video" ? "#7C3AED" : "#2563EB");
   const navigation = useNavigation();
 
@@ -30,7 +29,7 @@ const TimeSlots = ({route}) => {
       <View style={tw`flex flex-row text-center items-center`}>
         <Image
           source={{
-            uri: advocateDetails.image,
+            uri: advocateDetails.profilePicture,
           }}
           style={tw`w-10 h-10 rounded-full mt-3 mx-2 ml-3`}
         />
@@ -79,6 +78,6 @@ const TimeSlots = ({route}) => {
       </View>
     </View>
   );
-}
+};
 
-export default TimeSlots
+export default TimeSlots;

@@ -1,11 +1,23 @@
-import { View, Text, Image, TouchableOpacity, TouchableHighlight } from 'react-native'
-import tw from 'twrnc'
-import { useNavigation } from '@react-navigation/native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  TouchableHighlight,
+} from "react-native";
+import tw from "twrnc";
+import { useNavigation } from "@react-navigation/native";
 import { AntDesign, FontAwesome, Octicons } from "@expo/vector-icons";
 
-const index = ({name, category, experience, rating, location, image}) => {
-
-  const {push: navigationPush} = useNavigation();
+const index = ({
+  name,
+  category,
+  experience,
+  rating,
+  location,
+  profilePicture,
+}) => {
+  const { push: navigationPush } = useNavigation();
 
   const handleBook = (type, advocateDetails) => {
     navigationPush("TimeSlots", { type, advocateDetails });
@@ -14,14 +26,23 @@ const index = ({name, category, experience, rating, location, image}) => {
   return (
     <TouchableHighlight
       style={tw`border-b-8 border-gray-100 px-4 py-4`}
-      onPress={() => navigationPush("LawyersProfile", { name, category, experience, rating, location, image })}
+      onPress={() =>
+        navigationPush("LawyersProfile", {
+          name,
+          category,
+          experience,
+          rating,
+          location,
+          profilePicture,
+        })
+      }
       underlayColor={"#f6f6f6"}
     >
       <View style={tw`flex flex-col `}>
         <View style={tw`flex flex-row`}>
           <Image
             source={{
-              uri: image,
+              uri: profilePicture,
             }}
             style={tw`h-24 w-24 my-auto rounded-full`}
           />
@@ -79,7 +100,9 @@ const index = ({name, category, experience, rating, location, image}) => {
           <View style={tw`flex flex-row mt-3`}>
             <TouchableOpacity
               style={tw`text-center items-center rounded bg-purple-600 px-4 py-3 w-1/2 mr-1`}
-              onPress={() => handleBook("video", { name, image, location })}
+              onPress={() =>
+                handleBook("video", { name, profilePicture, location })
+              }
             >
               <Text style={tw`font-semibold text-white`}>
                 Book Video Consult
@@ -87,7 +110,9 @@ const index = ({name, category, experience, rating, location, image}) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={tw`text-center items-center rounded bg-blue-600 px-4 py-3 w-1/2 ml-1`}
-              onPress={() => handleBook("office", { name, image, location })}
+              onPress={() =>
+                handleBook("office", { name, profilePicture, location })
+              }
             >
               <Text style={tw`font-semibold text-white`}>
                 Book Office Visit
@@ -98,6 +123,6 @@ const index = ({name, category, experience, rating, location, image}) => {
       </View>
     </TouchableHighlight>
   );
-}
+};
 
-export default index
+export default index;

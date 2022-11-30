@@ -1,8 +1,17 @@
 import { StatusBar } from "expo-status-bar";
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
-import React from "react";
-import Animated, { useAnimatedScrollHandler, useSharedValue } from "react-native-reanimated";
-import tw from 'twrnc'
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
+import Animated, {
+  useAnimatedScrollHandler,
+  useSharedValue,
+} from "react-native-reanimated";
+import tw from "twrnc";
+import { useNavigation } from "@react-navigation/native";
 
 import { OnboardingPages } from "constants";
 import OnboardingPage from "components/OnboardingPage";
@@ -10,14 +19,14 @@ import OnboardingPage from "components/OnboardingPage";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 const OnboardingScreens = () => {
-
+  const nav = useNavigation();
   const translateX = useSharedValue(0);
 
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: (event) => {
       translateX.value = event.contentOffset.x;
-    }
-  })
+    },
+  });
 
   return (
     <View style={styles.container}>
@@ -41,6 +50,7 @@ const OnboardingScreens = () => {
       </Animated.ScrollView>
       <TouchableOpacity
         style={tw`absolute -bottom-30 -right-30 w-80 h-80 bg-yellow-500 rounded-full flex flex-row`}
+        onPress={() => nav.navigate("SignIn")}
       >
         <FontAwesome5
           name="arrow-right"

@@ -10,12 +10,12 @@ const ContinueButton = ({ onPress, disabled }) => {
   function continueOnPress(callback) {
     setLoading(true);
     callback();
-    setLoading(false)
+    setLoading(false);
   }
 
   return (
     <TouchableOpacity
-      style={tw`absolute bottom-5 left-6 w-85 py-4 rounded-xl bg-black text-center ${
+      style={tw`absolute bottom-5 left-6 w-85 py-4 rounded-xl bg-yellow-600 text-center ${
         disabled ? "bg-white border border-black" : ""
       }`}
       onPress={() => continueOnPress(onPress)}

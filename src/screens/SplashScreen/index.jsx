@@ -1,13 +1,7 @@
-import { View, StatusBar, Text, Dimensions } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
-
+import { View, StatusBar, Text } from "react-native";
 import tw from "twrnc";
-import { useNavigation } from "@react-navigation/native";
-
 
 const SplashScreen = () => {
-  const nav = useNavigation();
-  
   return (
     <View style={tw`absolute top-0 bottom-0 left-0 right-0 bg-gray-800`}>
       <StatusBar backgroundColor={"#1F2937"} barStyle={"dark-content"} />

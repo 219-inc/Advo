@@ -1,9 +1,22 @@
-import { View, TextInput, Text } from 'react-native'
-import tw from 'twrnc'
+import { View, TextInput, Text } from "react-native";
+import tw from "twrnc";
+import { MaterialIcons } from "@expo/vector-icons";
 
-const Input = ({ placeholder, value, onBlur, onChange, name, keyboardType, maxLength, minLength }) => {
+const Input = ({
+  placeholder,
+  value,
+  onBlur,
+  onChange,
+  name,
+  keyboardType,
+  maxLength,
+  minLength,
+  icon,
+  secureTextEntry,
+}) => {
   return (
-    <View style={tw`my-4`}>
+    <View style={tw`my-2 flex flex-row bg-gray-100 rounded-xl items-center`}>
+      <MaterialIcons name={icon} size={24} style={tw`mx-4 text-gray-400`} />
       <TextInput
         placeholder={placeholder}
         value={value}
@@ -13,10 +26,11 @@ const Input = ({ placeholder, value, onBlur, onChange, name, keyboardType, maxLe
         keyboardType={keyboardType}
         maxLength={maxLength}
         minLength={minLength}
-        style={tw`border border-black rounded-xl py-4 px-4 w-full`}
+        style={tw`py-4 w-full`}
+        secureTextEntry={secureTextEntry}
       />
     </View>
   );
 };
 
-export default Input
+export default Input;
