@@ -27,10 +27,14 @@ export default async function (
         name: true,
         email: true,
         createdAt: true,
+        experience: true,
+        rating: true,
+        profilePicture: true,
       },
     });
     res.status(200).json({ lawyers });
   } catch (err: any) {
+    console.log(err);
     next({
       send: false,
       status: 500,

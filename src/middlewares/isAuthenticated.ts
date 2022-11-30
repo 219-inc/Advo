@@ -11,7 +11,6 @@ interface JWTPayload {
 
 export default async function (req: any, res: Response, next: NextFunction) {
   try {
-    console.log(req.cookies);
     let token = req.cookies.accessToken;
 
     if (!token) {
